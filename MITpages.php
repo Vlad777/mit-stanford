@@ -24,13 +24,30 @@ $titleElement = preg_split("/\\|/",$e->plaintext);
 $courseName = $titleElement[0];
 $subject = $titleElement[1];
 
+//grabs image from courseURL
+$e = $html->find('img[itemprop="image"]',0);
+$image =  'http://ocw.mit.edu'.$e->src;
+
+//grabs professors from courseURL
+$e = $html->find('p[class="ins"]');
+$professor = $e;
+
+
 echo '<br>'. "courseName: " . $courseName;
 echo '<br>'. "subject: " . $subject;
 echo '<br>'. "classURL: " . $url;
+echo '<br>' . "imageURL: " . $image;
+echo '<br>' . "professor: ". $professor[0];
+
+//prints all professors
+/*foreach($professor as $prof)
+echo " ".$prof;*/
+
+
+
 }
 
 
 
 ?>
-	
 	
