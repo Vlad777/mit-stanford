@@ -13,14 +13,7 @@ foreach($html->find('a[rel="coursePreview"]') as $e){
 	}
 }
 
-
-//seeing how printing values worked for php
-foreach($array as $key => $value){
-	//echo $value . '<br>';
-}
-
-
-//this would be a foreach loop but for now just working on getting the first webpage
+//foreach loop iterating through all course urls
 foreach($array as $url){
 $html = file_get_html($url);
 $e = $html->find('title',0);
