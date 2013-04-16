@@ -14,33 +14,33 @@ foreach($html->find('a[rel="coursePreview"]') as $e){
 }
 
 //foreach loop iterating through all course urls
-foreach($array as $url){
-$html = file_get_html($url);
+foreach($array as $course_link){
+$html = file_get_html($course_link);
 $e = $html->find('title',0);
 
 
 //dissect the element for title and course name
 $titleElement = preg_split("/\\|/",$e->plaintext);
-$courseName = $titleElement[0];
-$subject = $titleElement[1];
+$title = $titleElement[0];
+$category = $titleElement[1];
 
 //grabs image from courseURL
 $e = $html->find('img[itemprop="image"]',0);
-$image =  'http://ocw.mit.edu'.$e->src;
+$course_image =  'http://ocw.mit.edu'.$e->src;
 
 //grabs professors from courseURL
 $e = $html->find('p[class="ins"]');
-$professor = $e;
+$professor_name = $e;
 
 
-echo '<br>'. "courseName: " . $courseName;
-echo '<br>'. "subject: " . $subject;
-echo '<br>'. "classURL: " . $url;
-echo '<br>' . "imageURL: " . $image;
-echo '<br>' . "professor: ". $professor[0];
+echo '<br>'. "title: " . $title;
+echo '<br>'. "category: " . $category;
+echo '<br>'. "course_link: " . $course_link;
+echo '<br>' . "course_image: " . $course_image;
+echo '<br>' . "professor_name: ". $professor_name[0];
 
 //prints all professors
-/*foreach($professor as $prof)
+/*foreach($professor_name as $prof)
 echo " ".$prof;*/
 
 
