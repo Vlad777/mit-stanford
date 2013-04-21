@@ -27,10 +27,10 @@ foreach($content->find('div [class="listBlock"]') as $e)
 			echo $courseDescription;
 			echo "<br>";
 			$instructorTable = $details->find('table',0);
-			$instructorImage = $instructorTable->find('td')[1]->children(0)->src;
+			$instructorImage = $instructorTable->find('td',1)->children(0)->src;
 			echo $instructorImage;
 			echo "<br>";
-			$instructorName = $instructorTable->find('td')[2]->children(0)->plaintext;
+			$instructorName = $instructorTable->find('td',2)->children(0)->plaintext;
 			echo $instructorName;
 			echo "<br>";
 		}
