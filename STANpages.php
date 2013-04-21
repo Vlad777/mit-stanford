@@ -1,4 +1,5 @@
 <?php
+//Basic Scapper
 include ('simple_html_dom.php');
 $html = file_get_html('http://see.stanford.edu/see/courses.aspx');
 $content = $html->find('div#content',0);
@@ -35,6 +36,4 @@ foreach($content->find('div [class="listBlock"]') as $e)
 		}
 	}
 }
-
-?>
-	
+?>	
