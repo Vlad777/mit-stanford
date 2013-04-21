@@ -12,6 +12,15 @@ MIT-Stanford MOOC mashup
 * Need help to extract video lengths.
 
 
+Extra feature request:
+
+In order to support continued maintenance of the application, we must ensure that our web scraping code can be verified and fixed if broken when the source websites are updated. Web scraping code is by its nature difficult to make so it works indefinitely. Sooner or later something in the source web sites will change that will break the web-scraping code. The following features will support being to react to those changes.
+
+* Insert into temp staging table and compare with previous results. If there are differences, send email of what changed.
+
+* Create validation scripts to check the data is still valid, such as making sure it's not null, video time ranges are within reasonable range 0 to 3 hours, links are valid and don't cause 404 errors, etc.
+
+
 ****MIT****<br>
 professor name (Charles)<br>
 professor image - url to image (I dont think this is applicable for MIT? - charles) <br>
