@@ -33,11 +33,21 @@ $e = $html->find('p[class="ins"]');
 $professor_name = $e;
 
 
+//String declaration
+//$replace = array('Dr.' => '', 'Prof.'=>'','Biological Engineering Faculty'=>'','\(*\)'=>'');
+$prof = str_replace('Dr.','',$professor_name[0]);
+$prof = str_replace('Prof.','',$prof);
+$prof = str_replace('Biological Engineering Faculty','',$prof);
+$prof = preg_replace('/\(*\)/','',$prof);
+
+//echo title, category, course link, course image, and prof name
 echo '<br>'. "title: " . $title;
 echo '<br>'. "category: " . $category;
 echo '<br>'. "course_link: " . $course_link;
 echo '<br>' . "course_image: " . $course_image;
-echo '<br>' . "professor_name: ". $professor_name[0];
+echo '<br>' . "professor_name: ". $prof;
+
+//professor_name[0]
 
 //prints all professors
 /*foreach($professor_name as $prof)
