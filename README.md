@@ -3,6 +3,12 @@ mit-stanford
 
 MIT-Stanford MOOC mashup
 
+* Need code to insert into database table.
+
+* Need another separate page to select from database and display in a (html5?) table that's sortable and filterable, and works on common browsers and mobile.
+
+* Need help to parse the various different ways MIT organizes videos. My code only covers 77/133 of the pages that have a common page structure.
+
 As a test to ensure everyone knows how to commit/push, sign in below:
 
 Eric
