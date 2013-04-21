@@ -1,0 +1,81 @@
+<?php
+/***********************************
+* listCoursesSEE.php
+* scrapes SEE courses
+* @author: Alice Cotti
+* @date 4/20/2013
+*  CS 160 SJSU Spring 2013
+*  Team 3 milestone 2a
+************************************/
+
+// Since I am working on getting the SEEvideoLinks 
+// I needed to get this part done first, 
+// so I guessed to share this part. Hopefully it helps.
+
+include ('simple_html_dom.php');
+
+$html = file_get_html('http://see.stanford.edu/see/courses.aspx');
+$site = "SEE";
+
+/* DOM hierarchy
+
+div id leftWrapper
+div class listBlock (categories)
+strong class courseListDepartment 
+div a-href  
+  span (classTitle) 
+	span <classcode>
+	/a	
+*/
+
+// FOREACH:
+// for each div class listBlock (categories) strong class courseListDepartment 
+// 		stores the dept name 
+// 		walks its siblings (divs coming after it)
+// 		for each sibling, checks if its the one signaling next category 
+//		or if its an empty paragraph (signaling end of list)
+//		if its a valid course divs, it stores course info in the array
+foreach($html->find('div.listBlock') as $listBlock){
+
+	$courseListDepartment = $listBlock->childNodes(0)->text();		
+	
+	// go next sibling
+	$nextDiv = $listBlock->next_sibling(0); 
+	// while is valid course div
+	while ($nextDiv->className!='listBlock' && $nextDiv->tag=='div' )
+	{
+		$course_link = $nextDiv->first_child()->href;
+		$course_title = $nextDiv->first_child()->first_child()->text();
+		$course_code = $nextDiv->first_child()->first_child()->next_sibling(0)->text();
+		// creates new course object to store in the array
+		$aCourse = new course(); 
+		$aCourse->title = $course_title;
+		$aCourse->course_link = $course_link;
+		$aCourse->category =  $courseListDepartment;
+		$aCourse->course_code = $course_code;
+		$aCourse->site = $site;
+		// stores courses in array
+		$array[] = $aCourse;		
+		// go to next sibling element
+		$nextDiv = $nextDiv->next_sibling(); 	 
+	}
+}
+
+// DEBUG PRINT DATA	
+echo '<br>';
+echo print_r($array);
+
+
+/*
+* Course Class/Object
+*/
+class course
+{
+    public $course_code;
+	public $title;
+    public $course_link;
+	public $category;
+	public $site;
+}
+
+?>
