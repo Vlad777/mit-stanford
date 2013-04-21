@@ -33,7 +33,11 @@ foreach($content->find('div [class="listBlock"]') as $e)
 			$instructorName = $instructorTable->find('td',2)->children(0)->plaintext;
 			echo $instructorName;
 			echo "<br>";
+			$course->clear();
+			unset($course);
 		}
 	}
 }
+$html->clear();
+unset($html);
 ?>	
