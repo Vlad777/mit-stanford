@@ -35,6 +35,7 @@ div a-href
 // 		for each sibling, checks if its the one signaling next category 
 //		or if its an empty paragraph (signaling end of list)
 //		if its a valid course divs, it stores course info in the array
+
 foreach($html->find('div.listBlock') as $listBlock){
 
 	$courseListDepartment = $listBlock->childNodes(0)->text();		
@@ -72,10 +73,10 @@ echo print_r($array);
 class course
 {
     public $course_code;
-	public $title;
+    public $title;
     public $course_link;
-	public $category;
-	public $site;
+    public $category;
+    public $site;
 }
 
 ?>
