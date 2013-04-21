@@ -6,8 +6,8 @@ class Database
 	var $user = "root";
 	var $password = "";
 	
-	var $databaseLink;
-	var $results; 
+	var $databaseLink; 	// your db link
+	var $results; 		// query results
 	
 	function connect()
 	{
@@ -44,4 +44,5 @@ class Database
 $db = new Database();
 $db->query("SELECT * FROM test");
 echo $db->num_of_rows();
+
 ?>
