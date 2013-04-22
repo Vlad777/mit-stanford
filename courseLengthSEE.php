@@ -11,6 +11,10 @@
 ************************************/
 include ('simple_html_dom.php');
 
+//execQuery("TRUNCATE TABLE course_data");
+//execQuery("TRUNCATE TABLE coursedetails");
+
+
 $html = file_get_html('http://see.stanford.edu/see/courses.aspx');
 $site = "SEE";
 
