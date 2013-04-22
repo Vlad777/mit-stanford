@@ -2,7 +2,7 @@
 /***********************************
 * courseScraperSEE.php
 * scrapes courses data for SEE
-*   title
+* 	title
 *	short_desc
 *	long_dec
 *	course_link
@@ -64,9 +64,13 @@ $site = "SEE";
 		$courseLink = $aCourse->course_link;
 		
 		//Go to link make sure that its a stanford link - Some links lead to like app store
-		if(! preg_match('/^http\:\/\/see.stanford.edu/',$courseLink)){
-			continue;	 //skips non-conventional links
-		}
+		//if(! preg_match('/^http\:\/\/see.stanford.edu/',$courseLink)){
+		//	continue;	 //skips non-conventional links
+		//}
+		// Note: instead of skipping those page, I still proceed ans will check for null content
+		// so to set null content to defsult values
+		// this makes it easier when fetching content so there is no null values there.
+		
 		
 		$html = file_get_html($courseLink);
 		
@@ -169,19 +173,24 @@ function scrapeLectures($url,$aCourse){
 ****************************/
 function scrapeInstructor($details,$aCourse){
 	
-	$instructorTable = $details->find('table',0);
+	$instructorTable = $details->find('table#snav',0);
 	if ($instructorTable != NULL)
 	{
-		$instructorImage = $instructorTable->find('td');
+		$instructorImage = $instructorTable->find('td#snav');
 		$instructorImage = $instructorImage[1]->children(0)->src;
 		//echo '<img src="'.$instructorImage.'"/>';
-		$instructorName = $instructorTable->find('td');
+		$instructorName = $instructorTable->find('td#snav');
 		$instructorName = $instructorName[2]->children(0)->plaintext;
 		//echo $instructorName . '<br />';		
-		$courseDetails = array();
-		$courseDetails[$instructorName] = $instructorImage;
-		$aCourse->instructors = $courseDetails;
 	}
+	else
+	{
+		$instructorImage = 'avatar_placeholder.jpg';
+		$instructorName = 'Name Surname';
+	}
+	$courseDetails = array();
+	$courseDetails[$instructorName] = $instructorImage;
+	$aCourse->instructors = $courseDetails;
 }	
 
 
@@ -193,7 +202,14 @@ function scrapeDescription($html,$aCourse){
 	
 	$tableWrapper = $html->find('div#tableWrapper p',0);
 	//echo '<b>'.$aCourse->title ."</b> ". $tableWrapper->text().'<br />';
-	$courseDescription = $tableWrapper->text();
+	if ($tableWrapper != NULL)
+	{
+		$courseDescription = $tableWrapper->text();
+	}
+	else
+	{
+		$courseDescription = "Course description coming soon.";
+	}
 	$aCourse->long_desc = $courseDescription;
 	$shortDesc = explode('.',$courseDescription);
 	$aCourse->short_desc = $shortDesc[0].'.';
@@ -270,7 +286,7 @@ class course
 	//public $profimage;
 	public $video_link;
 	public $course_length;
-	public $course_image; 
+	public $course_image = 'course_image_placeholder.jpg'; 
 	//start date - not applicable in our case, so set to '2001-01-01 01:01:01'
 	public $start_date = '2001-01-01 01:01:01';
 	public $instructors; //assoc array profname => profimage 
