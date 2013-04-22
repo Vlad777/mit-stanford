@@ -22,6 +22,8 @@
 //require_once('connection.php');
 require_once('pdo_connect.php');
 include ('simple_html_dom.php');
+
+//(if running this directly, truncate table, if being included, do not?)
 execQuery("TRUNCATE TABLE course_data");
 execQuery("TRUNCATE TABLE coursedetails");
 	
@@ -68,7 +70,7 @@ $site = "SEE";
 		//if(! preg_match('/^http\:\/\/see.stanford.edu/',$courseLink)){
 		//	continue;	 //skips non-conventional links
 		//}
-		// Note: instead of skipping those page, I still proceed ans will check for null content
+		// Note: instead of skipping those page, I still proceed and will check for null content
 		// so to set null content to defsult values
 		// this makes it easier when fetching content so there is no null values there.
 		
@@ -115,7 +117,7 @@ $site = "SEE";
 
 /****************************
 * scrapeLectures
-* given URL or Lectures page
+* given URL of Lectures page
 * 	gets course videos links
 * 	sets Youtube as default
 * 	gets videos duration time
@@ -167,7 +169,7 @@ function scrapeLectures($url,$aCourse){
 	$totalLength = 0;
 	$courseLength = $lecturePage->find('table td p');
 	// scrapes lectureLength
-	// todo: this loop too be merged with aboove lectures loop
+	// todo: this loop too be merged with above lectures loop
 	foreach($courseLength as $p)
 	{			
 		$pSlice =   explode(' ',$p->text());
@@ -192,8 +194,6 @@ function scrapeLectures($url,$aCourse){
 }
 
 
-
-
 /****************************
 * scrapeInstructor
 * 
@@ -213,7 +213,7 @@ function scrapeInstructor($details,$aCourse){
 	else
 	{
 		$instructorImage = 'avatar_placeholder.jpg';
-		$instructorName = 'Name Surname';
+		$instructorName = $aCourse->site . ' Instructor';
 	}
 	$courseDetails = array();
 	$courseDetails[$instructorName] = $instructorImage;
@@ -298,8 +298,6 @@ class course
 	public $site;
 	public $long_desc;
 	public $short_desc;
-	//public $profname;
-	//public $profimage;
 	public $video_link;
 	public $course_length;
 	public $course_image = 'course_image_placeholder.jpg'; 
@@ -308,21 +306,17 @@ class course
 	public $instructors; //assoc array profname => profimage 
 		
 	//custom values:
-	public $lectures; //an array of lecture objects(?unused?)
+	public $lectures; //an array of lecture objects
 	public $links; // associative array label:url
-	//public $videoLinks; // associative array label:url
+
 }
 
-class lecture //unused structure
+class lecture 
 {
 	public $id;
 	public $viewNowLink;
 	public $length;
 	public $videoLinks;
-	//public $youtubeLink;
-	//public $iTunesLink;
-	//public $WMVTorrent;
-	//public $MP4Torrent;
 	public $topics;
 	public $HTMLtranscripts;
 	public $PDFTranscripts;	
