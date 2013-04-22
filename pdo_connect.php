@@ -24,12 +24,23 @@ function fetchAll($queryString) {
   return $dbh->query($queryString)->fetchAll();
 }
 
+function execQuery($queryString) {
+  global $dbh;
+  $dbh->exec($queryString);
+}
+
 dbConnect(); // Connect to Database
 
 //Sample usage:
 /*
 <?php
 require_once('pdo_connect.php');
+
+//INSERT EXAMPLE
+require_once('pdo_connect.php');
+execQuery("insert into course_data values (NULL, 'test5','test5','test5','test5','test5',curdate(), 0,'test5','test5','test5')");
+
+//SELECT EXAMPLE
 $query = fetchAll("SELECT * FROM course_data");
 echo "<pre>"; //for nice indented formatting of print_r
 foreach ($query as $row) { //print all rows
