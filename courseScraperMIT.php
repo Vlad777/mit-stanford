@@ -1,6 +1,10 @@
 <?php
+require_once('pdo_connect.php');
 //set_time_limit(60);
 include ('simple_html_dom.php');
+
+execQuery("TRUNCATE TABLE course_data");
+execQuery("TRUNCATE TABLE coursedetails");
 
 $html = file_get_html('http://ocw.mit.edu/courses/audio-video-courses/');
 
@@ -17,7 +21,7 @@ foreach($html->find('a[rel="coursePreview"]') as $e)
 echo "number of links: " . count($array) . "<br>";
 
 
-echo "title|category|course_link|course_image|professor_name|video_link|video_title|youtube_url<br>";
+//echo "title|category|course_link|course_image|professor_name|video_link|video_title|youtube_url<br>";
 
 //foreach loop iterating through all course urls
 foreach($array as $course_link)
@@ -104,8 +108,42 @@ foreach($array as $course_link)
 		}
 	}
 	
-	echo $title.'|'.$category.'|'.$course_link.'|'.$course_image.'|'.$professor_name.'|'.$video_link.'|'.$videos[0]->title.'|'.$videos[0]->youtube_url.'<br>';
+//	echo $title.'|'.$category.'|'.$course_link.'|'.$course_image.'|'.$professor_name.'|'.$video_link.'|'.$videos[0]->title.'|'.$videos[0]->youtube_url.'<br>';
 
+	global $dbh;
+	try {
+		$qrm = $dbh->prepare("INSERT INTO course_data VALUES ( NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+		$qrm->execute(array(empty($title) ? 'no title' : $title, 
+			                empty($short_desc) ? 'no desc': $short_desc, 
+			                empty($long_desc) ? 'no desc': $long_desc,
+			                empty($course_link) ? 'no link': $course_link,
+			                empty($videos[0]->youtube_url) ? 'no video': $videos[0]->youtube_url, 
+			                '2001-01-01 01:01:01',
+			                empty($course_length) ? 0 : $course_length, 
+			                empty($course_image) ? 'course_image_placeholder' : $course_image, 
+			                empty($category) ? 'no category': $category,
+			                'MIT'));
+		//$op1 = execQuery($qrm);
+		}
+	catch (PDOException $err) {
+		    $err->getMessage();
+			echo $err;
+	}
+
+	//$qryc = "Select id from course_data where title = '$aCourse->title'";
+	//$member=fetchAll($qryc);
+	//$member = mysql_fetch_assoc($result);
+	///$num = $member[0]['id'];
+
+	$num = $dbh->lastInsertId();
+	//echo $num;
+			
+	if($num > 0){
+		$qrye = $dbh->prepare("INSERT INTO coursedetails VALUES (?, ?, ?)"); 
+	 	$qrye->execute(array($num, 
+	 		                 empty($professor_name) ? 'no name' : $professor_name, 
+	 		                 empty($prof_image) ? 'no image': $prof_image));
+	}
 }
 
 $html->clear();
