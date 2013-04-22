@@ -4,7 +4,7 @@ function dbConnect() {
   global $dbh;
 
   $dbInfo['database_target'] = "localhost";
-  $dbInfo['database_name'] = "db";
+  $dbInfo['database_name'] = "moocs";
   $dbInfo['username'] = "root";
   $dbInfo['password'] = "";
 
