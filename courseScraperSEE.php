@@ -19,10 +19,11 @@
 *  CS 160 SJSU Spring 2013
 *  Team 3 milestone 2a
 ************************************/
-require_once('connection.php');
+//require_once('connection.php');
+require_once('pdo_connect.php');
 include ('simple_html_dom.php');
-    mysql_query("TRUNCATE TABLE course_data");
-	mysql_query("TRUNCATE TABLE coursedetails");
+execQuery("TRUNCATE TABLE course_data");
+execQuery("TRUNCATE TABLE coursedetails");
 	
 $html = file_get_html('http://see.stanford.edu/see/courses.aspx');
 $site = "SEE";
@@ -221,33 +222,25 @@ function scrapeDescription($html,$aCourse){
 * Write to Database
 ***************************************/
 function writeToDatabase($aCourse){
+	global $dbh;
 	try {
-		$qrm="INSERT INTO course_data VALUES (
-		   DEFAULT,'".mysql_real_escape_string($aCourse->title)."',
-	           '".mysql_real_escape_string($aCourse->short_desc)."',
-			   '".mysql_real_escape_string($aCourse->long_desc)."',
-			   '".mysql_real_escape_string($aCourse->course_link)."',
-			   '".mysql_real_escape_string($aCourse->video_link)."',
-			   '".mysql_real_escape_string($aCourse->start_date)."',
-			   '".mysql_real_escape_string($aCourse->course_length)."',
-			   '".mysql_real_escape_string($aCourse->course_image)."',
-			   '".mysql_real_escape_string($aCourse->category)."',
-			   '".mysql_real_escape_string($aCourse->site)."')";
-		$op1 = mysql_query($qrm);
-		}
-	catch (MySQLException $err) {
+		$qrm = $dbh->prepare("INSERT INTO course_data VALUES ( NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+		$qrm->execute(array($aCourse->title, 
+			                empty($aCourse->short_desc) ? 'no desc': $aCourse->short_desc, 
+			                empty($aCourse->long_desc) ? 'no desc': $aCourse->long_desc,
+			                empty($aCourse->course_link) ? 'no link': $aCourse->course_link,
+			                empty($aCourse->video_link) ? 'no video': $aCourse->video_link, 
+			                $aCourse->start_date,
+			                empty($aCourse->course_length) ? 0 : $aCourse->course_length, 
+			                empty($aCourse->course_image) ? 'course_image_placeholder' : $aCourse->course_image, 
+			                empty($aCourse->category) ? 'no category': $aCourse->category,
+			                $aCourse->site));
+	}
+	catch (PDOException $err) {
 		    $err->getMessage();
 			echo $err;
 	}
-	catch (MySQLDuplicateKeyException $err) {
-		// duplicate entry exception
-		$err->getMessage();
-		echo $err;
-	}
-	$qryc = "Select id from course_data where title = '$aCourse->title'";
-	$result=mysql_query($qryc);
-	$member = mysql_fetch_assoc($result);
-	$num = $member['id'];
+	$num = $dbh->lastInsertId();
 	//echo $num;
 			
 	if($num > 0){
@@ -255,11 +248,8 @@ function writeToDatabase($aCourse){
 		{
 			foreach ($aCourse->instructors as $name => $image)
 			{		
-				$qrye = "INSERT INTO coursedetails (id, profname,profimage) 
-			 	VALUES ('".mysql_real_escape_string($num)."',
-						 '".mysql_real_escape_string($name)."',
-						 '".mysql_real_escape_string($image)."')";
-				$op2=mysql_query($qrye);
+				$qrye = $dbh->prepare("INSERT INTO coursedetails VALUES (?, ?, ?)"); 
+			 	$qrye->execute(array($num, $name, $image));
 		 		//echo "$num\t$p\t";
 			}
 		}
