@@ -1,7 +1,7 @@
 <?php
 /****************************************
 *   index.php
-*  Retrieve courses data from database 
+*	Retrieve courses data from database 
 *	and display in a sortable table
 *	Team 3 @ SJSU CS160 Spring 2013
 *	MIT + SEE moocs mashup
@@ -36,12 +36,12 @@ function open_video(url)
 echo '<tr><td>id</td><td>Title(link to course)</td>
           <td>Short Description</td><td>Course Image (link to lecture video)</td>
 		  <td>Link to Course Lecture</td><td>Site</td></tr>';
-
+$counter = 0;
 foreach ($results as $aCourse)
 {
     $profs = fetchAll( 'SELECT p.profname, p.profimage FROM coursedetails p
 						WHERE p.id = '.$aCourse["id"]);
-    echo '<tr>';
+    echo '<tr class="a'.($counter++)%2 .'">';
 	echo '<td class="courseid">'. $aCourse['id'] .'</td>';
 	echo '<td class="courselink"><a href="'.$aCourse['course_link'].'"  
 								    target="_blank">'. $aCourse['title'] .'</a></td>';
