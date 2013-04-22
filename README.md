@@ -24,7 +24,7 @@ In order to support continued maintenance of the application, we must ensure tha
 
 
 ****MIT****<br>
-professor name (Charles)<br>
+professor name (Charles/Takahiro)<br>
 <b>professor image</b> - url to image (I dont think this is applicable for MIT? - charles) <br>
 title - (Charles) course title<br>
 <b>short description</b> - is there such a thing as a short vs long description? (Meena)<br>
