@@ -13,7 +13,7 @@ function dbConnect() {
   $dbh = new PDO($dbConnString, $dbInfo['username'], $dbInfo['password']);
   $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
   $error = $dbh->errorInfo();
-  if($error[0] != "") {
+  if($error[0] != 0) {
       print "<p>DATABASE CONNECTION ERROR:</p>";
       print_r($error);
   }
