@@ -130,11 +130,6 @@ foreach($array as $course_link)
 			echo $err;
 	}
 
-	//$qryc = "Select id from course_data where title = '$aCourse->title'";
-	//$member=fetchAll($qryc);
-	//$member = mysql_fetch_assoc($result);
-	///$num = $member[0]['id'];
-
 	$num = $dbh->lastInsertId();
 	//echo $num;
 			
