@@ -3,9 +3,6 @@ require_once('pdo_connect.php');
 //set_time_limit(60);
 include ('simple_html_dom.php');
 
-execQuery("TRUNCATE TABLE course_data");
-execQuery("TRUNCATE TABLE coursedetails");
-
 $html = file_get_html('http://ocw.mit.edu/courses/audio-video-courses/');
 
 $array=array();
