@@ -7,7 +7,6 @@ class Database
 	var $password = "";
 	
 	var $databaseLink; 	// your db link
-	var $results; 		// query results
 	
 	function connect()
 	{
@@ -18,22 +17,41 @@ class Database
 			die('Could not use DB:'.$this->database.' : ' . mysql_error());
 		}
 	}
-	//Still need to mysql_fetch_array
-	function query($queryString)
+	//Returns a resultSet. Use result_next() to grab data
+	function query_read($queryString)
 	{
 		$this->connect();
-		$this->results = mysql_query($queryString, $this->databaseLink);
-		if(!$this->results){
+		$results = mysql_query($queryString, $this->databaseLink);
+		if(!$results){
 			$message  = 'Invalid query: ' . mysql_error() . "\n";
 			$message .= 'Whole query: ' . $queryString;
 			die($message);
 		}
-		return $this->results;
+		return $results;
 	}
-	
-	function num_of_rows()
+	//Returns True or False if the query succeed 
+	function query_write($queryString){
+		$this->connect();
+		$results= mysql_query(mysql_escape_string($queryString), $this->databaseLink);
+		if(!$results){
+			$message  = 'Invalid query: ' . mysql_error() . "\n";
+			$message .= 'Whole query: ' . $queryString;
+			die($message);
+		}
+		return true;
+	}
+
+	function fetch_array($resultSet)
 	{
-		return mysql_num_rows( $this->results );
+		if($row = mysql_fetch_array($resultSet))
+			return $row;
+		else
+			return false;
+	}
+
+	function num_of_rows($resultSet)
+	{
+		return mysql_num_rows($resultSet);
 	}
 	
 	//Plan to add more functions so that all mysqlfunction stay in this file.
@@ -42,7 +60,19 @@ class Database
 
 //Test
 $db = new Database();
-$db->query("SELECT * FROM test");
-echo $db->num_of_rows();
+$results = $db->query_read("SELECT * FROM test");
+echo $db->num_of_rows($results);
+while($row = $db->fetch_array($results)){
+	echo $row['number'];
+}
+
+echo "<br>";
+$db->query_write("INSERT INTO test (number) VALUES (5)");
+
+$results = $db->query_read("SELECT * FROM test");
+echo $db->num_of_rows($results);
+while($row = $db->fetch_array($results)){
+	echo $row['number'];
+}
 
 ?>
