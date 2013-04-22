@@ -1,6 +1,8 @@
 mit-stanford
 ============
 
+http://cs160.sjsu-cs.org/spring2013/sec2group3/
+
 MIT-Stanford MOOC mashup
 
 * (done) Need code snippet to insert into database table.
