@@ -123,25 +123,51 @@ $site = "SEE";
 ****************************/
 function scrapeLectures($url,$aCourse){
 
-	$lecturePage =  file_get_html($url);
-	
-	$videoLinks = array();
-	$vLinks = $lecturePage->find('table td center a');
-	// scrapes videoLinks
-	foreach($vLinks as $aLink){			
-		// echo $aLink->href;
-		// echo $aLink->text();		
-		$videoLinks[$aLink->text()]=$aLink->href;	
-		if ($aLink->text() == "YouTube")
+	$lecturePage =  file_get_html($url);	
+	$lectureList = array();
+	$lectures = $lecturePage->find('div#tableWrapper table tr');
+	// each lecture is in 2 tr one th and one td
+	// for each lecture table. create a lecture object
+	$count = 1;
+	foreach ($lectures as $lecture)
+	{
+		// if this is header tr, 
+		// lecture 'headers' tr have td and othher have td
+		if ( count($lecture->children(1)) >= 2 || ($lecture->children(0)->tag == 'script' 
+													&& $lecture->children(1)->tag == 'th') )
 		{
-			$aCourse->video_link = $aLink->href;
-		}
-	}	
-	$aCourse->videoLinks = $videoLinks;	
-		
+			$aLecture = new lecture();
+			$aLecture->id = $count;
+			//grab lecture id and View Now link <br />			
+			continue; //and go next tr
+		}		
+		$aLecture->length = $lecture->children(0)->children(0)->text();
+		$topics = $lecture->children(0)->find('ul',0)->text();
+		$aLecture->topics = trim($topics);
+		//grab each lecture videolinks
+		//echo $count .': '. $lecture->text().'<br /><br />';
+		$vLinks = $lecture->find('center a');
+		//echo $count .': '. print_r($vLinks).'<br/>';
+		foreach($vLinks as $aLink){			
+			// echo $count .': '. $aLink->text() .'<br/>';
+			//copy first youtube lecture video as "course video"	
+			if ($count == 1 && $aLink->text() == "YouTube")
+			{
+				$aCourse->video_link  = $aLink->href;
+			}
+			$aLecture->videoLinks[$aLink->text()] = $aLink->href;
+			array_push($lectureList,$aLecture);	
+		}		
+		$count = $count + 1;
+	}
+	//stores lectures array as course lectures
+	$aCourse->lectures = $lectureList; 
+	//$aCourse->videoLinks = $videoLinks;	
+	//----------------------------------------	
 	$totalLength = 0;
 	$courseLength = $lecturePage->find('table td p');
 	// scrapes lectureLength
+	// todo: this loop too be merged with aboove lectures loop
 	foreach($courseLength as $p)
 	{			
 		$pSlice =   explode(' ',$p->text());
@@ -284,7 +310,7 @@ class course
 	//custom values:
 	public $lectures; //an array of lecture objects(?unused?)
 	public $links; // associative array label:url
-	public $videoLinks; // associative array label:url
+	//public $videoLinks; // associative array label:url
 }
 
 class lecture //unused structure
@@ -292,10 +318,11 @@ class lecture //unused structure
 	public $id;
 	public $viewNowLink;
 	public $length;
-	public $youtubeLink;
-	public $iTunesLink;
-	public $WMVTorrent;
-	public $MP4Torrent;
+	public $videoLinks;
+	//public $youtubeLink;
+	//public $iTunesLink;
+	//public $WMVTorrent;
+	//public $MP4Torrent;
 	public $topics;
 	public $HTMLtranscripts;
 	public $PDFTranscripts;	
