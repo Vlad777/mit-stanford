@@ -1,0 +1,36 @@
+@charset "utf-8";
+/* CSS Document */
+/* Sortable tables */
+table.sortable thead {
+    background-color:#eee;
+    color:#666666;
+    font-weight: bold;
+    cursor: default;
+  
+}
+table.sortable{
+padding: 0px;
+margin:0px;
+border-collapse:collapse;
+}
+table.sortable td{
+border: solid 1px #ededed;
+padding: 8px;
+margin:0px;
+text-align:center;
+}
+td.courseid{
+	width:30px;
+	text-align:center;
+}
+td.courselink{
+}
+td.coursedesc{
+	text-align:left;
+}
+td.profimage{
+}
+td.videolink{
+}
+td.site{
+}
