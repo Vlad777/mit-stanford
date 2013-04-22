@@ -130,6 +130,7 @@ function scrapeLectures($url,$aCourse){
 	$lectures = $lecturePage->find('div#tableWrapper table tr');
 	// each lecture is in 2 tr one th and one td
 	// for each lecture table. create a lecture object
+	//echo '<b>'. $aCourse->title.'</b><br />';
 	$count = 1;
 	foreach ($lectures as $lecture)
 	{
@@ -140,6 +141,7 @@ function scrapeLectures($url,$aCourse){
 		{
 			$aLecture = new lecture();
 			$aLecture->id = $count;
+			$aLecture->courseTitle = $aCourse->title;
 			//grab lecture id and View Now link <br />			
 			continue; //and go next tr
 		}		
@@ -147,7 +149,7 @@ function scrapeLectures($url,$aCourse){
 		$topics = $lecture->children(0)->find('ul',0)->text();
 		$aLecture->topics = trim($topics);
 		//grab each lecture videolinks
-		//echo $count .': '. $lecture->text().'<br /><br />';
+		//echo $count .': '. $aLecture->topics.'<br /><br />';
 		$vLinks = $lecture->find('center a');
 		//echo $count .': '. print_r($vLinks).'<br/>';
 		foreach($vLinks as $aLink){			
@@ -157,13 +159,14 @@ function scrapeLectures($url,$aCourse){
 			{
 				$aCourse->video_link  = $aLink->href;
 			}
-			$aLecture->videoLinks[$aLink->text()] = $aLink->href;
-			array_push($lectureList,$aLecture);	
+			$aLecture->videoLinks[$aLink->text()] = $aLink->href;				
 		}		
+		array_push($lectureList,$aLecture);
 		$count = $count + 1;
 	}
 	//stores lectures array as course lectures
-	$aCourse->lectures = $lectureList; 
+	$aCourse->lectures = $lectureList;
+	unset($lectureList);
 	//$aCourse->videoLinks = $videoLinks;	
 	//----------------------------------------	
 	$totalLength = 0;
@@ -314,6 +317,7 @@ class course
 class lecture 
 {
 	public $id;
+	public $courseTitle; //for debugging
 	public $viewNowLink;
 	public $length;
 	public $videoLinks;
