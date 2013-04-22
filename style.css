@@ -6,7 +6,7 @@ table.sortable thead {
     color:#666666;
     font-weight: bold;
     cursor: default;
-  
+	
 }
 table.sortable{
 padding: 0px;
@@ -19,6 +19,14 @@ padding: 8px;
 margin:0px;
 text-align:center;
 }
+
+table.sortable  tr.a0{
+	background-color:#FFC;
+}
+
+table.sortable tr.a1{
+}
+
 td.courseid{
 	width:30px;
 	text-align:center;
