@@ -244,6 +244,7 @@ function scrapeDescription($html,$aCourse){
 	$aCourse->long_desc = $courseDescription;
 	$shortDesc = explode('.',$courseDescription);
 	$aCourse->short_desc = $shortDesc[0].'.';
+	$aCourse->course_image = $html->find('img[alt="Course Image"]',0)->src;
 }	
 
 
