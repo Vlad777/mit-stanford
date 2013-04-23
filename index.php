@@ -11,7 +11,7 @@ require_once('pdo_connect.php');
 
 $queryString = 'SELECT d.id, d.title, d.short_desc, 
 				d.course_link, d.video_link, d.course_length, d.course_image, 
-				d.category, d.site FROM course_data d';
+				d.category, d.start_date, d.site FROM course_data d';
 
 $results = fetchAll($queryString);
 ?>
@@ -33,9 +33,11 @@ function open_video(url)
 <table class="sortable">
 <?php
 //teable headers 
-echo '<tr><td>id</td><td>Title(link to course)</td>
-          <td>Short Description</td><td>Course Image (link to lecture video)</td>
-		  <td>Link to Course Lecture</td><td>Site</td></tr>';
+echo '<thead><tr><th>id</th><th>Title(link to course)</th>
+          <th>Category</th>
+		  <th>Short Description</th><th>Instructor</th>
+		  <th>Course Image (link to lecture video)</th>
+		  <th>Course Length</th><th>Start Date</th><th>Site</th></tr></thead><tbody>';
 $counter = 0;
 foreach ($results as $aCourse)
 {
@@ -45,6 +47,7 @@ foreach ($results as $aCourse)
 	echo '<td class="courseid">'. $aCourse['id'] .'</td>';
 	echo '<td class="courselink"><a href="'.$aCourse['course_link'].'"  
 								    target="_blank">'. $aCourse['title'] .'</a></td>';
+	echo '<td class="category">'. $aCourse['category'].'</td>';
 	echo '<td class="coursedesc">'. $aCourse['short_desc'] .'</td>';
 	echo '<td class="profimage"><img src="'.$profs[0]['profimage'].'" alt="prof image" /><br />'. $profs[0]['profname'] .'</td>';
 	echo '<td class="videolink">'. '<a title="link to course video" 
@@ -52,13 +55,14 @@ foreach ($results as $aCourse)
 									href="'.$aCourse['video_link'].'" target="_blank">
 									<img src="'.$aCourse['course_image'].'" alt="link to video" />
 									<br />Link to Course Video</a></td>';
+	echo '<td class="courselength">'.$aCourse['course_length'].' Weeks</td>';
+	echo '<td class="startdate">'. $aCourse['start_date'].'</td>';
 	echo '<td class="site">'. $aCourse['site'] .'</td>';
-	
 	echo '</tr>';
 }
 
 ?>
-</table>
+</tbody></table>
 
 </body>
 </html>
