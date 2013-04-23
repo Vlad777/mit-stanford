@@ -2,6 +2,7 @@
 require_once('pdo_connect.php');
 //set_time_limit(60);
 include ('simple_html_dom.php');
+set_time_limit(3000);
 
 $html = file_get_html('http://ocw.mit.edu/courses/audio-video-courses/');
 
