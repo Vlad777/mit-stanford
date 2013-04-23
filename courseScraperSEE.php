@@ -22,11 +22,11 @@
 //require_once('connection.php');
 require_once('pdo_connect.php');
 include ('simple_html_dom.php');
-
-//(if running this directly, truncate table, if being included, do not?)
+set_time_limit(3000);
+//if running this directly, truncate table. If being included, do not?
 execQuery("TRUNCATE TABLE course_data");
 execQuery("TRUNCATE TABLE coursedetails");
-	
+
 $html = file_get_html('http://see.stanford.edu/see/courses.aspx');
 $site = "SEE";
 	// FOREACH: div class listBlock (categories) strong class courseListDepartment 
@@ -112,7 +112,8 @@ $site = "SEE";
 	
 	
 // DEBUG DATA PRINTING
-?><pre><?php echo print_r($array);?></pre><?php 
+?><pre><?php print_r($array);?></pre><?php 
+
 
 
 /****************************
@@ -210,7 +211,7 @@ function scrapeInstructor($details,$aCourse){
 		$instructorImage = $instructorImage[1]->children(0)->src;
 		//echo '<img src="'.$instructorImage.'"/>';
 		$instructorName = $instructorTable->find('td#snav');
-		$instructorName = $instructorName[2]->children(0)->plaintext;
+		$instructorName = trim($instructorName[2]->children(0)->plaintext);
 		//echo $instructorName . '<br />';		
 	}
 	else
