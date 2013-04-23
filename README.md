@@ -27,8 +27,8 @@ In order to support continued maintenance of the application, we must ensure tha
 professor name (Charles/Takahiro)<br>
 <b>professor image</b> - url to image (I dont think this is applicable for MIT? - charles) <br>
 title - (Charles) course title<br>
-short description - is there such a thing as a short vs long description? (Alice)<br>
-long description (Alice)<br>
+<b>short description</b> - is there such a thing as a short vs long description? (Meena??)<br>
+<b>long description</b> (Meena??)<br>
 course link - (Charles) <br>
 video link - (Vlad - there are many variations of how the courses organize their video links... I could use help on this as well.) link to first video, since there can be multiple. I suppose we will need a separate table to keep track of all the videos and other features we'll need. We'll need all the videos to calculate course_length. We'll need to be able to scrape all the video links ultimately.<br>
 start date - not applicable in our case, so set to '2001-01-01 01:01:01'<br>
@@ -41,8 +41,8 @@ site - 'MIT'(Diem)<br>
 professor name(Chris)<br>
 professor image - url to image(Chris)<br>
 title - course title(Chris)<br>
-<b>short description</b> - is there such a thing as a short vs long description? (Meena) <br>
-<b>long description</b> (Meena)<br>
+short description - is there such a thing as a short vs long description? (Alice) <br>
+long description (Alice)<br>
 course link - (Chris)<br>
 video link - (Alice) link to first video, since there can be multiple. I suppose we will need a separate table to keep track of all the videos and other features we'll need. We'll need all the videos to calculate course_length. We'll need to be able to scrape all the video links ultimately.<br>
 start date - not applicable in our case, so set to '2001-01-01 01:01:01'<br>
