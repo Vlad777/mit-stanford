@@ -257,15 +257,15 @@ function writeToDatabase($aCourse){
 	global $dbh;
 	try {
 		$qrm = $dbh->prepare("INSERT INTO course_data VALUES ( NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-		$qrm->execute(array($aCourse->title, 
-			                empty($aCourse->short_desc) ? 'no desc': $aCourse->short_desc, 
-			                empty($aCourse->long_desc) ? 'no desc': $aCourse->long_desc,
-			                empty($aCourse->course_link) ? 'no link': $aCourse->course_link,
-			                empty($aCourse->video_link) ? 'no video': $aCourse->video_link, 
+		$qrm->execute(array(trim($aCourse->title), 
+			                empty($aCourse->short_desc) ? 'no desc': trim($aCourse->short_desc), 
+			                empty($aCourse->long_desc) ? 'no desc': trim($aCourse->long_desc),
+			                empty($aCourse->course_link) ? 'no link': trim($aCourse->course_link),
+			                empty($aCourse->video_link) ? 'no video': trim($aCourse->video_link), 
 			                $aCourse->start_date,
-			                empty($aCourse->course_length) ? 0 : $aCourse->course_length, 
-			                empty($aCourse->course_image) ? 'course_image_placeholder' : $aCourse->course_image, 
-			                empty($aCourse->category) ? 'no category': $aCourse->category,
+			                empty($aCourse->course_length) ? 0 : trim($aCourse->course_length), 
+			                empty($aCourse->course_image) ? 'course_image_placeholder' : trim($aCourse->course_image), 
+			                empty($aCourse->category) ? 'no category': trim($aCourse->category),
 			                $aCourse->site));
 	}
 	catch (PDOException $err) {
@@ -281,7 +281,7 @@ function writeToDatabase($aCourse){
 			foreach ($aCourse->instructors as $name => $image)
 			{		
 				$qrye = $dbh->prepare("INSERT INTO coursedetails VALUES (?, ?, ?)"); 
-			 	$qrye->execute(array($num, $name, $image));
+			 	$qrye->execute(array($num, trim($name), trim($image)));
 		 		//echo "$num\t$p\t";
 			}
 		}

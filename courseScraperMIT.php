@@ -111,15 +111,15 @@ foreach($array as $course_link)
 	global $dbh;
 	try {
 		$qrm = $dbh->prepare("INSERT INTO course_data VALUES ( NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-		$qrm->execute(array(empty($title) ? 'no title' : $title, 
-			                empty($short_desc) ? 'no desc': $short_desc, 
-			                empty($long_desc) ? 'no desc': $long_desc,
-			                empty($course_link) ? 'no link': $course_link,
-			                empty($videos[0]->youtube_url) ? 'no video': $videos[0]->youtube_url, 
+		$qrm->execute(array(empty($title) ? 'no title' : trim($title), 
+			                empty($short_desc) ? 'no desc': trim($short_desc), 
+			                empty($long_desc) ? 'no desc': trim($long_desc),
+			                empty($course_link) ? 'no link': trim($course_link),
+			                empty($videos[0]->youtube_url) ? 'no video': trim($videos[0]->youtube_url), 
 			                '2001-01-01 01:01:01',
-			                empty($course_length) ? 0 : $course_length, 
-			                empty($course_image) ? 'course_image_placeholder' : $course_image, 
-			                empty($category) ? 'no category': $category,
+			                empty($course_length) ? 0 : trim($course_length), 
+			                empty($course_image) ? 'course_image_placeholder' : trim($course_image), 
+			                empty($category) ? 'no category': trim($category),
 			                'MIT'));
 		//$op1 = execQuery($qrm);
 		}
@@ -134,8 +134,8 @@ foreach($array as $course_link)
 	if($num > 0){
 		$qrye = $dbh->prepare("INSERT INTO coursedetails VALUES (?, ?, ?)"); 
 	 	$qrye->execute(array($num, 
-	 		                 empty($professor_name) ? 'no name' : $professor_name, 
-	 		                 empty($prof_image) ? 'no image': $prof_image));
+	 		                 empty($professor_name) ? 'no name' : trim($professor_name), 
+	 		                 empty($prof_image) ? 'no image': trim($prof_image));
 	}
 }
 
