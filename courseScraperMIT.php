@@ -135,7 +135,7 @@ foreach($array as $course_link)
 		$qrye = $dbh->prepare("INSERT INTO coursedetails VALUES (?, ?, ?)"); 
 	 	$qrye->execute(array($num, 
 	 		                 empty($professor_name) ? 'no name' : trim($professor_name), 
-	 		                 empty($prof_image) ? 'no image': trim($prof_image));
+	 		                 empty($prof_image) ? 'no image': trim($prof_image)));
 	}
 }
 
