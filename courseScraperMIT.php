@@ -2,7 +2,7 @@
 require_once('pdo_connect.php');
 //set_time_limit(60);
 include ('simple_html_dom.php');
-set_time_limit(3000);
+set_time_limit(60000);
 
 $html = file_get_html('http://ocw.mit.edu/courses/audio-video-courses/');
 
@@ -78,23 +78,28 @@ foreach($array as $course_link)
 					$video->title = $mediatext->plaintext;
 					//$video->youtube_url = "http://ocw.mit.edu" . $mediatext->href;
 					$video_html2 = file_get_html("http://ocw.mit.edu" . $mediatext->href);
-					//get html_url to get youtube_url
-					//$s = $video_html2->find("div[id=course_inner_media] script"); //doesn't seem to work
-					$x = $video_html2->find("div[id=course_inner_media]",-1);
-
-					//$video->youtube_url = $x->find("script",0)->innerhtml; //for some reason this doesn't work.
-					foreach($x->find("script") as $s)
+					if ($video_html2)
 					{
-						if (stripos($s->innertext, "ocw_embed_media") !== false)
+						//get html_url to get youtube_url
+						//$s = $video_html2->find("div[id=course_inner_media] script"); //doesn't seem to work
+						$x = $video_html2->find("div[id=course_inner_media]",-1);
+						if ($x)
 						{
-							$f = explode(",", $s->innertext);
-							$video->youtube_url = trim($f[1], "' ");
+							//$video->youtube_url = $x->find("script",0)->innerhtml; //for some reason this doesn't work.
+							foreach($x->find("script") as $s)
+							{
+								if (stripos($s->innertext, "ocw_embed_media") !== false)
+								{
+									$f = explode(",", $s->innertext);
+									$video->youtube_url = trim($f[1], "' ");
 
-							break;
+									break;
+								}
+							}
 						}
+						//print_r($video->youtube_url);
+						$video_html2->clear();
 					}
-					//print_r($video->youtube_url);
-					$video_html2->clear();
 				}
 				
 				$videos[]=$video;
