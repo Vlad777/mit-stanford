@@ -64,48 +64,50 @@ foreach($array as $course_link)
 			//now extract all the videos
 			//there are different ways videos are organized
 			$video_html = file_get_html($video_link);
-			foreach($video_html->find('div[class=mediatext] a') as $mediatext)
+			if ($video_html)
 			{
-				$video = new video();
-				if ($mediatext->href == "javascript:void(0);")
+				foreach($video_html->find('div[class=mediatext] a') as $mediatext)
 				{
-					//videos on same page, loaded with javascript
-					$video->title = $mediatext->plaintext;
-					$video->youtube_url = "http://ocw.mit.edu" . $mediatext->onclick;
-				}
-				else
-				{
-					$video->title = $mediatext->plaintext;
-					//$video->youtube_url = "http://ocw.mit.edu" . $mediatext->href;
-					$video_html2 = file_get_html("http://ocw.mit.edu" . $mediatext->href);
-					if ($video_html2)
+					$video = new video();
+					if ($mediatext->href == "javascript:void(0);")
 					{
-						//get html_url to get youtube_url
-						//$s = $video_html2->find("div[id=course_inner_media] script"); //doesn't seem to work
-						$x = $video_html2->find("div[id=course_inner_media]",-1);
-						if ($x)
+						//videos on same page, loaded with javascript
+						$video->title = $mediatext->plaintext;
+						$video->youtube_url = "http://ocw.mit.edu" . $mediatext->onclick;
+					}
+					else
+					{
+						$video->title = $mediatext->plaintext;
+						//$video->youtube_url = "http://ocw.mit.edu" . $mediatext->href;
+						$video_html2 = file_get_html("http://ocw.mit.edu" . $mediatext->href);
+						if ($video_html2)
 						{
-							//$video->youtube_url = $x->find("script",0)->innerhtml; //for some reason this doesn't work.
-							foreach($x->find("script") as $s)
+							//get html_url to get youtube_url
+							//$s = $video_html2->find("div[id=course_inner_media] script"); //doesn't seem to work
+							$x = $video_html2->find("div[id=course_inner_media]",-1);
+							if ($x)
 							{
-								if (stripos($s->innertext, "ocw_embed_media") !== false)
+								//$video->youtube_url = $x->find("script",0)->innerhtml; //for some reason this doesn't work.
+								foreach($x->find("script") as $s)
 								{
-									$f = explode(",", $s->innertext);
-									$video->youtube_url = trim($f[1], "' ");
+									if (stripos($s->innertext, "ocw_embed_media") !== false)
+									{
+										$f = explode(",", $s->innertext);
+										$video->youtube_url = trim($f[1], "' ");
 
-									break;
+										break;
+									}
 								}
 							}
+							//print_r($video->youtube_url);
+							$video_html2->clear();
 						}
-						//print_r($video->youtube_url);
-						$video_html2->clear();
 					}
+					
+					$videos[]=$video;
 				}
-				
-				$videos[]=$video;
+				$video_html->clear();
 			}
-			$video_html->clear();
-
 			//end of extracting all videos
 			break;
 		}
