@@ -1,10 +1,10 @@
--- TEST USER DATABASE!!
+-- Test USER DATABASE
 -- phpMyAdmin SQL Dump
 -- version 3.2.4
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Apr 30, 2013 at 11:41 PM
+-- Generation Time: Apr 30, 2013 at 11:49 PM
 -- Server version: 5.1.44
 -- PHP Version: 5.3.1
 
@@ -28,13 +28,15 @@ SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 
 CREATE TABLE IF NOT EXISTS `users` (
   `userid` int(11) NOT NULL AUTO_INCREMENT,
-  `username` text CHARACTER SET utf8 NOT NULL,
+  `username` varchar(30) CHARACTER SET utf8 NOT NULL,
   `first_name` text CHARACTER SET utf8 NOT NULL,
   `last_name` text CHARACTER SET utf8 NOT NULL,
   `password` varchar(255) CHARACTER SET utf8 NOT NULL,
   `salt` varchar(255) CHARACTER SET utf8 NOT NULL,
-  `email` text CHARACTER SET utf8 NOT NULL,
-  PRIMARY KEY (`userid`)
+  `email` varchar(255) CHARACTER SET utf8 NOT NULL,
+  PRIMARY KEY (`userid`),
+  UNIQUE KEY `username` (`username`),
+  UNIQUE KEY `email` (`email`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 --
