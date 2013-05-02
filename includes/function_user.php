@@ -5,13 +5,13 @@ session_start();
 	
 	if(isset($_SESSION['userid']))
 	{
-		///User is a guest, we can set userId to 0
+		///User is logged in
 		$user["username"] = $_SESSION['username'];
 		$user["userid"] = $_SESSION['userid'];
 
 	} else 
 	{
-		// THe user is a user, we need to set some variables. 
+		// THe user is not logged in 
 		$user["username"] = "Guest";
 		$user["userid"] = 0;
 	}
