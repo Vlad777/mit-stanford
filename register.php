@@ -67,17 +67,25 @@ if(isset($_POST['Submit']))
 ?>
 
 <html>
-
+<head>
+	<link type="text/css" rel="stylesheet" href="template/style.css" />
+</head>
 <body>
-	<h1>Registration form</h1>
-	<form action="register.php" method="post">
-		<label>Username</label><input type="text" name="username"><br/>
-		<label>Email</label><input type="text" name="email"><br/>
-		<label>First Name</label><input type="text" name="firstname"><br/>
-		<label>Last Name</label><input type="text" name="lastname"><br/>
-		<label>Password</label><input type="password" name="password1"><br/>
-		<label>Confirm Password</label><input type="password" name="password2"><br/>
-		<input type="submit" name="Submit">
-	</form>
+	<?php include("template/header.php"); ?>
+
+	<div id="content">
+		<h1>Registration form</h1>
+		<form action="register.php" method="post">
+			<label>Username</label><input type="text" name="username"><br/>
+			<label>Email</label><input type="text" name="email"><br/>
+			<label>First Name</label><input type="text" name="firstname"><br/>
+			<label>Last Name</label><input type="text" name="lastname"><br/>
+			<label>Password</label><input type="password" name="password1"><br/>
+			<label>Confirm Password</label><input type="password" name="password2"><br/>
+			<input type="submit" name="Submit">
+		</form>
+	</div>
+	<?php include("template/footer.php"); ?>
+
 </body>
 </html>

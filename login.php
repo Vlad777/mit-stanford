@@ -51,11 +51,14 @@ if($_POST["do"] == "login")
 //The login template.
 ?>
 <html>
+<head>
+	<link type="text/css" rel="stylesheet" href="template/style.css" />
+</head>
 <body>
-
-
-
 <?php
+include("template/header.php");
+
+
 if($user["userid"] === 0)
 {
 	//User is logged in, do not show login screen
@@ -68,14 +71,16 @@ if($user["userid"] === 0)
 		 <?php
 	}
 	?>
-	Welcome Guest, please input login information <br/>
-	<form action="login.php" method="post">
-		<lable>Username:</label><input type="text" name="username" value="<?php echo $username ?>" />
-		<lable>Password:</label><input type="password" name="password"/>
-		<input type="hidden" name="page" value="login.php"/>
-		<input type="hidden" name="do" value="login"/>
-		<input type="submit" name="Submit" />
-	</form>
+	<div id="content">
+		Welcome Guest, please input login information <br/>
+		<form action="login.php" method="post">
+			<lable>Username:</label><input type="text" name="username" value="<?php echo $username ?>" />
+			<lable>Password:</label><input type="password" name="password"/>
+			<input type="hidden" name="page" value="login.php"/>
+			<input type="hidden" name="do" value="login"/>
+			<input type="submit" name="Submit" />
+		</form>
+	</div>
 	<?php
 } 
 else 
@@ -85,6 +90,7 @@ else
 	, you are already logged in
 	<?php
 }
+include("template/footer.php");
 ?>
 </body>
 </html>
