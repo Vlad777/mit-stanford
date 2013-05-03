@@ -216,7 +216,7 @@ function scrapeInstructor($details,$aCourse){
 	}
 	else
 	{
-		$instructorImage = 'avatar_placeholder.jpg';
+		$instructorImage = 'images/avatar_placeholder.jpg';
 		$instructorName = $aCourse->site . ' Instructor';
 	}
 	$courseDetails = array();
@@ -306,7 +306,7 @@ class course
 	public $short_desc;
 	public $video_link;
 	public $course_length;
-	public $course_image = 'course_image_placeholder.jpg'; 
+	public $course_image = 'images/course_image_placeholder.jpg'; 
 	//start date - not applicable in our case, so set to '2001-01-01 01:01:01'
 	public $start_date = '2001-01-01 01:01:01';
 	public $instructors; //assoc array profname => profimage 
