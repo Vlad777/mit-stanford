@@ -19,7 +19,7 @@ $results = fetchAll($queryString);
 <html>
 <head>
 <title>MOOCS mashup | MIT + SEE | CS 160 Team 3</title>
-<script  type="text/javascript" src="sorttable.js"></script>
+<script  type="text/javascript" src="includes/js/sorttable.js"></script>
 <link rel="stylesheet" href="template/style.css" />	
 </head>
 <body>
