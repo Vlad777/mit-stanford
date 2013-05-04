@@ -4,14 +4,14 @@ include("pdo_connect.php");
 
 $error = array();
 
-if($_POST["do"] == "login")
+if(isset($_POST['submit']))
 {
 	//Recieved a post from a login panel
 	//We need to set some session information
 	$username = $_POST["username"];
 	$password = $_POST["password"];
 	$page = $_POST["page"];
-	
+
 
 	//check db
 	$st = $dbh->prepare("SELECT * FROM users where username = ?");
@@ -21,7 +21,7 @@ if($_POST["do"] == "login")
 	{
 		//No user based on the username was found;
 		$error[] .= "No account was found with this username";
-		
+
 	}
 	else
 	{
@@ -51,14 +51,11 @@ if($_POST["do"] == "login")
 //The login template.
 ?>
 <html>
-<head>
-	<link type="text/css" rel="stylesheet" href="template/style.css" />
-</head>
 <body>
+
+
+
 <?php
-include("template/header.php");
-
-
 if($user["userid"] === 0)
 {
 	//User is logged in, do not show login screen
@@ -71,16 +68,14 @@ if($user["userid"] === 0)
 		 <?php
 	}
 	?>
-	<div id="content">
-		Welcome Guest, please input login information <br/>
-		<form action="login.php" method="post">
-			<lable>Username:</label><input type="text" name="username" value="<?php echo $username ?>" />
-			<lable>Password:</label><input type="password" name="password"/>
-			<input type="hidden" name="page" value="login.php"/>
-			<input type="hidden" name="do" value="login"/>
-			<input type="submit" name="Submit" />
-		</form>
-	</div>
+	Welcome Guest, please input login information <br/>
+	<form action="login.php" method="post">
+		<lable>Username:</label><input type="text" name="username" value="<?php echo $username ?>" />
+		<lable>Password:</label><input type="password" name="password"/>
+		<input type="hidden" name="page" value="login.php"/>
+		<input type="hidden" name="do" value="login"/>
+		<input type="submit" name="Submit" />
+	</form>
 	<?php
 } 
 else 
@@ -90,7 +85,6 @@ else
 	, you are already logged in
 	<?php
 }
-include("template/footer.php");
 ?>
 </body>
 </html>
