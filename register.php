@@ -51,11 +51,11 @@ if(isset($_POST['Submit']))
 	}
 
 	//No error? commit
-	if(!isset($error))
+	if(count($error) == 0)
 	{
 		//Enter into db
-		//$qs = $dbh->prepare("INSERT INTO users (username,first_name,last_name,password,salt,email)values (?,?,?,?,?,?)");
-		//$qs->execute(array($username,$firstname,$lastname,$saltedPassword,$salt,$email));
+		$qs = $dbh->prepare("INSERT INTO users (username,first_name,last_name,password,salt,email)values (?,?,?,?,?,?)");
+		$qs->execute(array($username,$firstname,$lastname,$saltedPassword,$salt,$email));
 		echo "done";
 	}
 	else {
