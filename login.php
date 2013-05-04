@@ -4,7 +4,7 @@ include("pdo_connect.php");
 
 $error = array();
 
-if(isset($_POST['submit']))
+if(isset($_POST['Submit']))
 {
 	//Recieved a post from a login panel
 	//We need to set some session information
@@ -69,8 +69,8 @@ if($user["userid"] === 0)
 	}
 	?>
 	Welcome Guest, please input login information <br/>
-	<form action="login.php" method="post">
-		<lable>Username:</label><input type="text" name="username" value="<?php echo $username ?>" />
+	<form action="index.php" method="post">
+		<lable>Username:</label><input type="text" name="username" value="" />
 		<lable>Password:</label><input type="password" name="password"/>
 		<input type="hidden" name="page" value="login.php"/>
 		<input type="hidden" name="do" value="login"/>
