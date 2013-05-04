@@ -39,7 +39,9 @@ foreach($array as $course_link)
 
 	//grabs image from courseURL
 	$e = $html->find('img[itemprop="image"]',0);
-	$course_image = 'http://ocw.mit.edu'.$e->src;
+	if ($e->src)  //if null placeholder will be set when writing to DB
+		$course_image = 'http://ocw.mit.edu'.$e->src;
+	else $course_image = '';
 
 	//grabs professors from courseURL
 	$profs= $html->find('p[class="ins"]');
@@ -51,11 +53,11 @@ foreach($array as $course_link)
 	{
 		switch ($a->plaintext)
 		{
-		case "Video lectures":
-		case "Selected video lectures":
-		case "Audio lectures":
-		case "Selected audio lectures":
-			$video_link = "http://ocw.mit.edu" . $a->href;
+			case "Video lectures":
+			case "Selected video lectures":
+			case "Audio lectures":
+			case "Selected audio lectures":
+				$video_link = "http://ocw.mit.edu" . $a->href;
 			break;
 		}
 
@@ -115,6 +117,9 @@ foreach($array as $course_link)
 	
 //	echo $title.'|'.$category.'|'.$course_link.'|'.$course_image.'|'.$professor_name.'|'.$video_link.'|'.$videos[0]->title.'|'.$videos[0]->youtube_url.'<br>';
 
+	$default_prof_image = 'images/avatar_placeholder.jpg';
+	$default_course_image = 'images/course_image_placeholder.jpg';
+
 	global $dbh;
 	try {
 		$qrm = $dbh->prepare("INSERT INTO course_data VALUES ( NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
@@ -125,7 +130,7 @@ foreach($array as $course_link)
 			                empty($videos[0]->youtube_url) ? 'no video': trim($videos[0]->youtube_url), 
 			                '2001-01-01 01:01:01',
 			                empty($course_length) ? 0 : trim($course_length), 
-			                empty($course_image) ? 'course_image_placeholder' : trim($course_image), 
+			                empty($course_image) ? $default_course_image : trim($course_image), 
 			                empty($category) ? 'no category': trim($category),
 			                'MIT'));
 		//$op1 = execQuery($qrm);
@@ -141,8 +146,8 @@ foreach($array as $course_link)
 	if($num > 0){
 		$qrye = $dbh->prepare("INSERT INTO coursedetails VALUES (?, ?, ?)"); 
 	 	$qrye->execute(array($num, 
-	 		                 empty($professor_name) ? 'no name' : trim($professor_name), 
-	 		                 empty($prof_image) ? 'no image': trim($prof_image)));
+	 		                 empty($professor_name) ? 'MIT Instructor' : trim($professor_name), 
+	 		                 empty($prof_image) ? $default_prof_image : trim($prof_image)));
 	}
 }
 
