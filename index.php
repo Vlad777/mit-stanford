@@ -19,8 +19,8 @@ $results = fetchAll($queryString);
 <html>
 <head>
 <title>MOOCS mashup | MIT + SEE | CS 160 Team 3</title>
-<script  type="text/javascript" src="includes/js/sorttable.js"></script>
-<link rel="stylesheet" href="template/style.css" />	
+<script  type="text/javascript" src="sorttable.js"></script>
+<link rel="stylesheet" href="style.css" />	
 </head>
 <body>
 <script type="text/javascript">
@@ -31,6 +31,9 @@ function open_video(url)
 
 </script>
 <table class="sortable">
+
+<?php include("template/header.php"); ?>
+
 <?php
 //teable headers 
 echo '<thead><tr><th>id</th><th>Title(link to course)</th>
@@ -64,5 +67,7 @@ foreach ($results as $aCourse)
 ?>
 </tbody></table>
 
+
+<?php include("template/footer.php"); ?>
 </body>
 </html>
