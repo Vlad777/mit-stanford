@@ -10,6 +10,8 @@
 <script>
 $(function() {
 var availableTags = [
+
+
 <?php
 function sub($arr)
 {
@@ -20,9 +22,12 @@ $array = fetchAll("SELECT concat(concat(concat(word, ' ('), course_count), ')') 
 //print_r(implode(array_map("sub", $array)));
 echo '"' . implode('","', array_map("sub", $array)) . '"';
 ?>
+
+
 ];
 $( "#tags" ).autocomplete({
-source: availableTags
+source: availableTags,
+select: function(event, ui) { ui.item.value = ui.item.value.split(" (")[0]; }
 });
 });
 </script>
