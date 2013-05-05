@@ -16,7 +16,7 @@ function sub($arr)
   return $arr[0];
 }
 require_once('pdo_connect.php');
-$array = fetchAll("SELECT concat(concat(concat(word, ' ('), course_count), ')') as word FROM autosuggest ORDER BY course_count DESC");
+$array = fetchAll("SELECT concat(concat(concat(word, ' ('), course_count), ')') as word FROM autocomplete ORDER BY course_count DESC");
 //print_r(implode(array_map("sub", $array)));
 echo '"' . implode('","', array_map("sub", $array)) . '"';
 ?>
