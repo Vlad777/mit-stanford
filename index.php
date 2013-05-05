@@ -19,8 +19,9 @@ $results = fetchAll($queryString);
 <html>
 <head>
 <title>MOOCS mashup | MIT + SEE | CS 160 Team 3</title>
-<script  type="text/javascript" src="sorttable.js"></script>
-<link rel="stylesheet" href="style.css" />	
+<script  type="text/javascript" src="includes/js/sorttable.js"></script>
+ <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+<link rel="stylesheet" href="template/style.css" />	
 </head>
 <body>
 <script type="text/javascript">
@@ -30,17 +31,16 @@ function open_video(url)
 }
 
 </script>
-<table class="sortable">
-
 <?php include("template/header.php"); ?>
 
+<table class="sortable">
 <?php
 //teable headers 
-echo '<thead><tr><th>id</th><th>Title(link to course)</th>
-          <th>Category</th>
-		  <th>Short Description</th><th>Instructor</th>
-		  <th>Course Image (link to lecture video)</th>
-		  <th>Course Length</th><th>Start Date</th><th>Site</th></tr></thead><tbody>';
+echo '<thead><tr><th class="courseid">id</th><th class="courselink">Title(link to course)</th>
+          <th class="category">Category</th>
+		  <th class="coursedesc">Short Description</th><th class="profimage">Instructor</th>
+		  <th class="videolink"> Course Image (link to lecture video)</th>
+		  <th class="courselength" >Course Length</th><th>Start Date</th><th>Site</th></tr></thead><tbody>';
 $counter = 0;
 foreach ($results as $aCourse)
 {
@@ -66,8 +66,6 @@ foreach ($results as $aCourse)
 
 ?>
 </tbody></table>
-
-
 <?php include("template/footer.php"); ?>
 </body>
 </html>

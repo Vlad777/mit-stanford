@@ -4,8 +4,134 @@
 	margin:0;
 	padding:0;
 }
+/******************/
+/*      HEADER     */
+div#header
+{
+	height: 100px;
+	border-bottom: 1px solid #000;
+	display:block;
+	position:relative;
+}
 
-/* *****************/
+div#header h1 {
+	/* display:inline;	*/
+	font-size: 41px;
+}
+div#logo{
+	position:relative;
+	float:left;
+	margin-left:20px;
+	padding:6px;
+	width: 400px;
+}
+
+/* login form */
+iframe#login-frame{
+		width:400px;
+	height:300px;
+}
+div#login-box{
+	background:#FFFFFF;
+	position:relative;	
+	top:100px;
+	margin:0 auto;
+	width:300px;
+	height:200px;
+	padding:30px;
+
+}
+div#login-box form{
+}
+
+div#login-box lable, div#register-box form label{
+	line-height:30px;
+	display:block;
+}
+div#login-box span{
+	line-height:30px;
+	display:block;
+}
+div#login-box input[type="submit"], input[type="reset"], div#register-box form  input[type="submit"] { 
+	margin:10px 0px 20px;
+	line-height:30px;
+	display:block;
+}
+div#login-box  input[type="submit"]:hover, input[type="reset"]:hover { 
+
+}
+
+div.popup {
+	border: solid 2px #039;
+	padding:10px;
+	margin:0 auto;
+	box-shadow: 4px 4px 2px #039; /* CSS3 */
+	-moz-border-radius: 15px;
+	border-radius: 15px;
+	-webkit-border-radius: 15px;
+
+}
+iframe#register-frame{
+		width:400px;
+		height:300px;
+}
+div#register-box{
+	background:#FFFFFF;
+	position:relative;		
+	top:200px;	
+	width:400px;
+	height:300px;
+    margin:0 auto;
+}
+div.lines
+{
+	clear:both;	
+}
+span.inline{
+	with:auto;
+	float:left;
+	margin:0px 4px;
+	padding: 0px 4px;
+	line-height:30px;
+}
+
+div.popup a.closebutton {
+	padding:10px;
+	right: 10px;
+    top: -4px;
+	position:absolute;
+}
+
+/* colors */
+span.blue {
+	color:#039; /* BLUE  */
+}
+
+span.gold {
+	color:#C90;  /* GOLD  */
+}
+/* login box   */
+
+div#user-box {
+	width: auto;
+	position:absolute;/* relative to header container */
+	float:right;
+	margin-right:20px;
+	padding:6px;
+	right: 0;
+	bottom:0;
+}
+
+
+
+/*********************/
+/*  BODY & CONTENT  */
+
+div#content
+{
+	padding: 10px;
+}
+
 /* Sortable tables */
 table.sortable thead {
     background-color:#eee;
@@ -17,6 +143,8 @@ table.sortable{
 	padding: 0px;
 	margin:0px;
 	border-collapse:collapse;
+	font-family:Verdana, Geneva, sans-serif;
+	font-size:12px;
 }
 table.sortable td{
 	border: solid 1px #ededed;
@@ -47,19 +175,8 @@ td.videolink{
 }
 td.site{
 }
-/* *****************/
 
-div#header
-{
-	height: 100px;
-	border-bottom: 1px solid #000;
-
-}
-
-div#content
-{
-	padding: 10px;
-}
+/* FOOTER */
 
 div#footer
 {
