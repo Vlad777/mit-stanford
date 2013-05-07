@@ -1,5 +1,5 @@
 <div id="footer" style="margin:0 auto;width:976px;text-align:center;">
-    <div style = "padding-left:175px;">
+    <center>
     <br>
 		<p>
             <a href="index.php">Home</a>&nbsp;//
@@ -7,5 +7,5 @@
             <a href="policy.php">Privacy Policy</a>&nbsp;//
             <a href="">Site Map</a>
         </p>    
-  	</div>
+  	</center>
 </div>
