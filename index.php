@@ -10,8 +10,7 @@
 require_once('pdo_connect.php');
 include("includes/function_user.php");
 
-
-if(isset($_POST['Submit']))
+if(isset($_POST['Submit']) && $_POST['do'] == "search")
 {
   //This should really be implemented using Zend/Lucene indexing engine
 

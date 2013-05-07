@@ -15,6 +15,7 @@ if (!("autofocus" in document.createElement("input"))) {
 }
 </script>
 <input type="submit" name="Submit" value="Search" />
+<input type="hidden" name="do" value="search" />
 </form>
 </div>
 
