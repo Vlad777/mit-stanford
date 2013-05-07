@@ -16,7 +16,7 @@ $all_courses = fetchAll("SELECT title, long_desc, category FROM course_data");
 foreach ($all_courses as $course)
 {
   $course_flag = NULL;
-	$words = array_diff(multiexplode(str_split(' ,.;:=&()[]{}<>|\\!?/"\'`0123456789'), strtolower($course['title'] . ' ' . $course['long_desc'] . ' ' . $course['category'])), $stopwords);
+	$words = array_diff(multiexplode(str_split(' â€¢#+-,.;:=&()[]{}<>|\\!?/"\'`0123456789'."\n\r\t"), strtolower($course['title'] . ' ' . $course['long_desc'] . ' ' . $course['category'])), $stopwords);
 	//print_r($words);
 	foreach($words as $word)
 	{
