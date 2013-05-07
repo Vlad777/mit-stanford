@@ -7,8 +7,7 @@
 *
 ***************************/
 //path relative to index.php which includes this file
-include("includes/function_user.php");	?>	
-
+?>
 <div id="user-box">   
  
 <?		

@@ -8,6 +8,7 @@
 ****************************************/
 //require_once('connection.php');
 require_once('pdo_connect.php');
+include("includes/function_user.php");
 
 
 if(isset($_POST['Submit']))
