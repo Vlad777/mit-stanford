@@ -1,14 +1,20 @@
+<div id="nav">
+  <li><a href="index.php">Home</a></li>
+  <li><a href="account.php">User Account</a></li>
+
+</div>
 <div id="header">
 
 	<div id="logo">
     	<h1><span class="blue">Moocs</span><span class="gold">4u</span></h1>
-		<!-- <span class="gold">MIT + Stanford </span><span class="blue"><b>Mashup</b></span> -->
-   </div>  
+		  <!-- <span class="gold">MIT + Stanford </span><span class="blue"><b>Mashup</b></span> -->
+  </div>  
     <?php  include("includes/user_test.php");	?>
     
     
     <div class="ui-widget" id="searchBox">
-        <form id="search" action="index.php" method="post">
+        <form id="search" action="index.php" method="get">
+        <input type="hidden" name="do" value="search"/>
         <label for="tags"></label>
         <input name="q" id="tags" autofocus />
         <script>
@@ -16,8 +22,7 @@
          document.getElementById("tags").focus();
         }
         </script>
-        <input type="hidden" name="do" value="search"/>
-        <input type="submit" name="Submit" value="Search" />
+        <input class="searchSubmit" type="submit" value=""/>
         </form>
     </div>
     

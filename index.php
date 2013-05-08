@@ -10,7 +10,7 @@
 require_once('pdo_connect.php');
 include("includes/function_user.php");	
 
-if(isset($_POST['Submit']) && $_POST['do'] == "search")
+if($_GET['do'] == "search")
 {
   //This should really be implemented using Zend/Lucene indexing engine
 
@@ -27,7 +27,7 @@ if(isset($_POST['Submit']) && $_POST['do'] == "search")
 	//The problem here is that this would return more results than the autocomplete label shows, since autocomplete is based on words, not substrings of words
 	//At least this should work with INNODB as well as MyISAM for now...
 	$qrm = $dbh->prepare("SELECT * FROM course_data WHERE title LIKE ? OR long_desc LIKE ? OR category LIKE ?");
-	$qrm->execute(array('%' . $_POST["q"] . '%', '%' . $_POST["q"] . '%', '%' . $_POST["q"] . '%'));
+	$qrm->execute(array('%' . $_GET["q"] . '%', '%' . $_GET["q"] . '%', '%' . $_GET["q"] . '%'));
 
 	$results = $qrm->fetchAll();
 	// echo "<pre>"; //for nice indented formatting of print_r
