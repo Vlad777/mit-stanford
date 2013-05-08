@@ -3,11 +3,12 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Privacy and Policy</title>
 
-<?php include("template/header.php"); ?>
-
 </head>
 
 <body>
+
+<?php include("template/header.php"); ?>
+
 <div style="border: 2px solid green ;">
 <div style="margin-left:60px;margin-right:60px;"><div style="font-size:18px;"><b>Privacy</b></div><br />
   <div style="text-indent:20px;">MOOCS4U OpenCourseWare respects your privacy. We do not collect personally identifiable information about you unless you voluntarily provide it, such as when you provide email contact information to subscribe to the OCW newsletter, send feedback to OCW, or respond to a survey. If you voluntarily provide your email address or other contact information, we might also use it to inform you of changes to OCW, to survey you about your use or opinion of OCW, or to ask for your support. At your request, we will remove your contact information from our files.</div><br />
