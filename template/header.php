@@ -16,6 +16,7 @@
          document.getElementById("tags").focus();
         }
         </script>
+        <input type="hidden" name="do" value="search"/>
         <input type="submit" name="Submit" value="Search" />
         </form>
     </div>
