@@ -8,7 +8,7 @@
 /*      HEADER     */
 div#header
 {
-	height: 100px;
+	height: 50px;
 	border-bottom: 1px solid #000;
 	display:block;
 	position:relative;
@@ -16,16 +16,46 @@ div#header
 
 div#header h1 {
 	/* display:inline;	*/
-	font-size: 41px;
+	font-size: 32px;
 }
 div#logo{
 	position:relative;
 	float:left;
 	margin-left:20px;
-	padding:6px;
-	width: 400px;
+	padding:8px 6px 2px;
+	width: 200px;
+	font-size:13px;
 }
-
+form#search input{
+	/* border: solid 1px #039; */
+}
+div#searchBox 
+{
+	
+	margin: 0 auto;
+	position:relative;
+	width:280px;
+	font-size:12px;
+	background:#FFFFFF;
+	height:50px;
+	
+}
+div#searchBox form
+{
+	width:260px;
+	position: absolute;
+	bottom:8px;
+	
+}
+div#searchBox input
+{
+	width:auto;
+	
+}
+div#searchBox input#tags{
+	font-size: 14px;
+	color:#003399;
+}
 /* login form */
 iframe#login-frame{
 		width:400px;
@@ -42,6 +72,7 @@ div#login-box{
 
 }
 div#login-box form{
+	
 }
 
 div#login-box lable, div#register-box form label{
@@ -62,13 +93,13 @@ div#login-box  input[type="submit"]:hover, input[type="reset"]:hover {
 }
 
 div.popup {
-	border: solid 2px #039;
+	border: solid 20px #ededed;
 	padding:10px;
 	margin:0 auto;
-	box-shadow: 4px 4px 2px #039; /* CSS3 */
-	-moz-border-radius: 15px;
-	border-radius: 15px;
-	-webkit-border-radius: 15px;
+	box-shadow: 4px 4px 2px #666; /* CSS3 */
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	-webkit-border-radius: 5px;
 
 }
 iframe#register-frame{
@@ -83,6 +114,9 @@ div#register-box{
 	height:300px;
     margin:0 auto;
 }
+div#register-box  div#content form {
+margin: 12px 0px 4px
+}
 div.lines
 {
 	clear:both;	
@@ -96,10 +130,22 @@ span.inline{
 }
 
 div.popup a.closebutton {
-	padding:10px;
-	right: 10px;
-    top: -4px;
-	position:absolute;
+    height: 21px;  
+    position: absolute;
+    right: 8px;
+    top: 8px;
+    width: 21px;
+	background-image:url(../images/popup-close.png);
+	
+}
+div.popup a.closebutton:hover {
+    height: 21px;
+    position: absolute;
+    right: 8px;
+    top: 8px;
+    width: 21px;
+	background-image:url(../images/popup-close.png);
+	background-position:bottom;
 }
 
 /* colors */
@@ -113,13 +159,18 @@ span.gold {
 /* login box   */
 
 div#user-box {
+	color: #003399;
 	width: auto;
 	position:absolute;/* relative to header container */
 	float:right;
 	margin-right:20px;
-	padding:6px;
+	padding:6px 6px 2px;
 	right: 0;
 	bottom:0;
+}
+
+div#user-box  input[type="submit"] {
+	font-size:12px;	
 }
 
 
