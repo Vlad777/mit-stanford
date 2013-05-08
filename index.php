@@ -8,7 +8,7 @@
 ****************************************/
 //require_once('connection.php');
 require_once('pdo_connect.php');
-include("includes/function_user.php");
+include("includes/function_user.php");	
 
 if(isset($_POST['Submit']) && $_POST['do'] == "search")
 {
@@ -89,12 +89,8 @@ select: function(event, ui) { ui.item.value = ui.item.value.split(" (")[0]; }
 });
 </script>
 
-
-
 </head>
 <body>
-
-
 
 <script type="text/javascript">
 function open_video(url)
@@ -104,7 +100,7 @@ function open_video(url)
 
 </script>
 <?php include("template/header.php"); ?>
-
+<?php include("includes/linkToRateMyProfessor.php"); ?>
 <table class="sortable">
 <?php
 //teable headers 
@@ -124,7 +120,10 @@ foreach ($results as $aCourse)
 								    target="_blank">'. $aCourse['title'] .'</a></td>';
 	echo '<td class="category">'. $aCourse['category'].'</td>';
 	echo '<td class="coursedesc">'. $aCourse['short_desc'] .'</td>';
-	echo '<td class="profimage"><img src="'.$profs[0]['profimage'].'" alt="prof image" /><br />'. $profs[0]['profname'] .'</td>';
+	echo '<td class="profimage"><img src="'.$profs[0]['profimage'].'" alt="prof image" /><br />'. $profs[0]['profname'];
+ 	echo '<br />'; 
+ 	linkToRateMyProfessor($profs[0]['profname'], $aCourse['site']);
+ 	echo '</td>';
 	echo '<td class="videolink">'. '<a title="link to course video" 
 									onclick="open_video(\''.$aCourse['video_link'].'\');return false;"  
 									href="'.$aCourse['video_link'].'" target="_blank">

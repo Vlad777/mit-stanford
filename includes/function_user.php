@@ -30,51 +30,51 @@
 	//User Registration scripts
 	if(isset($_POST['Submit']) && $_POST['do'] == 'register')
 	{
-	//echo 'registered?';
-	$username = $_POST['username'];
-	$email =  $_POST['email'];
-	$firstname =  $_POST['firstname'];
-	$lastname =  $_POST['lastname'];
-	$password1 = $_POST['password1'];
-	$password2 = $_POST['password2'];
-
-	$error = array();
-	//Check if email or username is in use
-
-	$qs = $dbh->prepare("SELECT username,email FROM users WHERE email = ? OR username = ?");
-	$qs->execute(array($email,$username));
-
-	if($qs->rowCount() > 0)
-	{
-		$error[] .=  "Username or email in use";
-	}
+		//echo 'registered?';
+		$username = $_POST['username'];
+		$email =  $_POST['email'];
+		$firstname =  $_POST['firstname'];
+		$lastname =  $_POST['lastname'];
+		$password1 = $_POST['password1'];
+		$password2 = $_POST['password2'];
 	
-	//Check password Strength
-	checkPasswordStrength($password1, $error);
-
-	if($password1 != $password2)
-	{
-		$error[] .= "Passwords do not match";
-	} 
-	else {
-		$salt = crypt($password1);
-		//Should be go enought, but if you want to increase hash size, just go to 512. Dont know if it supported on which version.
-		$saltedPassword = hash("sha256", $password1.$salt);
-	}
-
-	//No error? commit
-	if(count($error) == 0)
-	{
-		//Enter into db
-		$qs = $dbh->prepare("INSERT INTO users (username,first_name,last_name,password,salt,email)values (?,?,?,?,?,?)");
-		$qs->execute(array($username,$firstname,$lastname,$saltedPassword,$salt,$email));
-		echo "Your Account was created";
+		$error = array();
+		//Check if email or username is in use
+	
+		$qs = $dbh->prepare("SELECT username,email FROM users WHERE email = ? OR username = ?");
+		$qs->execute(array($email,$username));
+	
+		if($qs->rowCount() > 0)
+		{
+			$error[] .=  "Username or email in use";
+		}
 		
+		//Check password Strength
+		checkPasswordStrength($password1, $error);
+	
+		if($password1 != $password2)
+		{
+			$error[] .= "Passwords do not match";
+		} 
+		else {
+			$salt = crypt($password1);
+			//Should be go enought, but if you want to increase hash size, just go to 512. Dont know if it supported on which version.
+			$saltedPassword = hash("sha256", $password1.$salt);
+		}
+	
+		//No error? commit
+		if(count($error) == 0)
+		{
+			//Enter into db
+			$qs = $dbh->prepare("INSERT INTO users (username,first_name,last_name,password,salt,email)values (?,?,?,?,?,?)");
+			$qs->execute(array($username,$firstname,$lastname,$saltedPassword,$salt,$email));
+			echo "Your Account was created";
+			
+		}
+		else {
+			// print_r($error);
+		}
 	}
-	else {
-		// print_r($error);
-	}
-}
 
 
 	/************************
