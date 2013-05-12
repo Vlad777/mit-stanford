@@ -74,6 +74,23 @@ foreach($array as $course_link)
 		if(substr($e->src,0,4) <> "http") { $course_image = $site_url; }
 		$course_image .= $e->src;
 	}
+    
+       //grabs long course description from courseURL
+       $longdescrip = $html->find('div[id="description"]//p');
+        if(empty($longdescrip)) {echo "\nFailed to find course description of $course_link";}
+         else
+          { 
+              $long_desc = trim($longdescrip->plaintext);
+           }
+
+        //grabs short course description from courseURL
+        $shortdescrip = $html->find('div[id="description"]//p');
+        if(empty($shortdescrip)) {echo "\nFailed to find course description of $course_link";}
+         else
+          { 
+              $short_desc = trim($shortdescrip->plaintext);
+           }
+
 
 	//grabs professors from courseURL
 	$profs= $html->find('p[class="ins"]');
