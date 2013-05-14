@@ -12,7 +12,7 @@ include("includes/function_user.php");
 
 if($_GET['do'] == "search")
 {
-  //This should really be implemented using Zend/Lucene indexing engine
+    //This should really be implemented using Zend/Lucene indexing engine
 
 	//Using MATCH FULLTEXT indexing requires table to be MyISAM, not INNODB!!
 	//this matches only the words searched, not partial strings
@@ -38,7 +38,7 @@ else
 {
 	$queryString = 'SELECT d.id, d.title, d.short_desc, 
 				d.course_link, d.video_link, d.course_length, d.course_image, 
-				d.category, d.start_date, d.site FROM course_data d';
+				d.category, d.start_date, d.site FROM course_data d LIMIT 20';
 	$results = fetchAll($queryString);
 }
 ?>

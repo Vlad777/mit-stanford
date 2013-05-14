@@ -262,6 +262,12 @@ td.videolink{
 td.site{
 }
 
+td.profimage img {
+	max-height:200px;	
+}
+td.videolink img {
+	max-height:200px;	 
+}
 /* FOOTER */
 
 div#footer
