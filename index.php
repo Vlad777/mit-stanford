@@ -127,15 +127,13 @@ foreach ($results as $aCourse)
 	{
 	 	$short_desc = substr($aCourse['long_desc'],0, 400);
 	}
-	//explode it to but it to a fill sentence
+	//explode it to trim it to a full sentence
 	$descr_array = explode ( '.' , $short_desc, -1 );
 	if ( count($descr_array) > 1)
 	{
 		$short_desc = implode ('.', $descr_array );
 		$short_desc = $short_desc . '.';
-	}
-
-	
+	}	
 	echo '<td class="coursedesc">'. $short_desc .'</td>';
 	echo '<td class="profimage"><img src="'.$profs[0]['profimage'].'" alt="prof image" /><br />'. $profs[0]['profname'];
  	echo '<br />'; 
