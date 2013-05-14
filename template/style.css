@@ -254,6 +254,7 @@ td.courselink{
 }
 td.coursedesc{
 	text-align:left;
+	min-width:160px;
 }
 td.profimage{
 }

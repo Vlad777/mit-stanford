@@ -119,7 +119,24 @@ foreach ($results as $aCourse)
 	echo '<td class="courselink"><a href="'.$aCourse['course_link'].'"  
 								    target="_blank">'. $aCourse['title'] .'</a></td>';
 	echo '<td class="category">'. $aCourse['category'].'</td>';
-	echo '<td class="coursedesc">'. $aCourse['short_desc'] .'</td>';
+	// max size of description to 400 chars
+	$short_desc = substr($aCourse['short_desc'],0, 400);
+	// if short description is empty or only spaces:
+	// get some description from long description 
+	if (strlen(trim($short_desc)) == 0 )
+	{
+	 	$short_desc = substr($aCourse['long_desc'],0, 400);
+	}
+	//explode it to but it to a fill sentence
+	$descr_array = explode ( '.' , $short_desc, -1 );
+	if ( count($descr_array) > 1)
+	{
+		$short_desc = implode ('.', $descr_array );
+		$short_desc = $short_desc . '.';
+	}
+
+	
+	echo '<td class="coursedesc">'. $short_desc .'</td>';
 	echo '<td class="profimage"><img src="'.$profs[0]['profimage'].'" alt="prof image" /><br />'. $profs[0]['profname'];
  	echo '<br />'; 
  	linkToRateMyProfessor($profs[0]['profname'], $aCourse['site']);

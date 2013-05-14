@@ -58,7 +58,8 @@ function linkToRateMyProfessor($profName, $siteName)
 			else if ($siteName == 'MIT')
 					$pattern = '/Massachusetts Institute of Technology/';
 			else {
-				echo ' missing school name for this site name <br />';	
+				//echo ' missing school name for this site name <br />';
+				$pattern = '/San Jose State University/'; // default  pattern
 			}			
 			preg_match($pattern, $schoolname, $matches);		
 			if ( count($matches) >= 1)
