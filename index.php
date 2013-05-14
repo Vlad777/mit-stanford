@@ -95,7 +95,12 @@ select: function(event, ui) { ui.item.value = ui.item.value.split(" (")[0]; }
 <script type="text/javascript">
 function open_video(url)
 {
-    myWindow = window.open(url, "", "width=1000,height=820");
+    //myWindow = window.open(url, "", "width=1000,height=820");	
+		var specs = 'toolbar=yes,location=yes,directories=no,status=no,menubar=no,scrollbars=yes, width=1000px,height=820px,resizeable=yes,copyhistory=yes';	
+		
+		var myWin = window.open(url,"_blank",specs);		
+		myWin.focus(); 
+		
 }
 
 </script>
