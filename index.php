@@ -107,7 +107,7 @@ echo '<thead><tr><th class="courseid">id</th><th class="courselink">Title(link t
           <th class="category">Category</th>
 		  <th class="coursedesc">Short Description</th><th class="profimage">Instructor</th>
 		  <th class="videolink"> Course Image (link to lecture video)</th>
-		  <th class="courselength" >Course Length</th><th>Start Date</th><th>Site</th></tr></thead><tbody>';
+		  <th class="courselength" >Course Length</th><th>Start Date</th><th>Site</th><th>Comments</th></tr></thead><tbody>';
 $counter = 0;
 foreach ($results as $aCourse)
 {
@@ -146,6 +146,7 @@ foreach ($results as $aCourse)
 	echo '<td class="courselength">'.$aCourse['course_length'].' Weeks</td>';
 	echo '<td class="startdate">'. $aCourse['start_date'].'</td>';
 	echo '<td class="site">'. $aCourse['site'] .'</td>';
+	echo '<td class="site"><a href=javascript:window.open(\'comment.php?id='.$aCourse['id'].'\',\'Comment\',\'width=300,height=500\')>Comments</a></td>';
 	echo '</tr>';
 }
 
@@ -238,7 +239,7 @@ echo '<thead><tr><th class="courseid">id</th><th class="courselink">Title(link t
           <th class="category">Category</th>
 		  <th class="coursedesc">Short Description</th><th class="profimage">Instructor</th>
 		  <th class="videolink"> Course Image (link to lecture video)</th>
-		  <th class="courselength" >Course Length</th><th>Start Date</th><th>Site</th></tr></thead><tbody>';
+		  <th class="courselength" >Course Length</th><th>Start Date</th><th>Site</th><th>Comments</th></tr></thead><tbody>';
 $counter = 0;
 foreach ($results as $aCourse)
 {
@@ -277,6 +278,7 @@ foreach ($results as $aCourse)
 	echo '<td class="courselength">'.$aCourse['course_length'].' Weeks</td>';
 	echo '<td class="startdate">'. $aCourse['start_date'].'</td>';
 	echo '<td class="site">'. $aCourse['site'] .'</td>';
+	echo '<td class="site"><a href=javascript:window.open(\'comment.php?id='.$aCourse['id'].'\',\'Comment\',\'width=300,height=500\')>Comments</a></td>';
 	echo '</tr>';
 }
 
