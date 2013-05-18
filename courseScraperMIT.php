@@ -23,12 +23,11 @@ foreach($html->find('a[rel="coursePreview"]') as $e)
 		{
 			$array[] = $link;
 		}
-	}
+	}	
 }
 
 
 //echo "title|category|course_link|course_image|professor_name|video_link|video_title|youtube_url<br>";
-
 //foreach loop iterating through all course urls
 foreach($array as $course_link)
 //$course_link = 'http://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-001-structure-and-interpretation-of-computer-programs-spring-2005';
@@ -39,7 +38,6 @@ foreach($array as $course_link)
 	$html = file_get_html($course_link);
 
 	$e = $html->find('title',0);
-
 
 	$title = NULL;
 	$short_desc = NULL;
@@ -52,7 +50,6 @@ foreach($array as $course_link)
 	$professor_name = NULL;
 	$prof_image = NULL;
 
-
 	if (empty($e)) { echo "\nFailed to find title in $course_link "; }
 	else
 	{
@@ -61,14 +58,16 @@ foreach($array as $course_link)
 		if (empty($titleElement)) { echo "\nFailed to get title"; }
 		else
 		{
-			$title = trim($titleElement[0]);
+			$title = trim($titleElement[0]);			
 			$category = trim($titleElement[1]);
 		}
 	}
 
 	//grabs image from courseURL
 	$e = $html->find('img[itemprop="image"]',0);
-	if (empty($e)) { echo "\nFailed to find course image of $course_link"; }
+	if (empty($e)) { 
+		//echo "\nFailed to find course image of" . $course_link; 
+	}
 	else
 	{
 		if(substr($e->src,0,4) <> "http") { $course_image = $site_url; }
@@ -76,33 +75,46 @@ foreach($array as $course_link)
 	}
     
        //grabs long course description from courseURL
-       $longdescrip = $html->find('div[id="description"]//p');
-        if(empty($longdescrip)) {echo "\nFailed to find course description of $course_link";}
-         else
-          { 
-              $long_desc = trim($longdescrip->plaintext);
-           }
-
+	   // div itemprop="description"
+	   $longdescrip = $html->find('div#description p');
+	   if (count($longdescrip) > 1)
+	   	   $longdescrip = $longdescrip[1];
+	   else if (count($longdescrip) == 1)
+	   		$longdescrip =  $longdescrip[0];
+       //$longdescrip = $html->find('div[id="description"]//p');
+        if(empty($longdescrip)) {echo "\nFailed to find course description of: " . $course_link ."<br />"; }
+        else
+        { 
+            $long_desc = trim($longdescrip->plaintext);
+			//echo "<b>". $title . "</b> " . $long_desc ."<br />";
+        }
         //grabs short course description from courseURL
-        $shortdescrip = $html->find('div[id="description"]//p');
-        if(empty($shortdescrip)) {echo "\nFailed to find course description of $course_link";}
-         else
-          { 
-              $short_desc = trim($shortdescrip->plaintext);
-           }
-
+        $shortdescrip = $long_desc;
+        if(empty($shortdescrip)) {
+			// echo "\nFailed to find course description of" . $course_link ."<br />";
+			}
+        else
+        { 
+            //$short_desc = trim($shortdescrip->plaintext);
+			$short_desc = explode('.',$shortdescrip);
+			$short_desc = $short_desc[0].'.';
+			//echo $short_desc . " ";
+        }
 
 	//grabs professors from courseURL
 	$profs= $html->find('p[class="ins"]');
-	if (empty($profs)) { echo "\nFailed to find prof of $course_link"; }
+	if (empty($profs)) { echo "\nFailed to find prof of: " . $course_link ."<br />"; }
 	else
 	{
 		$professor_name = trim($profs[0]->plaintext);
+		//echo " ". $professor_name ." <br />";
 	}
 
 	$videos=array();
+	//<div id="course_tabs">
 	foreach($html->find('a') as $a)
 	{
+		//echo $a->plaintext . "<br />";
 		switch ($a->plaintext)
 		{
 		case "Video lectures":
@@ -113,68 +125,112 @@ foreach($array as $course_link)
 			$video_link .= $a->href;
 			break;
 		}
-
-		if (empty($video_link)) { /* echo "\nFailed to find video link in $course_link"; */ }
+	//} //should be here	
+	if (empty($video_link)) { /* echo "\nFailed to find video link in: " . $course_link ."<br />";  */ }
 		else
 		{
+			$video = new video();
 			//now extract all the videos
 			//there are different ways videos are organized
 			$video_html = file_get_html($video_link);
-			if (empty($video_html)) { echo "\nFailed to fetch $video_link of $course_link"; }
+			if (empty($video_html)) { echo "\nFailed to fetch: " . $video_link ." of: " . $course_link ."<br />"; }
 			else
 			{
-				foreach($video_html->find('div[class=mediatext] a') as $mediatext)
+				//echo "<u>videolink page:</u> ". $video_link . "<br />";
+				//most videos are in a script ocw_embed_media
+				foreach($video_html->find("script") as $s)
 				{
-					$video = new video();
-					if (empty($mediatext)) { echo "\nFailed to find mediatext in $video_link of $course_link"; }
-					else if($mediatext->href == "javascript:void(0);")
+					 $i = stripos($s->innertext, "ocw_embed_media");
+					 if ($i !== false)
+					 {
+						$f = explode(",", substr($s->innertext, $i));
+						$video->youtube_url = trim($f[1], "' ");
+						$videos[0] = $video->youtube_url;
+						break;
+					 }
+				}
+				// if video was not found:
+				if (empty($video->youtube_url))
+				{				
+					foreach($video_html->find('div[class=mediatext] a') as $mediatext)
 					{
-						//videos on same page, loaded with javascript
-						$video->title = $mediatext->plaintext;
-						if (substr($mediatext->onclick, 0, 4) <> "http") { $video->youtube_url = $site_url; }
-						$video->youtube_url .= $mediatext->onclick;
-					}
-					else
-					{
-						$video->title = $mediatext->plaintext;
-						//$video->youtube_url = "http://ocw.mit.edu" . $mediatext->href;
-						if (substr($mediatext->href,0,4) <> "http") { $link = $site_url; }
-						$link .= $mediatext->href;
-						$video_html2 = file_get_html($link);
-						if (empty($video_html2)) { /* echo "\nFailed to fetch html of $course_link"; */ }
+						if (empty($mediatext)) { echo "\nFailed to find mediatext in : ". $video_link . " of: " . $course_link ."<br />"; }
+						else if($mediatext->href == "javascript:void(0);")
+						{
+							//videos on same page, loaded with javascript
+							$video->title = $mediatext->plaintext;
+							if (substr($mediatext->onclick, 0, 4) <> "http") { $video->youtube_url = $site_url; }
+							$video->youtube_url .= $mediatext->onclick;
+							$videos[0] = $video->youtube_url;
+						}
 						else
 						{
-							//get html_url to get youtube_url
-							//$s = $video_html2->find("div[id=course_inner_media] script"); //doesn't seem to work
-							$x = $video_html2->find("div[id=course_inner_media]",-1);
-							if (empty($x)) { echo "\nFailed to find course_inner_media in html of $course_link"; }
+							$video->title = $mediatext->plaintext;
+							//$video->youtube_url = "http://ocw.mit.edu" . $mediatext->href;
+							if (substr($mediatext->href,0,4) <> "http") { $link = $site_url; }
+							$link .= $mediatext->href;
+							$video_html2 = file_get_html($link);
+							if (empty($video_html2)) { /* echo "\nFailed to fetch html of $course_link"; */ }
 							else
 							{
-								//$video->youtube_url = $x->find("script",0)->innerhtml; //for some reason this doesn't work.
-								foreach($x->find("script") as $s)
+								//get html_url to get youtube_url
+								//$s = $video_html2->find("div[id=course_inner_media] script"); //doesn't seem to work
+								$x = $video_html2->find("div[id=course_inner_media]",-1);
+								if (!empty($x))
 								{
-									if (stripos($s->innertext, "ocw_embed_media") !== false)
+									//$video->youtube_url = $x->find("script",0)->innerhtml; //for some reason this doesn't work.
+									foreach($x->find("script") as $s)
 									{
-										$f = explode(",", $s->innertext);
-										$video->youtube_url = trim($f[1], "' ");
-										break;
+										 $i = stripos($s->innertext, "ocw_embed_media");
+										 if ($i !== false)
+										 {
+											$f = explode(",", substr($s->innertext, $i));
+											$video->youtube_url = trim($f[1], "' ");
+											$videos[0] = $video->youtube_url;
+											break;
+										 }
 									}
 								}
+								$video_html2->clear();
 							}
-							//print_r($video->youtube_url);
-							$video_html2->clear();
 						}
-					}
+						
+						$videos[] = $video;
+					} //foreach mediatext
+				}//if
+			    /*
+			    // if !x course_inner_media_gallery
+				if (empty($x)) 
+				{
+					// http://ocw.mit.edu/courses/aeronautics-and-astronautics/16-660-introduction-to-lean-six-sigma-methods-january-iap-2008/videos/
+					$x = $video_html2->find("div[id=course_inner_media_gallery]",0);
+					//first div medialisting a href
+					$y = $x->find('div.medialisting a',0);
+					$video->youtube_url = $y->href;
+					$videos[0] = $video->youtube_url;
 					
-					$videos[] = $video;
 				}
+				if (empty($video->youtube_url)) { echo "\nFailed to find course_inner_media in html of: " . $link ."<br />"; }
+				else echo $video->youtube_url . "<br />";
+				//print_r($video->youtube_url);					
+				*/
+				//if no video was found,
+				// look for 'http://www.youtube.com/' in the page, grab first link
+				// but if link contains 'view_play_list' then gopen that page and grab first video<br />
+				// (eg. http://ocw.mit.edu/courses/chemistry/5-74-introductory-quantum-mechanics-ii-spring-2004/video-lectures/)
+				// if still no video, find a .mp4  (or .mp3) in the page
+				// (eg. http://ocw.mit.edu/courses/architecture/4-301-introduction-to-the-visual-arts-spring-2007/lecture-notes/)
+				// if still no video look for .rm	
+				
 				$video_html->clear();
 			}
-			//end of extracting all videos
+			// echo  "videolink: " . $video->youtube_url . "<br />";
+			// echo  "videolink: " . $videos[0] . "<br />";
+			// end of extracting all videos
 			break;
 		}
-	}
-	
+	 }
+
 //	echo $title.'|'.$category.'|'.$course_link.'|'.$course_image.'|'.$professor_name.'|'.$video_link.'|'.$videos[0]->title.'|'.$videos[0]->youtube_url.'<br>';
 	$default_prof_image = 'images/avatar_placeholder.jpg';
  	$default_course_image = 'images/course_image_placeholder.jpg';
