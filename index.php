@@ -33,9 +33,15 @@ if($_GET['do'] == "search")
 	// echo "<pre>"; //for nice indented formatting of print_r
 	// print_r($courses);
 	// echo "</pre>";
-
+}
+else
+{
+	$queryString = 'SELECT d.id, d.title, d.short_desc, 
+				d.course_link, d.video_link, d.course_length, d.course_image, 
+				d.category, d.start_date, d.site FROM course_data d LIMIT 20';
+	$results = fetchAll($queryString);
+}
 ?>
-
 <!DOCTYPE html>   
 <html>
 <head>
@@ -154,72 +160,3 @@ foreach ($results as $aCourse)
 <?php include("template/footer.php"); ?>
 </body>
 </html>
-
-
-
-<?php
-}
-else // This is the homepage. We are not performing a search so get the data.
-{
-	//$queryString = 'SELECT d.id, d.title, d.short_desc, 
-	//			d.course_link, d.video_link, d.course_length, d.course_image, 
-	//			d.category, d.start_date, d.site FROM course_data d LIMIT 20';
-	//$results = fetchAll($queryString);
-	?>
-
-<!DOCTYPE html>   
-<html>
-<head>
-
-
-<title>MOOCS mashup | MIT + SEE | CS 160 Team 3</title>
-<meta charset="utf-8" />
-<script  type="text/javascript" src="includes/js/sorttable.js"></script>
-
-<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
-
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
-
-<!-- <script src="http://code.jquery.com/jquery-1.9.1.js"></script> 
- -->
-
-<!-- Has to be after jquery.min.js? hmm -->
-<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
-
-<link rel="stylesheet" href="template/style.css" />	
-</head>
-<body>
-
-<script type="text/javascript">
-function open_video(url)
-{
-    //myWindow = window.open(url, "", "width=1000,height=820");	
-		var specs = 'toolbar=yes,location=yes,directories=no,status=no,menubar=no,scrollbars=yes, width=1000px,height=820px,resizeable=yes,copyhistory=yes';	
-		
-		var myWin = window.open(url,"_blank",specs);		
-		myWin.focus(); 
-		
-}
-
-</script>
-<table class="sortable">
-    <div class="ui-widget" id="searchBox">
-        <form id="search" action="index.php" method="get">
-        <input type="hidden" name="do" value="search"/>
-        <label for="tags"></label>
-        <input name="q" id="tags" autofocus />
-        <script>
-        if (!("autofocus" in document.createElement("input"))) {
-         document.getElementById("tags").focus();
-        }
-        </script>
-        <input class="searchSubmit" type="submit" value=""/>
-        </form>
-    </div>
-</tbody></table>
-<?php include("template/footer.php"); ?>
-</body>
-</html>
-<?php
-}
-?>
