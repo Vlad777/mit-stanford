@@ -104,7 +104,7 @@ foreach($array as $course_link)
             //$short_desc = trim($shortdescrip->plaintext);
 			$short_desc = explode('.',$shortdescrip);
 			$short_desc = $short_desc[0].'.';
-			echo $short_desc . " ";
+			//echo $short_desc . " ";
         }
     echo "<b>". $title . "</b> " . $long_desc ."<br />";
 	//grabs professors from courseURL
