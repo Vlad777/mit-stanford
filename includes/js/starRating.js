@@ -20,7 +20,7 @@ $(document).ready(function(){
         fetch: 1
     };
     $.post(
-        'ratings.php',
+        'rating.php',
         out_data,
         function(INFO) {
             $(widget).data( 'fsr', INFO );
@@ -28,8 +28,39 @@ $(document).ready(function(){
         },
         'json'
     );
-});
+    });
+
+    $('.ratings_stars').bind('click', function() {
+            var star = this;
+            var widget = $(this).parent();
+            
+            var clicked_data = {
+                clicked_on : $(star).attr('class'),
+                widget_id : widget.attr('id')
+            };
+            $.post(
+                'rating.php',
+                clicked_data,
+                function(INFO) {
+                    widget.data( 'fsr', INFO );
+                    set_votes(widget);
+                },
+                'json'
+            ); 
+        }); 
     
 
 });
+
+
+function set_votes(widget) {
+
+    var avg = $(widget).data('fsr').avg;
+
+    $(widget).find('.star_' + avg).prevAll().andSelf().addClass('ratings_vote');
+    $(widget).find('.star_' + avg).nextAll().removeClass('ratings_vote');
+    $(widget).find('.total_votes').text( avg);
+    //$(widget).find('.total_votes').text( votes + ' votes recorded (' + exact + ' rating)' );
+}
+    
 

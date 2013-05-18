@@ -1,69 +1,50 @@
 <?php
 
 	require_once('pdo_connect.php');
-	include("includes/function_user.php");	
 
 	$rating = new ratings($_POST['widget_id']);
 
-	isset($_POST['fetch']) ? $rating->get_ratings() : $rating->vote();
+	isset($_POST['fetch']) ? $rating->get_ratings($dbh) : $rating->get_ratings($dbh);
 
+class ratings{
+	private $class_id;
 
-
-
-	class ratings{
-	private $widget_id;
-	private $avg_rating;
-	private $exists;
-
-	function__construct($classID){
-		$this->widget_id = $classID;
-		//i think i can make the query here
-
-		$query = $dbh->prepare("SELECT * FROM review_course where courseID = ?");
-		$query->execute(array($classID));
-
-		if($query->rowCount() < 1){
-			$exists = 0;
-		}
-		else{
-			$exists = 1;
-		}
-		
-
+	function __construct($classID){
+		$this->class_id = $classID;
 	}
 
-	public function get_ratings(){
+	public function get_ratings($dbh){
 
-		if($exists){
-			$queryString = 'SELECT AVG(starRating) d FROM review_course ON courseID = $classID';
+		$results = $dbh->prepare('SELECT * FROM review_course where courseID ='.$this->class_id);
+		$results->execute();
+
+		if($results->rowCount() > 0){
+
+			$queryString = 'SELECT AVG(starRating) d FROM review_course where courseID ='. $this->class_id;
 			$results = fetchAll($queryString);
-			$this->avg_rating = $results[0]['d'];
-			echo ($this->avg_rating);
+			$this->avg_rating = round($results[0]['d']);
+			$average = array('avg' => $this->avg_rating);
+			echo json_encode($average);
 		}
-		else{
-			echo ($exists);
-		}
-
-
-
 	}
 
-	public function vote(){
+	/*public function vote(){
 		preg_match('/star_([1-5]{1})/', $_POST['clicked_on'], $match);
         $vote = $match[1];
 
-        $ID = $this->widget_id;
         # Update the record if it exists
         if($exists) {
-        	$insertValue = $dbh->prepare("INSERT INTO review_course VALUES (?, ?, ?, ?)");
-	 		$insertValue->execute(array($_SESSION["userid"],$this->widgetid,$vote,"awesome"));
+        	$insertValue = $dbh->prepare("UPDATE `review_course` SET `starRating`= ? where userID= ?");
+	 		$insertValue->execute(array($vote,$_SESSION["userid"]);
         }
         # Create a new one if it does not
         else {
         	$insertValue = $dbh->prepare("INSERT INTO review_course VALUES (?, ?, ?, ?)");
 	 		$insertValue->execute(array($_SESSION["userid"],$this->widgetid,$vote,"awesome"));
         }
-	}
 
-	}
+        this->get_ratings();
+	}*/
+
+}
 ?>
