@@ -33,141 +33,15 @@ if($_GET['do'] == "search")
 	// echo "<pre>"; //for nice indented formatting of print_r
 	// print_r($courses);
 	// echo "</pre>";
-
-?>
-
-<!DOCTYPE html>   
-<html>
-<head>
-
-
-<title>MOOCS mashup | MIT + SEE | CS 160 Team 3</title>
-<meta charset="utf-8" />
-<script  type="text/javascript" src="includes/js/sorttable.js"></script>
-
-<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
-
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
-
-<!-- <script src="http://code.jquery.com/jquery-1.9.1.js"></script> 
- -->
-
-<!-- Has to be after jquery.min.js? hmm -->
-<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
-
-<link rel="stylesheet" href="template/style.css" />	
-
-
-<script>
-$(function() {
-var availableTags = [
-
-
-<?php
-function sub($arr)
-{
-  return $arr[0];
 }
-require_once('pdo_connect.php');
-$array = fetchAll("SELECT concat(concat(concat(word, ' ('), course_count), ')') as word FROM autocomplete ORDER BY course_count DESC");
-//print_r(implode(array_map("sub", $array)));
-echo '"' . implode('","', array_map("sub", $array)) . '"';
-?>
-
-
-];
-$( "#tags" ).autocomplete({
-source: availableTags,
-select: function(event, ui) { ui.item.value = ui.item.value.split(" (")[0]; }
-});
-});
-</script>
-
-</head>
-<body>
-
-<script type="text/javascript">
-function open_video(url)
-{
-    //myWindow = window.open(url, "", "width=1000,height=820");	
-		var specs = 'toolbar=yes,location=yes,directories=no,status=no,menubar=no,scrollbars=yes, width=1000px,height=820px,resizeable=yes,copyhistory=yes';	
-		
-		var myWin = window.open(url,"_blank",specs);		
-		myWin.focus(); 
-		
-}
-
-</script>
-<?php include("template/header.php"); ?>
-<?php include("includes/linkToRateMyProfessor.php"); ?>
-<table class="sortable">
-<?php
-//teable headers 
-echo '<thead><tr><th class="courseid">id</th><th class="courselink">Title(link to course)</th>
-          <th class="category">Category</th>
-		  <th class="coursedesc">Short Description</th><th class="profimage">Instructor</th>
-		  <th class="videolink"> Course Image (link to lecture video)</th>
-		  <th class="courselength" >Course Length</th><th>Start Date</th><th>Site</th><th>Comments</th></tr></thead><tbody>';
-$counter = 0;
-foreach ($results as $aCourse)
-{
-    $profs = fetchAll( 'SELECT p.profname, p.profimage FROM coursedetails p
-						WHERE p.id = '.$aCourse["id"]);
-    echo '<tr class="a'.($counter++)%2 .'">';
-	echo '<td class="courseid">'. $aCourse['id'] .'</td>';
-	echo '<td class="courselink"><a href="'.$aCourse['course_link'].'"  
-								    target="_blank">'. $aCourse['title'] .'</a></td>';
-	echo '<td class="category">'. $aCourse['category'].'</td>';
-	// max size of description to 400 chars
-	$short_desc = substr($aCourse['short_desc'],0, 400);
-	// if short description is empty or only spaces:
-	// get some description from long description 
-	if (strlen(trim($short_desc)) == 0 )
-	{
-	 	$short_desc = substr($aCourse['long_desc'],0, 400);
-	}
-	//explode it to trim it to a full sentence
-	$descr_array = explode ( '.' , $short_desc, -1 );
-	if ( count($descr_array) > 1)
-	{
-		$short_desc = implode ('.', $descr_array );
-		$short_desc = $short_desc . '.';
-	}	
-	echo '<td class="coursedesc">'. $short_desc .'</td>';
-	echo '<td class="profimage"><img src="'.$profs[0]['profimage'].'" alt="prof image" /><br />'. $profs[0]['profname'];
- 	echo '<br />'; 
- 	linkToRateMyProfessor($profs[0]['profname'], $aCourse['site']);
- 	echo '</td>';
-	echo '<td class="videolink">'. '<a title="link to course video" 
-									onclick="open_video(\''.$aCourse['video_link'].'\');return false;"  
-									href="'.$aCourse['video_link'].'" target="_blank">
-									<img src="'.$aCourse['course_image'].'" alt="link to video" />
-									<br />Link to Course Video</a></td>';
-	echo '<td class="courselength">'.$aCourse['course_length'].' Weeks</td>';
-	echo '<td class="startdate">'. $aCourse['start_date'].'</td>';
-	echo '<td class="site">'. $aCourse['site'] .'</td>';
-	echo '<td class="site"><a href=javascript:window.open(\'comment.php?id='.$aCourse['id'].'\',\'Comment\',\'width=300,height=500\')>Comments</a></td>';
-	echo '</tr>';
-}
-
-?>
-</tbody></table>
-<?php include("template/footer.php"); ?>
-</body>
-</html>
-
-
-
-<?php
-}
-else // This is the homepage. We are not performing a search so get the data.
+else
 {
 	$queryString = 'SELECT d.id, d.title, d.short_desc, 
 				d.course_link, d.video_link, d.course_length, d.course_image, 
 				d.category, d.start_date, d.site FROM course_data d LIMIT 20';
 	$results = fetchAll($queryString);
-	?>
-
+}
+?>
 <!DOCTYPE html>   
 <html>
 <head>
@@ -279,6 +153,7 @@ foreach ($results as $aCourse)
 	echo '<td class="startdate">'. $aCourse['start_date'].'</td>';
 	echo '<td class="site">'. $aCourse['site'] .'</td>';
 	echo '<td class="site"><a href=javascript:window.open(\'comment.php?id='.$aCourse['id'].'\',\'Comment\',\'width=300,height=500\')>Comments</a></td>';
+
 	echo '</tr>';
 }
 
@@ -287,8 +162,3 @@ foreach ($results as $aCourse)
 <?php include("template/footer.php"); ?>
 </body>
 </html>
-
-
-<?php
-}
-?>
