@@ -10,7 +10,7 @@
 <?php include("template/header.php"); ?>
 
 <div style="border: 2px solid green ;">
-<div style="margin-left:60px;margin-right:60px;"><div style="font-size:18px;"><b>Privacy</b></div><br />
+<div style="margin-left:60px;margin-right:60px;"><div style="font-size:20px;"><b>Privacy</b></div><br />
   <div style="text-indent:20px;">MOOCS4U OpenCourseWare respects your privacy. We do not collect personally identifiable information about you unless you voluntarily provide it, such as when you provide email contact information to subscribe to the OCW newsletter, send feedback to OCW, or respond to a survey. If you voluntarily provide your email address or other contact information, we might also use it to inform you of changes to OCW, to survey you about your use or opinion of OCW, or to ask for your support. At your request, we will remove your contact information from our files.</div><br />
 	
 	<div style="text-indent:20px;">We do not make your contact information or any other personally identifiable information available to anyone outside OCW or its service providers (who use the information only for authorized OCW purposes) unless we are legally required to do so.</div><br />
@@ -27,13 +27,13 @@
 
 <div style="margin-left:60px;margin-right:60px;"><div style="font-size:18px;"><b>Creative Commons License</b></div><br />
 	<b>You are free:</b><br />
-	<img src="images/share.png" />to Share — to copy, distribute, display, and perform the work<br />
-	<img src="images/remix.png" />to Remix — to make derivative works<br />
+	<img src="images/share.png" width="35" height="35" align="absmiddle" hspace="5" border="0" />to Share — to copy, distribute, display, and perform the work<br />
+	<img src="images/remix.png" width="35" height="35" align="absmiddle" hspace="5" border="0" />to Remix — to make derivative works<br />
 	<br />
 	<b>Under the following conditions:</b><br />
-	<img src="images/by.png">Attribution. You must attribute the work in the manner specified by the author or licensor (but not in any way that suggests that they endorse you or your use of the work).</img><br />
-	<img src="images/nc.png">Noncommercial. You may not use this work for commercial purposes.</img></br />
-	<img src="images/sa.png">Share Alike. If you alter, transform, or build upon this work, you may distribute the resulting work only under the same or similar license to this one.</img><br />
+	<img src="images/by.png" width="35" height="35" align="absmiddle" hspace="5" border="0" />Attribution. You must attribute the work in the manner specified by the author or licensor (but not in any way that suggests that they endorse you or your use of the work).<br />
+	<img src="images/nc.png" width="35" height="35" align="absmiddle" hspace="5" border="0" />Noncommercial. You may not use this work for commercial purposes.</br />
+	<img src="images/sa.png" width="35" height="35" align="absmiddle" hspace="5" border="0" />Share Alike. If you alter, transform, or build upon this work, you may distribute the resulting work only under the same or similar license to this one.<br />
 	<ul>
 	<li>For any reuse or distribution, you must make clear to others the license terms of this work. The best way to do this is with a link to this web page.</li>
 	<li>Any of the above conditions can be waived if you get permission from the copyright holder.</li>
