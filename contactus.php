@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Privacy and Policy</title>
@@ -20,12 +20,14 @@
 		Report a problem with this website<br /><br />
 		
 		<b>Contact Information:</b><br />
+                
 		<div style="text-indent:20px;">Mooc4u</div>
 		<div style="text-indent:20px;">Group: Three Tree</div>
 		<div style="text-indent:20px;">San Jose Sate University</div>
 		<div style="text-indent:20px;">One Washington Square</div>
 		<div style="text-indent:20px;">San Jose, CA 95192</div>
 		<div style="text-indent:20px;">408-924-1000</div>
+                <div styte ="text-indent:20px;">moocs4u@gmail.com</div>
 			
 		<br />
   	</div>
