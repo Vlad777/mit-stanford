@@ -6,15 +6,15 @@
     height:     32px;
 }
 .ratings_stars {
-    background: url('http://i.imgur.com/HMP4mpP.png') no-repeat;
+    background: url('../images/star_empty.png') no-repeat;
     float:      left;
     height:     28px;
     padding:    2px;
     width:      32px;
 }
 .ratings_vote {
-    background: url('http://i.imgur.com/6safOQ0.png') no-repeat;
+    background: url('../images/star_highlight.png') no-repeat;
 }
 .ratings_over {
-    background: url('http://i.imgur.com/2NLlWbv.png') no-repeat;
+    background: url('../images/star_full.png') no-repeat;
 }

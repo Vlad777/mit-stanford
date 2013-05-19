@@ -38,7 +38,7 @@ else
 {
 	$queryString = 'SELECT d.id, d.title, d.short_desc, 
 				d.course_link, d.video_link, d.course_length, d.course_image, 
-				d.category, d.start_date, d.site FROM course_data d LIMIT 20';
+				d.category, d.start_date, d.site FROM course_data d LIMIT 10';
 	$results = fetchAll($queryString);
 }
 ?>
@@ -54,6 +54,10 @@ else
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+
+
+<link rel="stylesheet" href="template/starRating.css"/>
+<script type="text/javascript" src="includes/js/starRating.js"></script>
 
 <!-- <script src="http://code.jquery.com/jquery-1.9.1.js"></script> 
  -->
@@ -113,7 +117,9 @@ echo '<thead><tr>
 		  <th class="courseid">id</th>
 		  <th class="courselink">Title(link to course)</th>
           <th class="category">Category</th>
-		  <th class="coursedesc">Short Description</th><th class="profimage">Instructor</th>
+          <th class="starRating">Rating</th>
+		  <th class="coursedesc">Short Description</th>
+		  <th class="profimage">Instructor</th>
 		  <th class="videolink"> Course Image (link to lecture video)</th>
 		  <th class="courselength" >Course Length</th>
 		  <th>Start Date</th>
@@ -144,7 +150,18 @@ foreach ($results as $aCourse)
 	{
 		$short_desc = implode ('.', $descr_array );
 		$short_desc = $short_desc . '.';
-	}	
+	}
+	echo '<td class="starRating">';
+ 	echo '<div id="'.$aCourse["id"].'" class="rate_widget">';
+	echo '<div class="star_1 ratings_stars"></div>';
+	echo '<div class="star_2 ratings_stars"></div>';
+	echo '<div class="star_3 ratings_stars"></div>';
+	echo '<div class="star_4 ratings_stars"></div>';
+	echo '<div class="star_5 ratings_stars"></div>';
+	echo '<div class="total_votes">vote data</div>';
+	echo '</div>';
+ 	echo '</div>'.'</td>';
+
 	echo '<td class="coursedesc">'. $short_desc .'</td>';
 	echo '<td class="profimage"><img src="'.$profs[0]['profimage'].'" alt="prof image" /><br />'. $profs[0]['profname'];
  	echo '<br />'; 

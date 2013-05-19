@@ -1,6 +1,6 @@
 <?php
 /****************************************
-*   rating.php
+*   account.php
 *	Retrieve courses data from database added by user
 *	and display in a sortable table
 *	Team 3 @ SJSU CS160 Spring 2013
@@ -116,7 +116,6 @@ echo '<thead><tr>
           <th class="category">Category</th>
 		  <th class="profimage">Instructor</th>
 		  <th class="starRating">Stars</th>
-		  <th class="comments">Comments</th>
 		  </tr></thead><tbody>';
 $counter = 0;
 
@@ -150,7 +149,6 @@ foreach ($results as $aCourse)
 	echo '<div class="total_votes">vote data</div>';
 	echo '</div>';
  	echo '</div>'.'</td>';
- 	echo '<td class="Commnents">'.$aCourse['comments'].'</td>';
 	echo '</tr>';
 
 }

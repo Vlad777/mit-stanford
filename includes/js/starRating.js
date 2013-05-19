@@ -17,7 +17,7 @@ $(document).ready(function(){
     var widget = this;
     var out_data = {
         widget_id : $(widget).attr('id'),
-        fetch: 1
+        fetch : 1
     };
     $.post(
         'rating.php',
@@ -56,10 +56,11 @@ $(document).ready(function(){
 function set_votes(widget) {
 
     var avg = $(widget).data('fsr').avg;
+    var total_votes = $(widget).data('fsr').total_votes;
 
     $(widget).find('.star_' + avg).prevAll().andSelf().addClass('ratings_vote');
     $(widget).find('.star_' + avg).nextAll().removeClass('ratings_vote');
-    $(widget).find('.total_votes').text( avg);
+    $(widget).find('.total_votes').text("Average: " + avg + ' Total: ' + total_votes );
     //$(widget).find('.total_votes').text( votes + ' votes recorded (' + exact + ' rating)' );
 }
     
