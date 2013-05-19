@@ -2,19 +2,19 @@
     overflow:   visible;
     padding:    10px;
     position:   relative;
-    width:      180px;
+      /* width:      180px; */
     height:     32px;
 }
 .ratings_stars {
-    background: url('../images/star_empty.png') no-repeat;
+    background: url('../images/star.gif')0 0px;
     float:      left;
-    height:     28px;
+    height:     12px;
     padding:    2px;
-    width:      32px;
+    width:      12px;
 }
 .ratings_vote {
-    background: url('../images/star_highlight.png') no-repeat;
+    background: url('../images/star.gif') 0 16px;
 }
 .ratings_over {
-    background: url('../images/star_full.png') no-repeat;
+    background: url('../images/star.gif') 0 32px;
 }

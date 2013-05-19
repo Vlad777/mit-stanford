@@ -6,90 +6,84 @@
 *	Team 3 @ SJSU CS160 Spring 2013
 *	MIT + SEE moocs mashup
 ****************************************/
-//require_once('connection.php');
 require_once('pdo_connect.php');
 include("includes/function_user.php");	
 
-if($_GET['do'] == "search")
+if(isset($_GET['do']) && $_GET['do'] == "search")
 {
-    //This should really be implemented using Zend/Lucene indexing engine
-
-	//Using MATCH FULLTEXT indexing requires table to be MyISAM, not INNODB!!
-	//this matches only the words searched, not partial strings
-	//$qrm = $dbh->prepare("SELECT * FROM course_data WHERE MATCH(title,long_desc,category) AGAINST (?)");
-	//$qrm->execute(array($_POST["q"]));
-
-	//this allows partial word matches by using BOOLEAN MODE... if we want this? actually slower than using LIKE '%keyword%'
-    //$qrm = $dbh->prepare("SELECT * FROM course_data WHERE MATCH(title,long_desc,category) AGAINST (? in BOOLEAN MODE)");
-	//$qrm->execute(array('*' . $_POST["q"] . '*'));
-
-	//Using LIKE with % at the beginning and with ORs is NOT SCALABLE
-	//The problem here is that this would return more results than the autocomplete label shows, since autocomplete is based on words, not substrings of words
-	//At least this should work with INNODB as well as MyISAM for now...
-	$qrm = $dbh->prepare("SELECT * FROM course_data WHERE title LIKE ? OR long_desc LIKE ? OR category LIKE ?");
+    $qrm = $dbh->prepare("SELECT * FROM course_data WHERE title LIKE ? OR long_desc LIKE ? OR category LIKE ?");
 	$qrm->execute(array('%' . $_GET["q"] . '%', '%' . $_GET["q"] . '%', '%' . $_GET["q"] . '%'));
-
 	$results = $qrm->fetchAll();
 	// echo "<pre>"; //for nice indented formatting of print_r
 	// print_r($courses);
 	// echo "</pre>";
+	$tableTitle = "Courses matching your search: " . $_GET["q"];
 }
 else
 {
 	$queryString = 'SELECT d.id, d.title, d.short_desc, 
 				d.course_link, d.video_link, d.course_length, d.course_image, 
-				d.category, d.start_date, d.site FROM course_data d LIMIT 10';
+				d.category, d.start_date, d.site FROM course_data d LIMIT 20';
 	$results = fetchAll($queryString);
+	
+	$tableTitle = "Most popular courses:";
 }
 ?>
 <!DOCTYPE html>   
 <html>
 <head>
 
-
 <title>MOOCS mashup | MIT + SEE | CS 160 Team 3</title>
 <meta charset="utf-8" />
-<script  type="text/javascript" src="includes/js/sorttable.js"></script>
-
+<!-- <script  type="text/javascript" src="includes/js/sorttable.js"></script> -->
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
-
+      
 <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
-
+<!-- jquery-ui.js MUST be loaded after jquery.min.js -->
+<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+<link rel="stylesheet" href="template/style.css" />	
+<link rel="stylesheet" href="template/demo_table.css" />	
 
 <link rel="stylesheet" href="template/starRating.css"/>
-<script type="text/javascript" src="includes/js/starRating.js"></script>
+<script type="text/javascript" src="includes/js/starRating.js"></script> 
 
-<!-- <script src="http://code.jquery.com/jquery-1.9.1.js"></script> 
- -->
-
-<!-- Has to be after jquery.min.js? hmm -->
-<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
-
-<link rel="stylesheet" href="template/style.css" />	
-
+<script type="text/javascript" language="javascript" src="includes/js/jquery.dataTables.js"></script>
+	<script type="text/javascript" charset="utf-8">
+		$(document).ready(function() {		
+			 $('#dataTable').dataTable( {
+      			  "sPaginationType": "full_numbers"
+   			 } );
+			 $('#dataTable').show();
+			 $('.loadingMessage').hide();
+			 $('.tableTitle').show();
+			
+		} );
+		//global popups z-index
+		var highest = 1;
+	</script>
 
 <script>
+/* ********************************* 
+* Loads list of autocompletion tags
+************************************ */
 $(function() {
-var availableTags = [
-
-
-<?php
-function sub($arr)
-{
-  return $arr[0];
-}
-require_once('pdo_connect.php');
-$array = fetchAll("SELECT concat(concat(concat(word, ' ('), course_count), ')') as word FROM autocomplete ORDER BY course_count DESC");
-//print_r(implode(array_map("sub", $array)));
-echo '"' . implode('","', array_map("sub", $array)) . '"';
-?>
-
-
-];
-$( "#tags" ).autocomplete({
-source: availableTags,
-select: function(event, ui) { ui.item.value = ui.item.value.split(" (")[0]; }
-});
+	var availableTags = [	
+		<?php
+		function sub($arr)
+		{
+		  return $arr[0];
+		}
+		require_once('pdo_connect.php');
+		$array = fetchAll("SELECT concat(concat(concat(word, ' ('), course_count), ')') 
+							as word FROM autocomplete ORDER BY course_count DESC");
+		//print_r(implode(array_map("sub", $array)));
+		echo '"' . implode('","', array_map("sub", $array)) . '"';
+		?>	
+	];
+	$( "#tags" ).autocomplete({
+	source: availableTags,
+	select: function(event, ui) { ui.item.value = ui.item.value.split(" (")[0]; }
+	});
 });
 </script>
 
@@ -97,85 +91,68 @@ select: function(event, ui) { ui.item.value = ui.item.value.split(" (")[0]; }
 <body>
 
 <script type="text/javascript">
-function open_video(url)
-{
-    //myWindow = window.open(url, "", "width=1000,height=820");	
-		var specs = 'toolbar=yes,location=yes,directories=no,status=no,menubar=no,scrollbars=yes, width=1000px,height=820px,resizeable=yes,copyhistory=yes';	
-		
+	function open_video(url)
+	{
+		var specs = 'toolbar=yes,location=yes,directories=no,status=no,menubar=no,scrollbars=yes,';
+		    specs += 'width=850px,height=640px,resizeable=yes,copyhistory=yes';	
 		var myWin = window.open(url,"_blank",specs);		
-		myWin.focus(); 
-		
-}
-
+		myWin.focus(); 		
+	}
+	function show_details()
+	{
+	
+		//show/hide the <div class="course-info"> of this tr
+		alert(this);
+		$(this).find("div.course-info").toggle();
+	}
 </script>
 <?php include("template/header.php"); ?>
 <?php include("includes/linkToRateMyProfessor.php"); ?>
-<table class="sortable">
+
+<div class="loadingMessage">
+    <img src="images/spinner.gif" alt="loading">
+	<h2 class="loadingMessage">Loading Online Courses 
+    <? if(isset($_GET['do']) && $_GET['do'] == "search")  {	?>
+		matching: <? echo $_GET["q"];  ?>
+	<? } ?></h2>
+</div>
+
+<div class="tableTitle" style="display:none;">
+	<h2 class="tableTitle"><? echo $tableTitle; ?></h2>
+</div>
+<table class="sortable" id="dataTable" style="display:none;">
 <?php
-//teable headers 
+//table headers 
 echo '<thead><tr>
 		  <th class="courseid">id</th>
 		  <th class="courselink">Title</th>
           <th class="category">Category</th>
-          <th class="starRating">Rating</th>
-		  <th class="coursedesc">Short Description</th>
-		  <th class="profimage">Instructor</th>
-		  <th class="videolink"> Course Image (link to lecture video)</th>
-		  <th class="courselength" >Course Length</th>
-		  <th>Start Date</th>
-		  <th>Site</th>
-		  <th>Add Class</th>
+		  <th class="starRating">Rating</th> 
 		  </tr></thead><tbody>';
-$counter = 0;
+
 foreach ($results as $aCourse)
 {
     $profs = fetchAll( 'SELECT p.profname, p.profimage FROM coursedetails p
 						WHERE p.id = '.$aCourse["id"]);
-    echo '<tr class="a'.($counter++)%2 .'">';
+    //echo '<tr onclick="show_details(this);">';
+	?>
+	<!-- <tr onclick="$('#course-info-<? echo $aCourse['id'] ?>').toggle('slow');$(this).bringToTop();"> -->
+    <tr onClick="$('#course-info-<? echo $aCourse['id'] ?>').openPopup();">
+	<?
 	echo '<td class="courseid">'. $aCourse['id'] .'</td>';
-	echo '<td class="courselink"><a href="'.$aCourse['course_link'].'"  
-								    target="_blank">'. $aCourse['title'] .'</a></td>';
-	echo '<td class="category">'. $aCourse['category'].'</td>';
-	// max size of description to 400 chars
-	$short_desc = substr($aCourse['short_desc'],0, 400);
-	// if short description is empty or only spaces:
-	// get some description from long description 
-	if (strlen(trim($short_desc)) == 0 )
-	{
-	 	$short_desc = substr($aCourse['long_desc'],0, 400);
-	}
-	//explode it to trim it to a full sentence
-	$descr_array = explode ( '.' , $short_desc, -1 );
-	if ( count($descr_array) > 1)
-	{
-		$short_desc = implode ('.', $descr_array );
-		$short_desc = $short_desc . '.';
-	}
-	echo '<td class="starRating">';
- 	echo '<div id="'.$aCourse["id"].'" class="rate_widget">';
+	echo '<td class="courselink">'. $aCourse['title'] .'</td>';
+	echo '<td class="category">'. $aCourse['category'].'</td>';	
+	echo '<td class="starRating">';   
+    echo '<div id="'.$aCourse["id"].'" class="rate_widget">';
 	echo '<div class="star_1 ratings_stars"></div>';
 	echo '<div class="star_2 ratings_stars"></div>';
 	echo '<div class="star_3 ratings_stars"></div>';
 	echo '<div class="star_4 ratings_stars"></div>';
 	echo '<div class="star_5 ratings_stars"></div>';
 	echo '<div class="total_votes">vote data</div>';
-	echo '</div>';
- 	echo '</div>'.'</td>';
-
-	echo '<td class="coursedesc">'. $short_desc .'</td>';
-	echo '<td class="profimage"><img src="'.$profs[0]['profimage'].'" alt="prof image" /><br />'. $profs[0]['profname'];
- 	echo '<br />'; 
- 	linkToRateMyProfessor($profs[0]['profname'], $aCourse['site']);
- 	echo '</td>';
-	echo '<td class="videolink">'. '<a title="link to course video" 
-									onclick="open_video(\''.$aCourse['video_link'].'\');return false;"  
-									href="'.$aCourse['video_link'].'" target="_blank">
-									<img src="'.$aCourse['course_image'].'" alt="link to video" />
-									<br />Link to Course Video</a></td>';
-	echo '<td class="courselength">'.$aCourse['course_length'].' Weeks</td>';
-	echo '<td class="startdate">'. $aCourse['start_date'].'</td>';
-	echo '<td class="site">'. $aCourse['site'] .'</td>';
-	echo '<td class="addClass">'."<FORM NAME='addClass' method='post'>"."<input type='submit' name=".$aCourse['id']." value='Add Class'/>"."</FORM>".'</td>';
+	echo '</div>';  
+    echo '</div>'.'</td>';  
+	//echo '<td class="addClass">'."<FORM NAME='addClass' method='post'>"."<input type='submit' name=".$aCourse['id']." value='Add Class'/>"."</FORM>".'</td>';	
 	echo '</tr>';
 
 	//add class button
@@ -193,13 +170,88 @@ foreach ($results as $aCourse)
 		 else{
 		 	echo ("Class already taken!");
 		 }
-
 	}
-
 }
 
 ?>
 </tbody></table>
+<?
+foreach ($results as $aCourse)
+{
+    $profs = fetchAll( 'SELECT p.profname, p.profimage FROM coursedetails p
+						WHERE p.id = '.$aCourse["id"]);
+                        
+	$short_desc = substr($aCourse['short_desc'],0, 400);
+	if (strlen(trim($short_desc)) == 0 )
+		 	$short_desc = substr($aCourse['long_desc'],0, 400);	
+	$descr_array = explode ( '.' , $short_desc, -1 );
+	if ( count($descr_array) > 1)	
+		$short_desc = implode ('.', $descr_array ) . '.';
+	?>
+                        
+<div class="popup course-info" id="course-info-<? echo $aCourse['id'] ?>">
+	<a class="closebutton" onClick="$('#course-info-<? echo $aCourse['id'] ?>').fadeOut();" alt="close" title="close"></a>
+ 	<div class="info-content-box">
+    <h2><? echo $aCourse['title']; ?></h2>
+    <div class="course_info">
+     	<b>Category: </b><? echo  $aCourse['category']; ?>.
+        <b>From: </b><? echo  $aCourse['site']; ?>.<br />
+     </div>
+     <div class="course_image">
+    <a title="link to course video" onClick="open_video('<? echo $aCourse['video_link']; ?>');return false;"  
+									href="<? echo $aCourse['video_link']; ?>" target="_blank">
+									<img src="<? echo $aCourse['course_image']; ?>" alt="link to video" />	</a>								
+     </div>
+     
+     <div class="course_description">
+     	<? echo $short_desc; ?> <br />
+     </div>
+     <div class="course_data">
+        <b>Instructor: </b><img src="'.$profs[0]['profimage'].'" alt="prof image" /><br /><? echo $profs[0]['profname']; ?>
+ 	      <br /><? 	linkToRateMyProfessor($profs[0]['profname'], $aCourse['site']); ?> <br />
+        <b>Duration: </b><? echo $aCourse['course_length']; ?> weeks.<br />
+        <a href="<? echo $aCourse['course_link']; ?>"  target="_blank">Link to Course</a>
+        
+        <div id="<? echo $aCourse["id"] ?>" class="rate_widget">
+        <div class="star_1 ratings_stars"></div>
+        <div class="star_2 ratings_stars"></div>
+        <div class="star_3 ratings_stars"></div>
+        <div class="star_4 ratings_stars"></div>
+        <div class="star_5 ratings_stars"></div>
+        <div class="total_votes">vote data</div>
+        </div>
+    
+     </div>
+       <?                             
+    	//echo '<td class="startdate">'. $aCourse['start_date'].'</td>';
+    ?>
+    </div>  <!-- info content box -->
+</div> <!-- //popup course info -->
+	 <script>
+		$(function() {
+			$( "#course-info-<? echo $aCourse['id'] ?>" ).draggable();
+			$( "#course-info-<? echo $aCourse['id'] ?>" ).click(function() {
+					$(this).bringToTop();
+			});
+		});
+		
+		(function() {	
+			$.fn.bringToTop = function() {
+				this.css('z-index', ++highest); // increase highest by 1 and set the style
+			};
+		})();
+		
+		(function() {
+			$.fn.openPopup = function() {		
+			this.toggle('slow');
+			this.bringToTop()	
+		};
+		})();
+
+    </script>
+<? }
+
+?>
 <?php include("template/footer.php"); ?>
 </body>
 </html>

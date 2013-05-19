@@ -8,12 +8,11 @@
 /*      HEADER     */
 div#header
 {
-	/*height: 50px;*/
-	border-bottom: 1px solid #000;
+	/*height: 50px; */
+	border-bottom: 1px solid #DADCFF; 
 	display:block;
 	height:50px;	
 	position:relative;
-
 }
 
 div#header h1 {
@@ -58,7 +57,8 @@ div#searchBox
 	text-align: center;
 	margin: 0 auto;
 	position:relative;
-	width:500px;
+	width:50%;
+	min-width:160px;
 	font-size:12px;
 	background:#FFFFFF;
 	
@@ -73,11 +73,12 @@ div#searchBox form
 }
 div#searchBox input#tags
 {
-	width:400px;
+	width:80%;
 	height:25px;
 	border:1px solid #BBB;
 	outline:none;
 	padding:2px;
+	color:#999;
 }
 
 
@@ -100,7 +101,7 @@ div#login-box{
 	background:#FFFFFF;
 	position:relative;	
 	top:100px;
-	margin:0 auto;
+	margin:3px auto;
 	width:300px;
 	height:200px;
 	padding:30px;
@@ -128,9 +129,9 @@ div#login-box  input[type="submit"]:hover, input[type="reset"]:hover {
 }
 
 div.popup {
-	border: solid 20px #ededed;
+	border: solid 20px #C90;
 	padding:10px;
-	margin:0 auto;
+	margin:3px auto;
 	box-shadow: 4px 4px 2px #666; /* CSS3 */
 	-moz-border-radius: 5px;
 	border-radius: 5px;
@@ -144,10 +145,10 @@ iframe#register-frame{
 div#register-box{
 	background:#FFFFFF;
 	position:relative;		
-	top:200px;	
+	top:100px;	
 	width:400px;
 	height:300px;
-    margin:0 auto;
+    margin:3px auto;
 }
 div#register-box  div#content form {
 margin: 12px 0px 4px
@@ -217,8 +218,29 @@ div#content
 {
 	padding: 10px;
 }
+div.loadingMessage
+{
+ width:80%;	
+ margin: 30px auto 0;
+ text-align:center;
+}
 
+div.tableTitle
+{
+ width:80%;	
+ margin: 30px auto 0;
+}
+div.tableTitle h2, div.loadingMessage h2
+{
+ font-size: 18px;
+ color:#039;
+ font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;
+}
 /* Sortable tables */
+thead tr {
+	height: 40px;
+	border:solid 1px #EDEDED;
+}
 table.sortable thead {
     background-color:#eee;
     color:#666666;
@@ -227,10 +249,11 @@ table.sortable thead {
 }
 table.sortable{
 	padding: 0px;
-	margin:0px;
+	margin:0 auto;
 	border-collapse:collapse;
 	font-family:Verdana, Geneva, sans-serif;
 	font-size:12px;
+	width:100%;
 }
 table.sortable td{
 	border: solid 1px #ededed;
@@ -269,9 +292,62 @@ td.profimage img {
 td.videolink img {
 	max-height:200px;	 
 }
+
+div.course-info
+{
+    background: none repeat scroll 0 0 #FFFFFF;
+	border: 20px solid #003399;
+    display: none;
+    left: 40%;
+    position: fixed;
+    top: 30%;
+    width: 440px;
+	cursor: move;
+}
+div.course-info h2 {
+ font-size: 16px;
+ color:#039;
+ font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;
+ line-height:30px;
+ border-bottom:1px solid #039;
+}
+div.info-content-box {
+   cursor: default;
+
+}
+div.info-content-box img {
+	max-height:200px;	
+}
+
+div.course_image{
+float:left;
+margin: 2px 6px;
+
+}
+div.course_description, div.course_info, div.course_data {
+	 font-size: 12px;
+	 color:#333;
+	 font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;
+ 	 margin:6px;
+}
+
 /* FOOTER */
 
 div#footer
 {
-	border-top: 1px solid #000;
+	/* border-top: 1px solid #000; */
+	background-color: #039;
+	color:#CCC;
+	bottom: 0px;
+	position:fixed;
+	padding: 0 0 10px;
+	font-size: 12px;
+	font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;
+	width: 100%;
+}
+div#footer a{
+	color:#FFF;
+}
+div#footer a:hover{
+	color:#CFF;
 }
