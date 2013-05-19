@@ -1,8 +1,12 @@
+<?
+require_once('pdo_connect.php');
+include("includes/function_user.php");	
+?>
 <!DOCTYPE html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>Privacy and Policy</title>
-
+<title>About us | Moocs4U | CS 160 Team 3 Section 2</title>
+<link rel="stylesheet" href="template/style.css" />	
 </head>
 
 <body>
@@ -19,7 +23,7 @@
                 <div style="text-indent:20px;">We are decidated to provide you a user friendly experience that will meet the needs of all users.</div> 
                 
    	          <br/>
-		 ©2013 SJSU<br />
+		 ï¿½2013 SJSU<br />
   	</div>
 </div>
 </div>

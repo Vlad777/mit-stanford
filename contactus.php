@@ -1,8 +1,12 @@
-﻿<!DOCTYPE html>
+﻿<?
+require_once('pdo_connect.php');
+include("includes/function_user.php");	
+?>
+<!DOCTYPE html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>Privacy and Policy</title>
-
+<title>Contact us | Moocs4U | CS 160 Team 3 Section 2</title>
+<link rel="stylesheet" href="template/style.css" />	
 </head>
 
 <body>
