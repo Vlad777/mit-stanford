@@ -145,11 +145,11 @@ foreach ($results as $aCourse)
 	echo '<td class="category">'. $aCourse['category'].'</td>';	
 	echo '<td class="starRating">';   
     echo '<div id="'.$aCourse["id"].'" class="rate_widget">';
-	echo '<div class="star_1 ratings_stars"></div>';
-	echo '<div class="star_2 ratings_stars"></div>';
-	echo '<div class="star_3 ratings_stars"></div>';
-	echo '<div class="star_4 ratings_stars"></div>';
-	echo '<div class="star_5 ratings_stars"></div>';
+	echo '<div class="star_1 ratings_stars_static"></div>';
+	echo '<div class="star_2 ratings_stars_static"></div>';
+	echo '<div class="star_3 ratings_stars_static"></div>';
+	echo '<div class="star_4 ratings_stars_static"></div>';
+	echo '<div class="star_5 ratings_stars_static"></div>';
 	echo '<div class="total_votes">vote data</div>';
 	echo '</div>';  
     echo '</div>'.'</td>';  
@@ -223,7 +223,7 @@ foreach ($results as $aCourse)
               <div class="star_3 ratings_stars"></div>
               <div class="star_4 ratings_stars"></div>
               <div class="star_5 ratings_stars"></div>
-              <div class="total_votes">vote data</div>
+              <div class="total_votes">No Votes!</div>
           </div>
      </div> <!-- //course data -->
        <?                             
