@@ -33,7 +33,7 @@ else
 <html>
 <head>
 
-<title>MOOCS mashup | MIT + SEE |</title>
+<title>MOOCS mashup | Moocs4U | CS 160 Team 3 Section 2</title>
 <meta charset="utf-8" />
 <!-- <script  type="text/javascript" src="includes/js/sorttable.js"></script> -->
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
