@@ -94,25 +94,24 @@ foreach($array as $course_link)
             $long_desc = trim($longdescrip->plaintext);
 			
         }
+		
         //grabs short course description from courseURL
         $shortdescrip = $long_desc;
         if(empty($shortdescrip)) {
 			// echo "\nFailed to find course description of" . $course_link ."<br />";
 			}
-       else
-        {
+        else
+        { 
             //$short_desc = trim($shortdescrip->plaintext);
-            $short_desc = explode('.',$shortdescrip);
-            $try_short_desc = $short_desc[0].'.';           
-           
-            if (strlen($try_short_desc) < 10 )
-
-                 $short_desc = $short_desc[0].'.'.$short_desc[1].'.';           
-            else $short_desc = $short_desc[0].'.';
-          //  echo "ShortDescription: ".$short_desc . " ";
+			$short_desc = explode('.',$shortdescrip);
+			$try_short_desc = $short_desc[0].'.';			
+			
+			if (strlen($try_short_desc) < 10 )
+				 $short_desc = $short_desc[0].'.'.$short_desc[1].'.';			
+			else $short_desc = $short_desc[0].'.';
+		//	echo "ShortDescription: ".$short_desc . " ";
         }
-
-  //  echo "<b>". $title . "</b> " . $long_desc ."<br />";
+//    echo "<b>". $title . "</b> " . $long_desc ."<br />";
 	//grabs professors from courseURL
 	$profs= $html->find('p[class="ins"]');
 	if (empty($profs)) { echo "\nFailed to find prof of: " . $course_link ."<br />"; }
@@ -157,7 +156,7 @@ foreach($array as $course_link)
 				 {
 					$f = explode(",", substr($s->innertext, $i));
 					$video->youtube_url = trim($f[1], "' ");
-					$videos[0] = $video->youtube_url;
+					$videos[0] = $video;
 					break;
 				 }
 			}
@@ -174,7 +173,7 @@ foreach($array as $course_link)
 						$video->title = $mediatext->plaintext;
 						if (substr($mediatext->onclick, 0, 4) <> "http") { $video->youtube_url = $site_url; }
 						$video->youtube_url .= $mediatext->onclick;
-						$videos[0] = $video->youtube_url;
+						$videos[0] = $video;
 					}
 					else
 					{
@@ -199,7 +198,7 @@ foreach($array as $course_link)
 									 {
 										$f = explode(",", substr($s->innertext, $i));
 										$video->youtube_url = trim($f[1], "' ");
-										$videos[0] = $video->youtube_url;
+										$videos[0] = $video;
 										break;
 									 }
 								}
@@ -224,7 +223,7 @@ foreach($array as $course_link)
 			// echo  "videolink: " . $video->youtube_url . "<br />";
 			if ($videos)
 			{
-			 	echo  "<u>Videolink:</u> " . $videos[0] . "<br />";
+			 	echo  "<u>Videolink:</u> " . $videos[0]->youtube_url . "<br />";
 			}
 			else echo "No course video link <br />";
 			// end of extracting all videos			
