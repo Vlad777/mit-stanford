@@ -11,10 +11,15 @@
 
 <div style="border: 2px solid green ;">
 <div style="margin-left:60px;margin-right:60px;"><div style="font-size:20px;"><b>Help to Start</b></div><br />
-    <div>
+  	<div style="font-siz:15px;">
+		<b>Top Nav</b><br />
+		The top nav is located at the top of the screen. By using these search, you can navigate the Mooc4u site.<br /><br />
 		
-			
-		<br />
+		<b>Featured Courses</b><br />
+		On the home page is a cycling list of Featured Courses. These courses are new, exemplary, or offer something special.<br /><br />
+		
+		<b>Quick Links</b><br />
+		At the bottom of all pages are a list of “Quick Links.” These reflect all of the navigating options in the top nav.<br /><br />
   	</div>
 </div>
 </div>
