@@ -115,7 +115,7 @@ function open_video(url)
 //teable headers 
 echo '<thead><tr>
 		  <th class="courseid">id</th>
-		  <th class="courselink">Title(link to course)</th>
+		  <th class="courselink">Title</th>
           <th class="category">Category</th>
           <th class="starRating">Rating</th>
 		  <th class="coursedesc">Short Description</th>
