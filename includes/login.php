@@ -12,14 +12,14 @@ $error = array();
 if($user["userid"] === 0)
 {	
 	?>
-    <b>Registration form</b>
+    <b>Login form</b>
 	<span>Welcome Guest! <br />Please input login information <br/></span>
 	<form action="index.php" method="post">
 		<lable>Username: </label><input type="text" name="username" value="" /></lable>
 		<lable>Password: </label><input type="password" name="password"/></lable>
 		<input type="hidden" name="page" value="login.php"/>
 		<input type="hidden" name="do" value="login"/>
-		<input type="submit" name="Submit" />
+		<input type="submit" name="Submit" value="Login" />
 	</form>
 	<?php
 } 

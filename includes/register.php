@@ -24,7 +24,7 @@
 			<label>Password: <input type="password" name="password1"></label>
 			<label>Confirm Password<input type="password" name="password2"></label>
             	<input type="hidden" name="do" value="register"/>
-			<input type="submit" name="Submit">
+			<input type="submit" name="Submit" value="Register" >
 		</form>
 	</div>
 </body>
