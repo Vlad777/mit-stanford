@@ -18,3 +18,7 @@
 .ratings_over {
     background: url('../images/star.gif') 0 32px;
 }
+
+div.total_votes{
+margin: 0 2px 0 4px;	
+}

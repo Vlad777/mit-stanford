@@ -128,6 +128,7 @@ echo '<thead><tr>
 		  <th class="courselink">Title</th>
           <th class="category">Category</th>
 		  <th class="starRating">Rating</th> 
+		  <th class="site">Site</th> 
 		  </tr></thead><tbody>';
 
 foreach ($results as $aCourse)
@@ -152,6 +153,7 @@ foreach ($results as $aCourse)
 	echo '<div class="total_votes">vote data</div>';
 	echo '</div>';  
     echo '</div>'.'</td>';  
+	echo '<td class="site">'. $aCourse['site'].'</td>';	
 	//echo '<td class="addClass">'."<FORM NAME='addClass' method='post'>"."<input type='submit' name=".$aCourse['id']." value='Add Class'/>"."</FORM>".'</td>';	
 	echo '</tr>';
 
@@ -202,26 +204,28 @@ foreach ($results as $aCourse)
 									href="<? echo $aCourse['video_link']; ?>" target="_blank">
 									<img src="<? echo $aCourse['course_image']; ?>" alt="link to video" />	</a>								
      </div>
-     
-     <div class="course_description">
-     	<? echo $short_desc; ?> <br />
-     </div>
-     <div class="course_data">
-        <b>Instructor: </b><img src="'.$profs[0]['profimage'].'" alt="prof image" /><br /><? echo $profs[0]['profname']; ?>
- 	      <br /><? 	linkToRateMyProfessor($profs[0]['profname'], $aCourse['site']); ?> <br />
-        <b>Duration: </b><? echo $aCourse['course_length']; ?> weeks.<br />
-        <a href="<? echo $aCourse['course_link']; ?>"  target="_blank">Link to Course</a>
+      <div class="course_data">
+         <div class="course_description">
+            <? echo $short_desc; ?> <br />
+         </div>
         
-        <div id="<? echo $aCourse["id"] ?>" class="rate_widget">
-        <div class="star_1 ratings_stars"></div>
-        <div class="star_2 ratings_stars"></div>
-        <div class="star_3 ratings_stars"></div>
-        <div class="star_4 ratings_stars"></div>
-        <div class="star_5 ratings_stars"></div>
-        <div class="total_votes">vote data</div>
-        </div>
-    
-     </div>
+         <div class="instructor_data">
+            <img src="<? echo $profs[0]['profimage']; ?>" alt="prof image" class="prof_image"/>
+            <b>Instructor: </b><? echo $profs[0]['profname']; ?>
+            <br /><? linkToRateMyProfessor($profs[0]['profname'], $aCourse['site']); ?> 
+          </div>
+          <b>Duration: </b><? echo $aCourse['course_length']; ?> weeks.<br />
+          <a href="<? echo $aCourse['course_link']; ?>"  target="_blank">Link to Course</a>
+            
+          <div id="<? echo $aCourse["id"] ?>" class="rate_widget">
+              <div class="star_1 ratings_stars"></div>
+              <div class="star_2 ratings_stars"></div>
+              <div class="star_3 ratings_stars"></div>
+              <div class="star_4 ratings_stars"></div>
+              <div class="star_5 ratings_stars"></div>
+              <div class="total_votes">vote data</div>
+          </div>
+     </div> <!-- //course data -->
        <?                             
     	//echo '<td class="startdate">'. $aCourse['start_date'].'</td>';
     ?>

@@ -129,7 +129,7 @@ div#login-box  input[type="submit"]:hover, input[type="reset"]:hover {
 }
 
 div.popup {
-	border: solid 20px #C90;
+	border: solid 20px #F38C01;
 	padding:10px;
 	margin:3px auto;
 	box-shadow: 4px 4px 2px #666; /* CSS3 */
@@ -190,7 +190,8 @@ span.blue {
 }
 
 span.gold {
-	color:#C90;  /* GOLD  */
+	/* color:#C90;   GOLD  */
+	color:#F38C01; /* ORANGE  */
 }
 /* login box   */
 
@@ -225,6 +226,8 @@ div.loadingMessage
  text-align:center;
 }
 
+/*********************/
+/*     DATA TABLE    */
 div.tableTitle
 {
  width:80%;	
@@ -257,7 +260,7 @@ table.sortable{
 }
 table.sortable td{
 	border: solid 1px #ededed;
-	padding: 8px;
+	padding: 2px;
 	margin:0px;
 	text-align:center;
 }
@@ -269,8 +272,8 @@ table.sortable  tr.a0{
 table.sortable tr.a1{
 }
 
-td.courseid{
-	width:30px;
+th.courseid, td.courseid{
+	width:10px;
 	text-align:center;
 }
 td.courselink{
@@ -280,6 +283,15 @@ td.coursedesc{
 	min-width:160px;
 }
 td.profimage{
+}
+img.prof_image{
+height:100px;
+float:right;
+margin:2px 2px 2px 6px;
+}
+div.instructor_data{
+text-align:right;	
+margin: 4px 0px 16px;
 }
 td.videolink{
 }
@@ -301,7 +313,8 @@ div.course-info
     left: 40%;
     position: fixed;
     top: 30%;
-    width: 440px;
+    min-width: 440px;
+	width: auto;
 	cursor: move;
 }
 div.course-info h2 {
@@ -324,11 +337,19 @@ float:left;
 margin: 2px 6px;
 
 }
+div.course_data {
+	width:240px;
+	float:right;
+}
+div.course_description {
+	min-height:40px;
+	margin: 6px 2px 12px;
+}
+
 div.course_description, div.course_info, div.course_data {
 	 font-size: 12px;
 	 color:#333;
-	 font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;
- 	 margin:6px;
+	 font-family:"Trebuchet MS", Arial, Helvetica, sans-serif; 
 }
 
 /* FOOTER */
