@@ -5,6 +5,26 @@
       width:      180px; */
     height:     12px;
 }
+
+
+
+.ratings_stars, .ratings_stars_static{
+    background: url('../images/Star-rating.png')0 0px;
+    float:      left;
+    height:     18px;
+    padding:    0px;
+    width:      17px;
+	margin:1px;
+}
+
+.ratings_vote{
+    background: url('../images/Star-rating.png') 0 34px;
+}
+.ratings_over {
+    background: url('../images/Star-rating.png') 0 17px;
+}
+
+/*
 .ratings_stars, .ratings_stars_static{
     background: url('../images/star.gif')0 0px;
     float:      left;
@@ -19,7 +39,7 @@
 .ratings_over {
     background: url('../images/star.gif') 0 32px;
 }
-
+*/
 div.total_votes{
 margin: 0 2px 0 4px;	
 }
