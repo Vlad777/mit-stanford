@@ -16,21 +16,22 @@ include("includes/function_user.php");
 
 <?php include("template/header.php"); ?>
 
-<div style="border: 2px solid gold ;">
-<div style="margin-left:60px;margin-right:60px;"><div style="font-size:30px;"><b>About Moocs4u</b></div><br />
-    <div
-		<div style="text-indent:20px;"><div style= "font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;"> Moocs4u was created in 2013 by SJSU Computer Science students.</div>  
-	        <div style="text-indent:20px;"><div style= "font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;"> It was created to provide users a one stop search to find online courses.</div> 
+<div id="aboutUs" class="body_message">
+   <div class="text-indent"> 
+	<b><h2>About Moocs4u</h2></b>
+		<br />    
+   
+        <p>Moocs4u was created in 2013 by SJSU Computer Science students. </p>
+      
+        <p>It was created to provide users a one stop search to find online courses. </p>
+       
+        <p>We are dedicated to provide you a user friendly experience that will meet the needs of all users.</p>
                 
- 
-                <div style="text-indent:20px;"><div style= "font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;"> We are dedicated to provide you a user friendly experience that will meet the needs of all users.</div> 
-                
-   	          <br/>
-		  <div style= "font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;"> &copy; 2013 SJSU<br />
-  	</div>
-</div>
-</div>
-
+        
+	</div>
+    
+</div> <!-- //div with margins -->
+</div> <!-- //div aboutUs -->
 <?php include("template/footer.php"); ?>
 </body>
 </html>

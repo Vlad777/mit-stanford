@@ -8,4 +8,7 @@
 		<a href="sitemap.php">Site Map</a>	         
 		<a href="#top" style="margin-left:80px;">Back to Top</a>
   	</center>
+     <center>    <br>
+     &copy; 2013 SJSU
+     </center>
 </div>

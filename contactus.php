@@ -16,17 +16,19 @@ include("includes/function_user.php");
 
 <?php include("template/header.php"); ?>
 
-<div style="border: 2px solid gold ;">
-<div style="margin-left:60px;margin-right:60px;"><div style="font-size:20px;"><b>Contact Us</b></div><br />
+<div id="aboutUs" class="body_message">
+   <div class="text-indent"> 
+	
+    <b><h2>Contact Us</h2></b><br />
   	<div>
-		<div style= "font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;">Have questions for us? Need more information? We're here to help. Easily find the right contact below for all your inquiries.<br /><br />
+		<p>Have questions for us? Need more information? We're here to help. Easily find the right contact below for all your inquiries.	</p>
 		
-		<div style= "font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;">If you're visiting our website for the first time, let us know if we can <a href="help.php">help</a> you in any way. Our experienced team of professionals will find the answers to help you achieve your successes.<br /><br />
+		<p>If you're visiting our website for the first time, let us know if we can <a href="help.php">help</a> you in any way. Our experienced team of professionals will find the answers to help you achieve your successes.</p>
 		
-		Â©2013 SJSU<br />
+		&copy; SJSU<br />
 		<br /><br />
 		
-		<b>Contact Information:</b><br />
+		<b>Contact Information:</b><br /><br />
                 
 		<div style="text-indent:20px;">Moocs4u</div>
 		<div style="text-indent:20px;">Group: Three Tree</div>
@@ -34,7 +36,7 @@ include("includes/function_user.php");
 		<div style="text-indent:20px;">One Washington Square</div>
 		<div style="text-indent:20px;">San Jose, CA 95192</div>
 		<div style="text-indent:20px;">408-924-1000</div>
-                <div style="text-indent:20px;">moocs4u@gmail.com</div>
+        <div style="text-indent:20px;">moocs4u@gmail.com</div>
 			
 		<br />
   	</div>

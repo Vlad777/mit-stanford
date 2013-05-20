@@ -242,7 +242,10 @@ div.loadingMessage
  margin: 30px auto 0;
  text-align:center;
 }
-
+div.body_message
+{
+	border: 20px solid #ededed;margin:40px;padding: 20px 10px
+}
 /*********************/
 /*     DATA TABLE    */
 div.tableTitle
@@ -250,11 +253,20 @@ div.tableTitle
  width:80%;	
  margin: 30px auto 0;
 }
-div.tableTitle h2, div.loadingMessage h2
+div.tableTitle h2, div.loadingMessage h2, div.body_message h2
 {
  font-size: 18px;
  color:#039;
  font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;
+}
+
+div.body_message div.text-indent
+{
+	font-family:'Trebuchet MS', Arial, Helvetica, sans-serif;
+	font-size:14px;
+	text-indent:20px;
+	margin-left:60px;
+	margin-right:60px;
 }
 /* Sortable tables */
 thead tr {

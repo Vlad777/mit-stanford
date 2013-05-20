@@ -35,8 +35,11 @@ function toggle5(showHideDiv, switchImgTag) {
 
 <?php include("template/header.php"); ?>
 
-<div style="border: 2px solid green ;">
-<div style="margin-left:60px;margin-right:60px;"><div style="font-size:20px;"><b>Sitemap</b></div><br />       
+<div id="aboutUs" class="body_message">
+   <div class="text-indent"> 
+   
+   <b><h2>Sitemap</b></h2><br />  
+        
 	<div style="text-indent:20px;">
 		<img src="images/ctdot.gif" width="22" height="22" align="absmiddle" hspace="5" border="0">
 			<span style="vertical-align:bottom;"> <a href="index.php">Home</a></span>
