@@ -91,10 +91,13 @@ $(function() {
 <body>
 
 <script type="text/javascript">
-	function open_video(url)
+	function open_window(url,w,h)
 	{
+		
+		if (!w) w = 850;
+		if (!h) h = 640;
 		var specs = 'toolbar=yes,location=yes,directories=no,status=no,menubar=no,scrollbars=yes,';
-		    specs += 'width=850px,height=640px,resizeable=yes,copyhistory=yes';	
+		    specs += 'width='+w+'x,height='+h+'px,resizeable=yes,copyhistory=yes';	
 		var myWin = window.open(url,"_blank",specs);		
 		myWin.focus(); 		
 	}
@@ -200,7 +203,7 @@ foreach ($results as $aCourse)
         <b>From: </b><? echo  $aCourse['site']; ?>.<br />
      </div>
      <div class="course_image">
-    <a title="link to course video" onClick="open_video('<? echo $aCourse['video_link']; ?>');return false;"  
+    <a title="link to course video" onClick="open_window('<? echo $aCourse['video_link']; ?>');return false;"  
 									href="<? echo $aCourse['video_link']; ?>" target="_blank">
 									<img src="<? echo $aCourse['course_image']; ?>" alt="link to video" />	</a>								
      </div>
@@ -224,6 +227,10 @@ foreach ($results as $aCourse)
               <div class="star_4 ratings_stars"></div>
               <div class="star_5 ratings_stars"></div>
               <!-- <div class="total_votes">No Votes!</div> -->
+          </div>   
+          
+          <div class="user_comments">
+          <a onClick="open_window('comment.php?id=<? echo $aCourse['id'] ?>',300,500);return false;" href="javascript:window.open('comment.php?id='<? echo $aCourse['id']; ?>','Comment','width=300,height=500')" target="_blank">Comments</a>
           </div>
      </div> <!-- //course data -->
        <?                             
