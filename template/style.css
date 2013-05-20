@@ -273,7 +273,7 @@ table.sortable tr.a1{
 }
 
 th.courseid, td.courseid{
-	width:50px;
+	width:10px;
 	text-align:center;
 }
 td.courselink{
