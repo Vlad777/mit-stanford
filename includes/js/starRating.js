@@ -65,7 +65,7 @@ function set_votes(widget) {
     $(widget).find('.star_' + avg).nextAll().removeClass('ratings_vote');
     //$(widget).find('.total_votes').text("Average: " + avg + ' Total: ' + total_votes );
 	$(widget).attr("title", 'Avg: ' + avg + ' Total: ' + total_votes );
-	$(widget).find('.hidden_avg_sorter').text(avg);
+	$(widget).find('.hidden_avg_sorter').text(avg +''+ total_votes);
     //$(widget).find('.total_votes').text( votes + ' votes recorded (' + exact + ' rating)' );
 }
     
