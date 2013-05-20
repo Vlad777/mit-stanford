@@ -273,7 +273,7 @@ table.sortable tr.a1{
 }
 
 th.courseid, td.courseid{
-	width:10px;
+	width:50px;
 	text-align:center;
 }
 td.courselink{
@@ -305,6 +305,9 @@ td.videolink img {
 	max-height:200px;	 
 }
 
+/* *********************
+*  COURSE INFO POPUP
+************************/
 div.course-info
 {
     background: none repeat scroll 0 0 #FFFFFF;
@@ -350,6 +353,18 @@ div.course_description, div.course_info, div.course_data {
 	 font-size: 12px;
 	 color:#333;
 	 font-family:"Trebuchet MS", Arial, Helvetica, sans-serif; 
+}
+
+
+div.user_comments{
+
+	float:left;
+}
+div.course-info h3{
+	font-size: 13px;
+ 	color:#039;
+ 	font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;
+ 	line-height:20px;
 }
 
 /* FOOTER */

@@ -28,7 +28,7 @@
 	*************************/
 	
 	//User Registration scripts
-	if(isset($_POST['Submit']) && $_POST['do'] == 'register')
+	if(isset($_POST['Submit']) && isset($_POST["do"]) && $_POST['do'] == 'register')
 	{
 		//echo 'registered?';
 		$username = $_POST['username'];
@@ -80,7 +80,7 @@
 	/************************
 	*		LOGIN
 	**************************/	
-	if(isset($_POST['Submit']) && $_POST['do'] == 'login' )
+	if(isset($_POST['Submit']) && isset($_POST["do"]) && $_POST['do'] == 'login' )
 	{
 		//Recieved a post from a login panel
 		//We need to set some session information		

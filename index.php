@@ -49,9 +49,27 @@ else
 
 <script type="text/javascript" language="javascript" src="includes/js/jquery.dataTables.js"></script>
 	<script type="text/javascript" charset="utf-8">
+		/* Create an array with the values of all the select options in a column */
+		$.fn.dataTableExt.afnSortData['dom-starRating'] = function  ( oSettings, iColumn )
+		{
+			return $.map( oSettings.oApi._fnGetTrNodes(oSettings), function (tr, i) {
+				// return $('td:eq('+iColumn+') select', tr).val();
+				// $(widget).find('.hidden_avg_sorter').text(avg);
+				// alert($('td:eq('+iColumn+') span.hidden_avg_sorter', tr).text());
+				  return $('td:eq('+iColumn+') span.hidden_avg_sorter', tr).text();
+			} );
+		}
+		
 		$(document).ready(function() {		
 			 $('#dataTable').dataTable( {
-      			  "sPaginationType": "full_numbers"
+      			  "sPaginationType": "full_numbers",
+				  "aoColumns": [
+					null,
+					null,
+					null,					
+					{ "sSortDataType": "dom-starRating" },
+					null
+				]
    			 } );
 			 $('#dataTable').show();
 			 $('.loadingMessage').hide();
@@ -60,6 +78,10 @@ else
 		} );
 		//global popups z-index
 		var highest = 1;
+		
+	
+
+		
 	</script>
 
 <script>
@@ -103,7 +125,6 @@ $(function() {
 	}
 	function show_details()
 	{
-	
 		//show/hide the <div class="course-info"> of this tr
 		alert(this);
 		$(this).find("div.course-info").toggle();
@@ -146,8 +167,10 @@ foreach ($results as $aCourse)
 	echo '<td class="courseid">'. $aCourse['id'] .'</td>';
 	echo '<td class="courselink">'. $aCourse['title'] .'</td>';
 	echo '<td class="category">'. $aCourse['category'].'</td>';	
-	echo '<td class="starRating">';   
+	echo '<td class="starRating" id="starRating'.$aCourse["id"].'">'; 
+	 	
     echo '<div id="'.$aCourse["id"].'" class="rate_widget" title="Not rated">';
+	echo '<span class="hidden_avg_sorter" style="visibility:hidden;position: absolute;">0</span>';		
 	echo '<div class="star_1 ratings_stars_static"></div>';
 	echo '<div class="star_2 ratings_stars_static"></div>';
 	echo '<div class="star_3 ratings_stars_static"></div>';
@@ -217,7 +240,9 @@ foreach ($results as $aCourse)
             <b>Instructor: </b><? echo $profs[0]['profname']; ?>
             <br /><? linkToRateMyProfessor($profs[0]['profname'], $aCourse['site']); ?> 
           </div>
-          <b>Duration: </b><? echo $aCourse['course_length']; ?> weeks.<br />
+          <b>Duration: </b><? echo $aCourse['course_length']; ?> weeks.<br />  
+          <div class="startdate"><b>Start Date: </b><? echo $aCourse['start_date'] ?></div>
+    
           <a href="<? echo $aCourse['course_link']; ?>"  target="_blank">Link to Course</a>
             
           <div id="<? echo $aCourse["id"] ?>" class="rate_widget" title="Not rated">
@@ -227,16 +252,18 @@ foreach ($results as $aCourse)
               <div class="star_4 ratings_stars"></div>
               <div class="star_5 ratings_stars"></div>
               <!-- <div class="total_votes">No Votes!</div> -->
-          </div>   
-          
-          <div class="user_comments">
-          <a onClick="open_window('comment.php?id=<? echo $aCourse['id'] ?>',300,500);return false;" href="javascript:window.open('comment.php?id='<? echo $aCourse['id']; ?>','Comment','width=300,height=500')" target="_blank">Comments</a>
-          </div>
+          </div>  
      </div> <!-- //course data -->
-       <?                             
-    	//echo '<td class="startdate">'. $aCourse['start_date'].'</td>';
-    ?>
-    </div>  <!-- info content box -->
+     </div>  <!-- info content box -->
+      <!-- <div class="user_comments"><h3>User Comments</h3> <a onClick="$('#comments_list<? echo $aCourse['id'] ?>').toggle();">View/Hide Comments</a>
+      <div id="comments_list<? echo $aCourse['id'] ?>" style="display:none;width:440px;"> -->
+         <a onClick="open_window('comment.php?id=<? echo $aCourse['id'] ?>',300,500);return false;" href="javascript:window.open('comment.php?id='<? echo $aCourse['id']; ?>','Comment','width=300,height=500')" target="_blank">Comments</a> 
+          
+          <?  //	$_GET['id']=$aCourse['id'];
+		  		//include('includes/comment.php'); 	?>
+      <!--     </div>   //comments_list --> 
+   <!--  </div>  //user_comments -->
+    
 </div> <!-- //popup course info -->
 	 <script>
 		$(function() {

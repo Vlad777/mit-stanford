@@ -1,9 +1,11 @@
 .rate_widget {
-    overflow:   visible;
-    padding:    10px;
-     /* position:   relative;
-      width:      180px; */
-    height:     12px;
+    /* position:   relative;
+      width:      180px; */   
+	height: 12px;
+    margin: 0 auto;
+    overflow: visible;
+    padding: 10px 0;
+    width: 60px;
 }
 
 

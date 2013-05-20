@@ -14,20 +14,23 @@ $(document).ready(function(){
     );
 
     $('.rate_widget').each(function(i) {
-    var widget = this;
-    var out_data = {
-        widget_id : $(widget).attr('id'),
-        fetch : 1
-    };
-    $.post(
-        'rating.php',
-        out_data,
-        function(INFO) {
-            $(widget).data( 'fsr', INFO );
-            set_votes(widget);
-        },
-        'json'
-    );
+	
+		var widget = this;
+		var out_data = {
+			widget_id : $(widget).attr('id'),
+			fetch : 1
+		};
+		$.post(
+			'rating.php',
+			out_data,
+			function(INFO) {
+				$(widget).data( 'fsr', INFO );
+				set_votes(widget);				
+			},
+			'json'
+		)
+		.done(function() { //alert("second success");
+		 });
     });
 
     $('.ratings_stars').bind('click', function() {
@@ -48,12 +51,13 @@ $(document).ready(function(){
                 'json'
             ); 
         }); 
-    
 
 });
 
 function set_votes(widget) {
+	//alert('set votes');
 
+    var id = $(widget).attr('id');
     var avg = $(widget).data('fsr').avg;
     var total_votes = $(widget).data('fsr').total_votes;
 
@@ -61,6 +65,7 @@ function set_votes(widget) {
     $(widget).find('.star_' + avg).nextAll().removeClass('ratings_vote');
     //$(widget).find('.total_votes').text("Average: " + avg + ' Total: ' + total_votes );
 	$(widget).attr("title", 'Avg: ' + avg + ' Total: ' + total_votes );
+	$(widget).find('.hidden_avg_sorter').text(avg);
     //$(widget).find('.total_votes').text( votes + ' votes recorded (' + exact + ' rating)' );
 }
     
