@@ -1,6 +1,6 @@
 @charset "utf-8";
 /* CSS Document */
-*{
+body{
 	margin:0;
 	padding:0;
 }
@@ -18,8 +18,7 @@ div#header
 div#header h1 {
 	/* display:inline;	*/
 	font-size: 32px;
-	
-
+	margin:0px;
 }
 div#nav{
 	background-color: #003399;
@@ -92,7 +91,8 @@ div#searchBox input.searchSubmit{
     border: 0px;
     margin-left: 5px;
 }
-/* login form */
+/**********************
+/*     login form    */
 iframe#login-frame{
 		width:400px;
 	height:300px;
@@ -142,6 +142,9 @@ iframe#register-frame{
 		width:400px;
 		height:300px;
 }
+/**********************
+*  Registration bod
+************************/
 div#register-box{
 	background:#FFFFFF;
 	position:relative;		
@@ -156,6 +159,12 @@ margin: 12px 0px 4px
 div.lines
 {
 	clear:both;	
+}
+
+div#register-box .notice, span.notice {
+	color:#666;
+	font-size:12px;
+	font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;
 }
 span.inline{
 	with:auto;
@@ -273,16 +282,27 @@ table.sortable tr.a1{
 }
 
 th.courseid, td.courseid{
-	width:10px;
+	width:30px;
 	text-align:center;
 }
-td.courselink{
+th.category, td.category{ /* course category */
+	width:200px;
+}
+th.courselink, td.courselink{ /* course title */
+	width:200px;
+}
+th.site, td.site{ /* course title */
+	width:40px;
 }
 td.coursedesc{
 	text-align:left;
 	min-width:160px;
 }
 td.profimage{
+}
+th.starRating , td.starRating 
+{
+	width:70px;
 }
 img.prof_image{
 height:100px;
@@ -313,7 +333,7 @@ div.course-info
     background: none repeat scroll 0 0 #FFFFFF;
 	border: 20px solid #003399;
     display: none;
-    left: 40%;
+    left: 30%;
     position: fixed;
     top: 30%;
     min-width: 440px;
@@ -326,6 +346,7 @@ div.course-info h2 {
  font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;
  line-height:30px;
  border-bottom:1px solid #039;
+ margin:0px;
 }
 div.info-content-box {
    cursor: default;
@@ -343,6 +364,7 @@ margin: 2px 6px;
 div.course_data {
 	width:240px;
 	float:right;
+	margin: 2px 0 4px;
 }
 div.course_description {
 	min-height:40px;

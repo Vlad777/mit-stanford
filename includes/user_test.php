@@ -31,8 +31,21 @@
 		echo "<div class='lines'><span class='inline' title='You are user number ".$user["userid"] ."' >";
 		echo "Hello ".$user["username"]."</span>";
 		?>
-		<span class='inline'><a onclick="$('#register-box').show();return false;" href='register.php'>Register</a>&nbsp;|&nbsp;<a onclick="$('#login-box').show();return false;" href="login.php">Login</a>  </span></div>     
+		<span class='inline'><a onclick="showBox($('#register-box'));return false;" href='register.php'>Register</a>&nbsp;|&nbsp;<a onclick="showBox($('#login-box'));return false;" href="login.php">Login</a>  </span></div>     
 		<?		
 	}
 ?>
+
+<script>
+//showBox($('#register-box'));return false;
+//$('#register-box').openPopup();
+function showBox(element)
+{
+	element.show();
+	element.bringToTop();	
+	element.click(function() {
+					$(this).bringToTop();
+			});
+}
+</script>
 </div> <!-- //close tag for id="user-box" -->

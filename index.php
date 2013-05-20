@@ -67,7 +67,7 @@ else
 					null,
 					null,
 					null,					
-					{ "sSortDataType": "dom-starRating" },
+					{ "sSortDataType": "dom-starRating", "asSorting": [ "desc", "asc" ] },
 					null
 				]
    			 } );
@@ -183,6 +183,7 @@ foreach ($results as $aCourse)
 	//echo '<td class="addClass">'."<FORM NAME='addClass' method='post'>"."<input type='submit' name=".$aCourse['id']." value='Add Class'/>"."</FORM>".'</td>';	
 	echo '</tr>';
 
+	/*
 	//add class button
 	if(isset($_POST[$aCourse['id']])){
 
@@ -198,12 +199,14 @@ foreach ($results as $aCourse)
 		 else{
 		 	echo ("Class already taken!");
 		 }
-	}
-}
-
+	} */
+	
+} //for each course build table row
 ?>
 </tbody></table>
+
 <?
+// building a popup course info for each course
 foreach ($results as $aCourse)
 {
     $profs = fetchAll( 'SELECT p.profname, p.profimage FROM coursedetails p
@@ -216,7 +219,12 @@ foreach ($results as $aCourse)
 	if ( count($descr_array) > 1)	
 		$short_desc = implode ('.', $descr_array ) . '.';
 	?>
-                        
+    
+    
+<!--  *************************************************  
+				POPUP COURSE INFO  
+       ***********************************************  -->    
+         
 <div class="popup course-info" id="course-info-<? echo $aCourse['id'] ?>">
 	<a class="closebutton" onClick="$('#course-info-<? echo $aCourse['id'] ?>').fadeOut();" alt="close" title="close"></a>
  	<div class="info-content-box">
@@ -242,17 +250,45 @@ foreach ($results as $aCourse)
           </div>
           <b>Duration: </b><? echo $aCourse['course_length']; ?> weeks.<br />  
           <div class="startdate"><b>Start Date: </b><? echo $aCourse['start_date'] ?></div>
-    
-          <a href="<? echo $aCourse['course_link']; ?>"  target="_blank">Link to Course</a>
-            
+          <div style="clear:left;margin: 0 0 8px;"> 
+          	<a href="<? echo $aCourse['course_link']; ?>"  target="_blank">Link to Course</a>
+          </div>
+          
+          <!-- START OF STAR RATINGS -->	
+           <!-- if guest -->
+          <?	if(!isset($_SESSION['userid']))
+				{
+				///User is logged in
+				//echo 'user ID is valid';
+				//$user["username"] = $_SESSION['username'];
+				//$user["userid"] = $_SESSION['userid'];
+				?>
+		 <span class="notice">Login To Rate this Course.</span><br />
           <div id="<? echo $aCourse["id"] ?>" class="rate_widget" title="Not rated">
+        	
+				<div class="star_1 ratings_stars_static"></div>
+              	<div class="star_2 ratings_stars_static"></div>
+              	<div class="star_3 ratings_stars_static"></div>
+              	<div class="star_4 ratings_stars_static"></div>
+              	<div class="star_5 ratings_stars_static"></div>
+                <?
+			}
+		  else { //user is logged in
+		  ?>
+         <span class="notice"></span><br />
+          <div id="<? echo $aCourse["id"] ?>" class="rate_widget" title="Not rated">
+          
               <div class="star_1 ratings_stars"></div>
               <div class="star_2 ratings_stars"></div>
               <div class="star_3 ratings_stars"></div>
               <div class="star_4 ratings_stars"></div>
               <div class="star_5 ratings_stars"></div>
               <!-- <div class="total_votes">No Votes!</div> -->
-          </div>  
+           <? }
+           ?>   
+          </div>       <!-- //rate_widget -->
+            <!-- END OF STAR RATINGS -->
+          
      </div> <!-- //course data -->
      </div>  <!-- info content box -->
       <!-- <div class="user_comments"><h3>User Comments</h3> <a onClick="$('#comments_list<? echo $aCourse['id'] ?>').toggle();">View/Hide Comments</a>
@@ -262,9 +298,9 @@ foreach ($results as $aCourse)
           <?  //	$_GET['id']=$aCourse['id'];
 		  		//include('includes/comment.php'); 	?>
       <!--     </div>   //comments_list --> 
-   <!--  </div>  //user_comments -->
-    
+   <!--  </div>  //user_comments -->    
 </div> <!-- //popup course info -->
+
 	 <script>
 		$(function() {
 			$( "#course-info-<? echo $aCourse['id'] ?>" ).draggable();
@@ -282,14 +318,12 @@ foreach ($results as $aCourse)
 		(function() {
 			$.fn.openPopup = function() {		
 			this.toggle('slow');
-			this.bringToTop()	
+			this.bringToTop();	
 		};
 		})();
 
     </script>
-<? }
-
-?>
+<? } //end of foreach course  ?>
 <?php include("template/footer.php"); ?>
 </body>
 </html>
