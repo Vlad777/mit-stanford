@@ -143,7 +143,7 @@ iframe#register-frame{
 		height:300px;
 }
 /**********************
-*  Registration bod
+*  Registration box
 ************************/
 div#register-box{
 	background:#FFFFFF;
@@ -173,7 +173,15 @@ span.inline{
 	padding: 0px 4px;
 	line-height:30px;
 }
+div#register-box  label
+{
+	width:280px;
 
+}
+div#register-box  label input
+{
+	float:right;
+}
 div.popup a.closebutton {
     height: 21px;  
     position: absolute;

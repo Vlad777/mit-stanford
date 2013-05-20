@@ -17,7 +17,7 @@
         <label>Last Name: <input type="text" name="lastname"></label>
         <label>Password: <input type="password" name="password1"></label>
         <div class="notice"><b>Note:</b> Password must contain: uppercase, lowercase and digit. Must be alteast 8 characters long.</div>
-        <label>Confirm Password<input type="password" name="password2"></label>
+        <label>Confirm Password: <input type="password" name="password2"></label>
             <input type="hidden" name="do" value="register"/>
         <input type="submit" name="Submit" value="Register" >
     </form>
