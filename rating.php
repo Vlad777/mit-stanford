@@ -37,10 +37,23 @@ class ratings{
 		preg_match('/star_([1-5]{1})/', $_POST['clicked_on'], $match);
         $vote = $match[1];
 
-        	$insertValue = $dbh->prepare("UPDATE review_course SET starRating = ? where userID = ".$_SESSION['userid']." AND courseID =".$this->class_id);
-	 		$insertValue->execute(array($vote));
+        if($_SESSION['userid'] > 0){
+
+        	$check_voted = $dbh->prepare('SELECT * FROM review_course where userID = '.$_SESSION['userid'].' AND courseID ='.$this->class_id);
+        	$check_voted->execute();
+        	$already_voted = $check_voted->rowCount();
+
+        	if($already_voted > 0){
+        		$insertValue = $dbh->prepare("UPDATE review_course SET starRating = ? where userID = ".$_SESSION['userid']." AND courseID =".$this->class_id);
+	 			$insertValue->execute(array($vote));
+		 	}
+		 	else{
+		 		$insert_new_value = $dbh->prepare("INSERT INTO `moocs`.`review_course` (`userID`, `courseID`, `starRating`, `comments`) VALUES (?,?,?,?)");
+		 		$insert_new_value->execute(array($_SESSION['userid'],$this->class_id,$vote,"awesome"));
+		 	}
 
 	 		$this->get_ratings($dbh);
+	 	}
 	}
 
 }
