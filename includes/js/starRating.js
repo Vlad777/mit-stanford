@@ -52,7 +52,6 @@ $(document).ready(function(){
 
 });
 
-
 function set_votes(widget) {
 
     var avg = $(widget).data('fsr').avg;

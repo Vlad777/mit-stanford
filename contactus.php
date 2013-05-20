@@ -6,10 +6,7 @@ include("includes/function_user.php");
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Contact us | Moocs4U | CS 160 Team 3 Section 2</title>
-
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
 <link rel="stylesheet" href="template/style.css" />	
-
 </head>
 
 <body>
