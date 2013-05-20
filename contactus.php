@@ -28,7 +28,7 @@ include("includes/function_user.php");
 		
 		<b>Contact Information:</b><br />
                 
-		<div style="text-indent:20px;">Mooc4u</div>
+		<div style="text-indent:20px;">Moocs4u</div>
 		<div style="text-indent:20px;">Group: Three Tree</div>
 		<div style="text-indent:20px;">San Jose Sate University</div>
 		<div style="text-indent:20px;">One Washington Square</div>
