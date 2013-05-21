@@ -114,6 +114,7 @@ div#login-box form{
 div#login-box lable, div#register-box form label{
 	line-height:30px;
 	display:block;
+	position: relative;
 }
 div#login-box span{
 	line-height:30px;
@@ -180,7 +181,8 @@ div#register-box  label
 }
 div#register-box  label input
 {
-	float:right;
+	position:absolute;
+	right:0px;
 }
 div.popup a.closebutton {
     height: 21px;  

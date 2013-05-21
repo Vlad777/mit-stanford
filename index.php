@@ -274,8 +274,14 @@ foreach ($results as $aCourse)
                 <?
 			}
 		  else { //user is logged in
-		  ?>
-         <span class="notice"></span><br />
+		  
+		  	if ($already_voted > 0)
+			{   ?>
+        		 <span class="notice">You Rated This</span><br />
+         
+         <? } else { ?>
+          		<span class="notice">Click to rate this course</span><br />
+          <? } ?>
           <div id="<? echo $aCourse["id"] ?>" class="rate_widget" title="Not rated">
           
               <div class="star_1 ratings_stars"></div>
