@@ -16,7 +16,7 @@ include("includes/function_user.php");
 
 <?php include("template/header.php"); ?>
 
-<div id="aboutUs" class="body_message">
+<div id="contactsUs" class="body_message">
    <div class="text-indent"> 
 	
     <b><h2>Contact Us</h2></b><br />
