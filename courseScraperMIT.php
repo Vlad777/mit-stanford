@@ -1,4 +1,24 @@
 <?php
+/***********************************
+* courseScraperMIT.php
+* scrapes courses data for MIT
+* 	title
+*	short_desc
+*	long_dec
+*	course_link
+*	video_link
+*	start_date (default since not applicable)
+*	course_lenght (calculated from lecutres)
+*	course_image (not available)
+*	category
+*	site (MIT)
+*
+*  Writes data to Database
+*
+*  @date 4/30/2013
+*  CS 160 SJSU Spring 2013
+*  Team 3 milestone 2a
+************************************/
 require_once('pdo_connect.php');
 //set_time_limit(60);
 include ('simple_html_dom.php');
