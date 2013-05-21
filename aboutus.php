@@ -26,8 +26,7 @@ include("includes/function_user.php");
         <p>It was created to provide users a one stop search to find online courses. </p>
        
         <p>We are dedicated to provide you a user friendly experience that will meet the needs of all users.</p>
-                
-        
+                       
 	</div>
     
 </div> <!-- //div with margins -->
