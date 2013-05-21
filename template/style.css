@@ -411,6 +411,31 @@ div.course-info h3{
  	font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;
  	line-height:20px;
 }
+
+/*****************
+*  COMMENTS
+********************/
+div.comments_page{
+padding:6px;
+	font-size: 13px;
+ 	color:#333;
+ 	font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;
+}
+div.comments_page hr{
+color:#039;
+}
+div.comments_page h3{
+color:#039;
+margin:16px 0px 2px;
+}
+div.comments_page h2 
+{
+ font-size: 18px;
+ color:#039;
+ font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;
+ margin: 6px 0px 8px;
+}
+
 /*****************
 /* USER ACCOUNT */
 /****************/
