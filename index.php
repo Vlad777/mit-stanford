@@ -169,7 +169,7 @@ foreach ($results as $aCourse)
 	echo '<td class="category">'. $aCourse['category'].'</td>';	
 	echo '<td class="starRating" id="starRating'.$aCourse["id"].'">'; 
 	 	
-    echo '<div id="'.$aCourse["id"].'" class="rate_widget" title="Not rated">';
+    echo '<div id="'.$aCourse["id"].'" class="rate_widget" title="Not rated" rel="static_widget_'.$aCourse["id"].'">';
 	echo '<span class="hidden_avg_sorter" style="visibility:hidden;position: absolute;">0</span>';		
 	echo '<div class="star_1 ratings_stars_static"></div>';
 	echo '<div class="star_2 ratings_stars_static"></div>';

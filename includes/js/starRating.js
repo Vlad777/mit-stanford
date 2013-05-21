@@ -43,7 +43,6 @@ $(document).ready(function(){
 				vote = 'You rated: ' + vote + ' star.';			
 			$('span#user_ratings_'+widget.attr('id')).text(vote);
 			
-			
             var clicked_data = {
                 clicked_on : $(star).attr('class'),
                 widget_id : widget.attr('id')
@@ -61,8 +60,7 @@ $(document).ready(function(){
 
 });
 
-function set_votes(widget) {
-	//alert('set votes');
+function set_votes(widget) {	
 
     var id = $(widget).attr('id');
     var avg = $(widget).data('fsr').avg;
@@ -75,6 +73,13 @@ function set_votes(widget) {
 	$(widget).find('.hidden_avg_sorter').text(avg +''+ total_votes);
     //$(widget).find('.total_votes').text( votes + ' votes recorded (' + exact + ' rating)' );
 	//$('span#user_ratings_'+id).text(votes);
+	//update the other widget as well:
+	widget2 = $("div[rel='static_widget_"+id+"']");
+	$(widget2).find('.star_' + avg).prevAll().andSelf().addClass('ratings_vote');
+    $(widget2).find('.star_' + avg).nextAll().removeClass('ratings_vote');   
+	$(widget2).attr("title", 'Avg: ' + avg + ' Total: ' + total_votes );
+	$(widget2).find('.hidden_avg_sorter').text(avg +''+ total_votes);	
+	
 }
     
 
