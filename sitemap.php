@@ -35,7 +35,7 @@ function toggle5(showHideDiv, switchImgTag) {
 
 <?php include("template/header.php"); ?>
 
-<div id="aboutUs" class="body_message">
+<div id="siteMap" class="body_message">
    <div class="text-indent"> 
    
    <b><h2>Sitemap</b></h2><br />  
