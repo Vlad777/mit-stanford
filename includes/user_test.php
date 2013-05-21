@@ -47,5 +47,12 @@ function showBox(element)
 					$(this).bringToTop();
 			});
 }
+
+	(function() {	
+			$.fn.bringToTop = function() {
+				this.css('z-index', ++highest); // increase highest by 1 and set the style
+			};
+		})();
+	var highest = 1;	
 </script>
 </div> <!-- //close tag for id="user-box" -->

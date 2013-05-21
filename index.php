@@ -48,41 +48,37 @@ else
 <script type="text/javascript" src="includes/js/starRating.js"></script> 
 
 <script type="text/javascript" language="javascript" src="includes/js/jquery.dataTables.js"></script>
-	<script type="text/javascript" charset="utf-8">
-		/* Create an array with the values of all the select options in a column */
-		$.fn.dataTableExt.afnSortData['dom-starRating'] = function  ( oSettings, iColumn )
-		{
-			return $.map( oSettings.oApi._fnGetTrNodes(oSettings), function (tr, i) {
-				// return $('td:eq('+iColumn+') select', tr).val();
-				// $(widget).find('.hidden_avg_sorter').text(avg);
-				// alert($('td:eq('+iColumn+') span.hidden_avg_sorter', tr).text());
-				  return $('td:eq('+iColumn+') span.hidden_avg_sorter', tr).text();
-			} );
-		}
-		
-		$(document).ready(function() {		
-			 $('#dataTable').dataTable( {
-      			  "sPaginationType": "full_numbers",
-				  "aoColumns": [
-					null,
-					null,
-					null,					
-					{ "sSortDataType": "dom-starRating", "asSorting": [ "desc", "asc" ] },
-					null
-				]
-   			 } );
-			 $('#dataTable').show();
-			 $('.loadingMessage').hide();
-			 $('.tableTitle').show();
-			
+<script type="text/javascript" charset="utf-8">
+	/* Create an array with the values of all the select options in a column */
+	$.fn.dataTableExt.afnSortData['dom-starRating'] = function  ( oSettings, iColumn )
+	{
+		return $.map( oSettings.oApi._fnGetTrNodes(oSettings), function (tr, i) {
+			// return $('td:eq('+iColumn+') select', tr).val();
+			// $(widget).find('.hidden_avg_sorter').text(avg);
+			// alert($('td:eq('+iColumn+') span.hidden_avg_sorter', tr).text());
+			  return $('td:eq('+iColumn+') span.hidden_avg_sorter', tr).text();
 		} );
-		//global popups z-index
-		var highest = 1;
-		
+	}
 	
-
+	$(document).ready(function() {		
+		 $('#dataTable').dataTable( {
+			  "sPaginationType": "full_numbers",
+			  "aoColumns": [
+				null,
+				null,
+				null,					
+				{ "sSortDataType": "dom-starRating", "asSorting": [ "desc", "asc" ] },
+				null
+			]
+		 } );
+		 $('#dataTable').show();
+		 $('.loadingMessage').hide();
+		 $('.tableTitle').show();
 		
-	</script>
+	} );
+	//global popups z-index
+	var highest = 1;		
+</script>
 
 <script>
 /* ********************************* 
@@ -123,12 +119,12 @@ $(function() {
 		var myWin = window.open(url,"_blank",specs);		
 		myWin.focus(); 		
 	}
-	function show_details()
+	/* function show_details()
 	{
 		//show/hide the <div class="course-info"> of this tr
 		alert(this);
 		$(this).find("div.course-info").toggle();
-	}
+	} */
 </script>
 <?php include("template/header.php"); ?>
 <?php include("includes/linkToRateMyProfessor.php"); ?>

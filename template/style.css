@@ -411,6 +411,18 @@ div.course-info h3{
  	font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;
  	line-height:20px;
 }
+/*****************
+/* USER ACCOUNT */
+/****************/
+table.user_ratings_history{
+	
+}
+
+table.user_ratings_history th,table.user_ratings_history td{
+	text-align:left;
+	padding: 2px 4px;
+}
+
 
 /* FOOTER */
 
