@@ -221,7 +221,7 @@ foreach ($results as $aCourse)
 			foreach ($profs as $prof) 
 			{
 				echo $prof['profname'] . '<br />'; 
-				linkToRateMyProfessor($profs[0]['profname'], $aCourse['site']); 
+				linkToRateMyProfessor($prof['profname'], $aCourse['site']); 
 				echo '<br />';
 			}			
 			?>           
