@@ -3,13 +3,12 @@
 * courseScraperMIT.php
 * scrapes courses data for MIT
 * 	title
-*	short_desc
+*	short_desc (first sentence of long description)
 *	long_dec
 *	course_link
 *	video_link
-*	start_date (default since not applicable)
-*	course_lenght (calculated from lecutres)
-*	course_image (not available)
+*	start_date 
+*	course_image 
 *	category
 *	site (MIT)
 *

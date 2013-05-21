@@ -9,7 +9,7 @@
 //require_once('connection.php');
 require_once('pdo_connect.php');
 include("includes/function_user.php");	
-
+/*
 if(isset($_GET['do']) && $_GET['do'] == "search")
 {
     //This should really be implemented using Zend/Lucene indexing engine
@@ -33,7 +33,7 @@ if(isset($_GET['do']) && $_GET['do'] == "search")
 	// echo "<pre>"; //for nice indented formatting of print_r
 	// print_r($courses);
 	// echo "</pre>";
-}
+} */
 ?>
 <!DOCTYPE html>   
 <html>
