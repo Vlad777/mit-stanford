@@ -116,11 +116,12 @@
 				session_destroy();
 				session_start();
 				$_SESSION["userid"] = $row["userid"];
-				$_SESSION["username"] = $row["username"];
+				$_SESSION["username"] = $row["username"];				
 				//header("Location: $page");
 				header("Location: index.php");				
 			}	
 		}
+		
 	}
 	
 	if(isset($_SESSION['userid']))
@@ -129,7 +130,8 @@
 		//echo 'user ID is valid';
 		$user["username"] = $_SESSION['username'];
 		$user["userid"] = $_SESSION['userid'];
-
+		$user["starVotes"] = load_user_votes($user["userid"],$dbh);
+		//$user->starVotes =  load_user_votes($user["userid"],$dbh);
 	} 
 	else 
 	{
@@ -145,6 +147,7 @@
 		// THe user is not logged in 
 		$user["username"] = "Guest";
 		$user["userid"] = 0;
+		$user["starVotes"] = NULL;
 		
 	}
 
@@ -161,5 +164,26 @@ function checkPasswordStrength($password, &$error){
 		$error[] .= "Password must have one upper case letter";
 	} 
 }
+
+
+function load_user_votes($userID,$dbh)
+{
+	$user_votes = fetchAll('SELECT p.courseID, p.starRating FROM review_course p WHERE  p.userID = '.$userID);	
+	$user["starVotes"] =  array();
+	//$starVotes = array();
+	foreach ($user_votes as $votes)
+	{
+		$user["starVotes"][$votes['courseID']] = $votes['starRating'];
+		//$starVotes[$votes['courseID']] = $votes['starRating'];
+	}
+	//$starVotes = array();
+	//$starVotes[$votes['courseID']] = $votes['starRating'];
+	//$user->starVotes = $starVotes;	
+	//return $starVotes;
+	return $user["starVotes"];
+	
+	
+}
+	
 
 ?>

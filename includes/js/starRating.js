@@ -35,8 +35,15 @@ $(document).ready(function(){
 
     $('.ratings_stars').bind('click', function() {
             var star = this;
-            var widget = $(this).parent();
-            
+            var widget = $(this).parent();	
+			var vote = $(star).attr('class').substring(5,6);
+			if (eval(vote) > 1)
+				vote = 'You rated: ' + vote + ' stars.';
+            else
+				vote = 'You rated: ' + vote + ' star.';			
+			$('span#user_ratings_'+widget.attr('id')).text(vote);
+			
+			
             var clicked_data = {
                 clicked_on : $(star).attr('class'),
                 widget_id : widget.attr('id')
@@ -67,6 +74,7 @@ function set_votes(widget) {
 	$(widget).attr("title", 'Avg: ' + avg + ' Total: ' + total_votes );
 	$(widget).find('.hidden_avg_sorter').text(avg +''+ total_votes);
     //$(widget).find('.total_votes').text( votes + ' votes recorded (' + exact + ' rating)' );
+	//$('span#user_ratings_'+id).text(votes);
 }
     
 

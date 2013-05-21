@@ -10,7 +10,7 @@
 require_once('pdo_connect.php');
 include("includes/function_user.php");	
 
-if($_GET['do'] == "search")
+if(isset($_GET['do']) && $_GET['do'] == "search")
 {
     //This should really be implemented using Zend/Lucene indexing engine
 
@@ -26,10 +26,10 @@ if($_GET['do'] == "search")
 	//Using LIKE with % at the beginning and with ORs is NOT SCALABLE
 	//The problem here is that this would return more results than the autocomplete label shows, since autocomplete is based on words, not substrings of words
 	//At least this should work with INNODB as well as MyISAM for now...
-	$qrm = $dbh->prepare("SELECT * FROM course_data WHERE title LIKE ? OR long_desc LIKE ? OR category LIKE ?");
-	$qrm->execute(array('%' . $_GET["q"] . '%', '%' . $_GET["q"] . '%', '%' . $_GET["q"] . '%'));
+	//$qrm = $dbh->prepare("SELECT * FROM course_data WHERE title LIKE ? OR long_desc LIKE ? OR category LIKE ?");
+	//$qrm->execute(array('%' . $_GET["q"] . '%', '%' . $_GET["q"] . '%', '%' . $_GET["q"] . '%'));
 
-	$results = $qrm->fetchAll();
+	//$results = $qrm->fetchAll();
 	// echo "<pre>"; //for nice indented formatting of print_r
 	// print_r($courses);
 	// echo "</pre>";
@@ -92,69 +92,19 @@ select: function(event, ui) { ui.item.value = ui.item.value.split(" (")[0]; }
 
 </head>
 <body>
-
-<script type="text/javascript">
-function open_video(url)
-{
-    //myWindow = window.open(url, "", "width=1000,height=820");	
-		var specs = 'toolbar=yes,location=yes,directories=no,status=no,menubar=no,scrollbars=yes, width=1000px,height=820px,resizeable=yes,copyhistory=yes';	
-		
-		var myWin = window.open(url,"_blank",specs);		
-		myWin.focus(); 
-		
-}
-
-</script>
 <?php include("template/header.php"); ?>
-<?php include("includes/linkToRateMyProfessor.php"); ?>
-<table class="sortable">
-<?php
-//teable headers 
-echo '<thead><tr>
-		  <th class="courseid">id</th>
-		  <th class="courselink">Title(link to course)</th>
-          <th class="category">Category</th>
-		  <th class="profimage">Instructor</th>
-		  <th class="starRating">Stars</th>
-		  </tr></thead><tbody>';
-$counter = 0;
-
-$queryString = 'SELECT d.id, d.title, d.course_link, d.category, r.starRating, r.comments 
-				FROM course_data d INNER JOIN review_course r ON d.id = r.courseID AND r.userID ='.$_SESSION["userid"];
-$results = fetchAll($queryString);
 
 
+<div id="userPage" class="body_message">
+   <div class="text-indent"> 
+	Your user name is: <?  echo $user["username"] ?>
+    
+    
+</div> <!-- //div with margins -->
+</div> <!-- //div userPage -->
 
-foreach ($results as $aCourse)
-{
-    $profs = fetchAll( 'SELECT p.profname, p.profimage FROM coursedetails p
-						WHERE p.id = '.$aCourse["id"]);
 
-    echo '<tr class="a'.($counter++)%2 .'">';
-	echo '<td class="courseid">'. $aCourse['id'] .'</td>';
-	echo '<td class="courselink"><a href="'.$aCourse['course_link'].'"  
-								    target="_blank">'. $aCourse['title'] .'</a></td>';
-	echo '<td class="category">'. $aCourse['category'].'</td>';
-	echo '<td class="profimage"><img src="'.$profs[0]['profimage'].'" alt="prof image" /><br />'. $profs[0]['profname'];
- 	echo '<br />'; 
- 	linkToRateMyProfessor($profs[0]['profname'], $aCourse['site']);
- 	echo '</td>';
- 	echo '<td class="starRating">';
- 	echo '<div id="'.$aCourse["id"].'" class="rate_widget">';
-	echo '<div class="star_1 ratings_stars"></div>';
-	echo '<div class="star_2 ratings_stars"></div>';
-	echo '<div class="star_3 ratings_stars"></div>';
-	echo '<div class="star_4 ratings_stars"></div>';
-	echo '<div class="star_5 ratings_stars"></div>';
-	echo '<div class="total_votes">vote data</div>';
-	echo '</div>';
- 	echo '</div>'.'</td>';
-	echo '</tr>';
+    <?php include("template/footer.php"); ?>
 
-}
-
-?>
-</tbody></table>
-<?php include("template/footer.php"); ?>
 </body>
 </html>

@@ -245,8 +245,14 @@ foreach ($results as $aCourse)
         
          <div class="instructor_data">
             <img src="<? echo $profs[0]['profimage']; ?>" alt="prof image" class="prof_image"/>
-            <b>Instructor: </b><? echo $profs[0]['profname']; ?>
-            <br /><? linkToRateMyProfessor($profs[0]['profname'], $aCourse['site']); ?> 
+            <b>Instructor: </b><? 
+			foreach ($profs as $prof) 
+			{
+				echo $prof['profname'] . '<br />'; 
+				linkToRateMyProfessor($profs[0]['profname'], $aCourse['site']); 
+				echo '<br />';
+			}			
+			?>           
           </div>
           <b>Duration: </b><? echo $aCourse['course_length']; ?> weeks.<br />  
           <div class="startdate"><b>Start Date: </b><? echo $aCourse['start_date'] ?></div>
@@ -264,7 +270,8 @@ foreach ($results as $aCourse)
 				//$user["userid"] = $_SESSION['userid'];
 				?>
 		 <span class="notice">Login To Rate this Course.</span><br />
-          <div id="<? echo $aCourse["id"] ?>" class="rate_widget" title="Not rated">
+         <div style="display:inline;float:left;">Average Ratings:&nbsp; </div>
+          <div id="<? echo $aCourse["id"] ?>" class="rate_widget" title="Not rated" style="float:left;display:inline;width:100px;">
         	
 				<div class="star_1 ratings_stars_static"></div>
               	<div class="star_2 ratings_stars_static"></div>
@@ -273,16 +280,23 @@ foreach ($results as $aCourse)
               	<div class="star_5 ratings_stars_static"></div>
                 <?
 			}
-		  else { //user is logged in
-		  
-		  	if ($already_voted > 0)
-			{   ?>
-        		 <span class="notice">You Rated This</span><br />
-         
-         <? } else { ?>
-          		<span class="notice">Click to rate this course</span><br />
+		  else { //user is logged in		 
+		  	if (isset ($user["starVotes"][$aCourse["id"]]) )
+			{   
+				if ($user["starVotes"][$aCourse["id"]] > 1)				
+					$string = 'You rated: ' . $user["starVotes"][$aCourse["id"]] . ' stars.';				
+				else
+					$string = 'You rated: ' . $user["starVotes"][$aCourse["id"]] . ' star.';
+				?>
+        		 <span class="notice"><span id="user_ratings_<? echo $aCourse["id"]; ?>"><? echo $string; ?></span></span><br />
+            	 <? 		 
+		 	} else { //user did not rate this course 
+			$string = 'Click to rate this course';
+			?>
+          		<span class="notice"><span id="user_ratings_<? echo $aCourse["id"]; ?>"><? echo $string; ?></span></span><br />
           <? } ?>
-          <div id="<? echo $aCourse["id"] ?>" class="rate_widget" title="Not rated">
+              <div style="display:inline;float:left;">Average Ratings:&nbsp;</div>
+          <div id="<? echo $aCourse["id"] ?>" class="rate_widget" title="Not rated" style="display:inline;width:100px;">
           
               <div class="star_1 ratings_stars"></div>
               <div class="star_2 ratings_stars"></div>
@@ -309,7 +323,9 @@ foreach ($results as $aCourse)
 
 	 <script>
 		$(function() {
-			$( "#course-info-<? echo $aCourse['id'] ?>" ).draggable();
+			$( "#course-info-<? echo $aCourse['id'] ?>" ).draggable({
+				drag: function() {	$(this).bringToTop(); }
+			});
 			$( "#course-info-<? echo $aCourse['id'] ?>" ).click(function() {
 					$(this).bringToTop();
 			});

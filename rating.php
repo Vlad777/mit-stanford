@@ -6,14 +6,14 @@
 	$rating = new ratings($_POST['widget_id']);
 
 	isset($_POST['fetch']) ? $rating->get_ratings($dbh) : $rating->vote($dbh);
-
+		
 class ratings{
 	private $class_id;
 
 	function __construct($classID){
 		$this->class_id = $classID;
 	}
-
+	
 	public function get_ratings($dbh){
 
 		$results = $dbh->prepare('SELECT * FROM review_course where courseID ='.$this->class_id);
@@ -35,7 +35,7 @@ class ratings{
 
 	public function vote($dbh){		
 		preg_match('/star_([1-5]{1})/', $_POST['clicked_on'], $match);
-        $vote = $match[1];
+        $vote = $match[1];		
 
         if($_SESSION['userid'] > 0){
 
@@ -46,6 +46,10 @@ class ratings{
         	if($already_voted > 0){
         		$insertValue = $dbh->prepare("UPDATE review_course SET starRating = ? where userID = ".$_SESSION['userid']." AND courseID =".$this->class_id);
 	 			$insertValue->execute(array($vote));
+				// stored user votes for use when displaying star ratings
+				// update user vote?
+				//$user["starVotes"] = array();
+				//$user["starVotes"][$this->class_id] = $vote;
 		 	}
 		 	else{
 		 		$insert_new_value = $dbh->prepare("INSERT INTO `review_course` (`userID`, `courseID`, `starRating`, `comments`) VALUES (?,?,?,?)");

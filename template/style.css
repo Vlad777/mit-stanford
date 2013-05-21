@@ -27,7 +27,7 @@ div#nav{
 div#nav li{
 	list-style:none;
 	display:inline-block;
-	width:90px;
+	min-width:90px;
 	color:white;
 	vertical-align: middle;
 	text-align: center;
@@ -253,13 +253,14 @@ div.body_message
 div.tableTitle
 {
  width:80%;	
- margin: 30px auto 0;
+ margin: 10px auto 0;
 }
 div.tableTitle h2, div.loadingMessage h2, div.body_message h2
 {
  font-size: 18px;
  color:#039;
  font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;
+ margin: 24px 0px 6px;
 }
 
 div.body_message div.text-indent
