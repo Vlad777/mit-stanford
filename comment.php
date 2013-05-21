@@ -27,17 +27,24 @@ if(isset($_POST['Submit']))
 	$userid = $user["userid"];
 	$courseid = $_POST["courseid"];
 	$qs->execute(array($userid,$message,date("D M j G:i:s T Y"),$courseid,$user["username"]));
-	header("Location: comment.php?id=". $courseid);
-} else {
-	if(isset($_GET['id'])){
+	//header("Location: comment.php?id=". $courseid);
+} 
+//else {
+	if (isset($_GET['id']))
+	{
+		$courseid = $_GET['id'];
+	}
+	
+	if( $courseid ){
+				
 		$st = $dbh->prepare("SELECT * FROM comments where course_id = ? ORDER BY id Desc");
 
-		$st->execute(array($_GET["id"]));
+		$st->execute(array($courseid));
 		$results = $st->fetchAll();
 
 
       
-		 $array = fetchAll('SELECT d.id, d.title, d.site FROM course_data d WHERE d.id='. $_GET['id']);
+		 $array = fetchAll('SELECT d.id, d.title, d.site FROM course_data d WHERE d.id='. $courseid);
 		?>
         <div class="comments_page">
 		<h2><? echo $array[0]['title'] ?></h2>
@@ -58,7 +65,7 @@ if(isset($_POST['Submit']))
 	}
 	
 
-}
+//}
 ?>
     <div style="position:fixed;bottom:0px;background:#FFF;width:100%;padding:6px;">    
 		<? if($user["userid"] == 0)
@@ -69,8 +76,8 @@ if(isset($_POST['Submit']))
         ?>
         
         <h3>Leave a comment:</h3>
-        <form method="post" action="comment.php?id=<?php echo $_GET["id"]; ?>">
-            <input type="hidden" name="courseid" value="<?php echo $_GET["id"]; ?>" />
+        <form method="post" action="comment.php?id=<?php echo $courseid; ?>">
+            <input type="hidden" name="courseid" value="<?php echo $courseid; ?>" />
             <textarea name="message" style="height:50px;width:270px;"></textarea><br />
             <input type="submit" name="Submit">
         </form>
