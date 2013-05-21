@@ -1,7 +1,7 @@
 <div id="nav">
   <li><a href="index.php">Home</a></li>
   <li><a href="account.php">User Account</a></li>
-
+  <li><a href="treemap.php">Courses Treemap</a></li>
 </div>
 <div id="header">
 

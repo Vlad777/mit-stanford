@@ -27,10 +27,11 @@ div#nav{
 div#nav li{
 	list-style:none;
 	display:inline-block;
-	min-width:90px;
+	/* min-width:90px; */
 	color:white;
 	vertical-align: middle;
 	text-align: center;
+	margin: 0 8px;
 }
 div#nav a{
 	text-decoration: none;
