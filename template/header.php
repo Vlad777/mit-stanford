@@ -52,6 +52,31 @@
 			<? } ?>
 		});
 		</script>
+        <script>
+		/* ********************************* 
+		* Loads list of autocompletion tags
+		************************************ */
+		$(function() {
+			var availableTags = [	
+				<?php
+				function sub($arr)
+				{
+				  return $arr[0];
+				}
+				require_once('pdo_connect.php');
+				$array = fetchAll("SELECT concat(concat(concat(word, ' ('), course_count), ')') 
+									as word FROM autocomplete ORDER BY course_count DESC");
+				//print_r(implode(array_map("sub", $array)));
+				echo '"' . implode('","', array_map("sub", $array)) . '"';
+				?>	
+			];
+			$( "#tags" ).autocomplete({
+			source: availableTags,
+			select: function(event, ui) { ui.item.value = ui.item.value.split(" (")[0]; }
+			});
+		});
+		</script>
+
     </div>
     
     <div id="login-box" class="popup" style="display:none;">

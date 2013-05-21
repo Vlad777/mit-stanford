@@ -44,30 +44,9 @@ if(isset($_GET['do']) && $_GET['do'] == "search")
 <meta charset="utf-8" />
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" /> 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+<!-- jquery-ui.js MUST be loaded after jquery.min.js -->
+<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 <link rel="stylesheet" href="template/style.css" />	
-
-
-<script>
-$(function() {
-var availableTags = [			
-			<?php
-			function sub($arr)
-			{
-			  return $arr[0];
-			}
-			require_once('pdo_connect.php');
-			$array = fetchAll("SELECT concat(concat(concat(word, ' ('), course_count), ')') as word FROM autocomplete ORDER BY course_count DESC");
-			//print_r(implode(array_map("sub", $array)));
-			echo '"' . implode('","', array_map("sub", $array)) . '"'
-			?>			
-			];
-$( "#tags" ).autocomplete({
-	source: availableTags,
-	select: function(event, ui) { ui.item.value = ui.item.value.split(" (")[0]; }
-	});
-});
-
-</script>
 
 </head>
 <body>

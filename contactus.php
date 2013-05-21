@@ -7,7 +7,11 @@ include("includes/function_user.php");
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Contact us | Moocs4U | CS 160 Team 3 Section 2</title>
 
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+      
 <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+<!-- jquery-ui.js MUST be loaded after jquery.min.js -->
+<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 <link rel="stylesheet" href="template/style.css" />	
 
 </head>
